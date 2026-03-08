@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>Transfer & Shuttle — Hotel Halm Konstanz</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300&family=Jost:wght@200;300;400&display=swap" rel="stylesheet">
+<style>
+:root {
+  --black:#0a0906; --dark:#111009; --dark2:#1a1814; --dark3:#242018;
+  --gold:#c9a96e; --gold-light:#e2c99a; --cream:#f4ede0;
+  --cream-dim:#c8bfb0; --white:#faf7f2;
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{background:var(--black);color:var(--cream);font-family:'Jost',sans-serif;font-weight:300}
+/* Grain */
+body::before{content:'';position:fixed;inset:0;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");pointer-events:none;z-index:1000;opacity:.4}
+/* Header */
+.site-header{position:fixed;top:0;left:0;right:0;z-index:500;padding:0 48px;height:72px;display:flex;align-items:center;background:rgba(10,9,6,.92);backdrop-filter:blur(12px);border-bottom:1px solid rgba(201,169,110,.1)}
+.header-inner{width:100%;display:flex;align-items:center;gap:40px}
+.logo{text-decoration:none;display:flex;flex-direction:column}
+.logo-main{font-family:'Cormorant Garamond',serif;font-size:18px;font-weight:300;letter-spacing:.2em;text-transform:uppercase;color:var(--white);line-height:1}
+.logo-sub{font-size:8px;letter-spacing:.35em;text-transform:uppercase;color:var(--gold);font-weight:200;margin-top:3px}
+nav{margin-left:auto}
+.nav-links{list-style:none;display:flex;gap:28px}
+.nav-links a{font-size:9.5px;letter-spacing:.2em;text-transform:uppercase;color:var(--cream-dim);text-decoration:none;font-weight:300;transition:color .3s;padding-bottom:2px;border-bottom:1px solid transparent}
+.nav-links a:hover,.nav-links a.active{color:var(--gold);border-bottom-color:var(--gold)}
+.nav-book{font-size:9px;letter-spacing:.22em;text-transform:uppercase;color:var(--black);background:var(--gold);padding:10px 20px;text-decoration:none;font-weight:300;transition:background .3s;white-space:nowrap}
+.nav-book:hover{background:var(--gold-light)}
+/* Hero */
+.page-hero{position:relative;height:58vh;min-height:380px;margin-top:72px;overflow:hidden}
+.page-hero-bg{position:absolute;inset:0;background-size:cover;background-position:center;animation:slowZoom 22s ease-in-out infinite alternate;filter:brightness(.45)}
+.page-hero-overlay{position:absolute;inset:0;background:linear-gradient(to top,var(--black) 0%,rgba(10,9,6,.5) 55%,transparent 100%)}
+.page-hero-content{position:absolute;bottom:56px;left:56px;z-index:2}
+.page-hero-label{font-size:9px;letter-spacing:.45em;text-transform:uppercase;color:var(--gold);font-weight:200;margin-bottom:16px;display:flex;align-items:center;gap:12px}
+.page-hero-label::before{content:'';width:24px;height:1px;background:var(--gold)}
+.page-hero-title{font-family:'Cormorant Garamond',serif;font-size:clamp(52px,7vw,88px);font-weight:300;line-height:.9;color:var(--white)}
+.page-hero-title em{font-style:italic;color:var(--cream-dim)}
+/* Sections */
+.section-label{font-size:9px;letter-spacing:.45em;text-transform:uppercase;color:var(--gold);font-weight:200;display:flex;align-items:center;gap:12px;margin-bottom:16px}
+.section-label::before{content:'';width:24px;height:1px;background:var(--gold)}
+.section-title{font-family:'Cormorant Garamond',serif;font-size:clamp(36px,4.5vw,60px);font-weight:300;color:var(--white);line-height:1.05}
+.section-title em{font-style:italic;color:var(--cream-dim)}
+.body-text{font-size:14px;color:var(--cream-dim);line-height:2.1;font-weight:200}
+/* Buttons */
+.btn-primary{font-size:10px;letter-spacing:.22em;text-transform:uppercase;color:var(--black);background:var(--gold);padding:14px 32px;text-decoration:none;font-weight:300;display:inline-block;transition:background .4s}
+.btn-primary:hover{background:var(--gold-light)}
+.btn-outline{font-size:10px;letter-spacing:.22em;text-transform:uppercase;color:var(--gold);border:1px solid var(--gold);padding:12px 28px;text-decoration:none;display:inline-block;transition:all .4s}
+.btn-outline:hover{background:var(--gold);color:var(--black)}
+.btn-ghost{font-size:10px;letter-spacing:.22em;text-transform:uppercase;color:var(--cream-dim);text-decoration:none;display:inline-flex;align-items:center;gap:8px;transition:color .3s}
+.btn-ghost::after{content:'→';transition:transform .3s}
+.btn-ghost:hover{color:var(--gold)}
+.btn-ghost:hover::after{transform:translateX(4px)}
+/* Reveal */
+.reveal{opacity:0;transform:translateY(36px);transition:all .9s cubic-bezier(.25,.46,.45,.94)}
+.reveal.visible{opacity:1;transform:translateY(0)}
+/* Footer */
+footer{background:var(--dark);border-top:1px solid rgba(201,169,110,.08);padding:72px 56px 40px}
+.footer-grid{display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:56px;margin-bottom:56px}
+.footer-brand .logo-main{font-family:'Cormorant Garamond',serif;font-size:20px;font-weight:300;letter-spacing:.2em;text-transform:uppercase;color:var(--white)}
+.footer-brand .logo-sub{font-size:8px;letter-spacing:.35em;text-transform:uppercase;color:var(--gold);margin-top:4px;display:block}
+.footer-brand p{font-size:12px;color:var(--cream-dim);line-height:1.9;font-weight:200;margin-top:16px;max-width:260px}
+.footer-col h4{font-size:8.5px;letter-spacing:.4em;text-transform:uppercase;color:var(--gold);font-weight:200;margin-bottom:20px}
+.footer-col ul{list-style:none}
+.footer-col ul li{margin-bottom:10px}
+.footer-col ul li a{font-size:12px;color:var(--cream-dim);text-decoration:none;font-weight:200;transition:color .3s}
+.footer-col ul li a:hover{color:var(--gold)}
+.footer-bottom{padding-top:32px;border-top:1px solid rgba(201,169,110,.08);display:flex;justify-content:space-between;align-items:center}
+.footer-bottom p{font-size:10px;color:rgba(200,191,176,.35);letter-spacing:.08em}
+/* Offer card */
+.offer-card{background:var(--dark2);border:1px solid rgba(201,169,110,.1);padding:36px 32px;position:relative;overflow:hidden;transition:border-color .4s}
+.offer-card::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:var(--gold);transform:scaleX(0);transform-origin:left;transition:transform .5s}
+.offer-card:hover{border-color:rgba(201,169,110,.3)}
+.offer-card:hover::before{transform:scaleX(1)}
+@keyframes slowZoom{from{transform:scale(1)}to{transform:scale(1.06)}}
+@keyframes fadeUp{from{opacity:0;transform:translateY(24px)}to{opacity:1;transform:translateY(0)}}
+@keyframes fadeIn{from{opacity:0}to{opacity:1}}
+</style>
+</head>
+<body>
+
+<header class="site-header">
+  <div class="header-inner">
+    <a href="hotel-halm-home.html" class="logo">
+      <span class="logo-main">Hotel Halm</span>
+      <span class="logo-sub">Konstanz am Bodensee</span>
+    </a>
+    <nav>
+      <ul class="nav-links">
+        <li><a href="hotel-halm-zimmer.html">Zimmer</a></li>
+        <li><a href="hotel-halm-buchen.html">Buchen</a></li>
+        <li><a href="hotel-halm-tagen.html">Tagen</a></li>
+        <li><a href="hotel-halm-angebote.html">Angebote</a></li>
+        <li><a href="hotel-halm-sauna.html">Sauna & Spa</a></li>
+        <li><a href="hotel-halm-gastronomie.html">Gastronomie</a></li>
+        <li><a href="hotel-halm-ueber.html">Über uns</a></li>
+        <li><a href="hotel-halm-kontakt.html">Kontakt</a></li>
+        
+      </ul>
+    </nav>
+    <a href="hotel-halm-buchen.html" class="nav-book">Jetzt buchen</a>
+  </div>
+</header>
+<section class="page-hero">
+  <div class="page-hero-bg" style="background-image:url('https://images.unsplash.com/photo-1544620347-c4fd4a3d5957?w=1800&q=80')"></div>
+  <div class="page-hero-overlay"></div>
+  <div class="page-hero-content">
+    <p class="page-hero-label">Komfort von Tür zu Tür</p>
+    <h1 class="page-hero-title">Transfer &<br><em>Shuttle-Service</em></h1>
+  </div>
+</section>
+
+<section style="padding:96px 56px;background:var(--dark)">
+  <div style="display:grid;grid-template-columns:1fr 1fr;gap:80px;align-items:center">
+    <div class="reveal">
+      <p class="section-label">Unser Service</p>
+      <h2 class="section-title">Stressfrei ankommen<br><em>Privater Transfer</em></h2>
+      <p class="body-text" style="margin-top:24px">Von Flughafen Zürich, Stuttgart oder Friedrichshafen holen wir Sie komfortabel in unserem Fahrzeugpool ab. Alle Fahrer sind geschult, diskret und pünktlich. Buchung mindestens 24h vorher.</p>
+      <a href="hotel-halm-buchen.html" class="btn-primary" style="margin-top:32px;display:inline-block">Jetzt buchen</a>
+    </div>
+    <div class="reveal" style="transition-delay:.2s;">
+      <img src="https://images.unsplash.com/photo-1449965408869-eaa3f722e40d?w=900&q=80" style="width:100%;height:480px;object-fit:cover;filter:brightness(.65);display:block" alt="">
+    </div>
+  </div>
+</section>
+<section style="padding:80px 56px;background:var(--black)">
+  <div class="reveal" style="max-width:700px;margin:0 auto">
+    <p class="section-label" style="justify-content:center">Transferpreise</p>
+    <h2 class="section-title" style="text-align:center;margin-bottom:40px">Unsere Tarife<br><em>Alle Preise inkl. MwSt</em></h2>
+    <ul style="list-style:none"><li style="padding:16px 0;border-bottom:1px solid rgba(201,169,110,.08);font-size:13px;color:var(--cream-dim);font-weight:200;display:flex;align-items:center;gap:12px"><span style="color:var(--gold)">—</span>Flughafen Zürich → Hotel: ab 120€</li><li style="padding:16px 0;border-bottom:1px solid rgba(201,169,110,.08);font-size:13px;color:var(--cream-dim);font-weight:200;display:flex;align-items:center;gap:12px"><span style="color:var(--gold)">—</span>Flughafen Friedrichshafen → Hotel: ab 65€</li><li style="padding:16px 0;border-bottom:1px solid rgba(201,169,110,.08);font-size:13px;color:var(--cream-dim);font-weight:200;display:flex;align-items:center;gap:12px"><span style="color:var(--gold)">—</span>Bahnhof Konstanz → Hotel: ab 20€</li><li style="padding:16px 0;border-bottom:1px solid rgba(201,169,110,.08);font-size:13px;color:var(--cream-dim);font-weight:200;display:flex;align-items:center;gap:12px"><span style="color:var(--gold)">—</span>Stadtführung mit Chauffeur: ab 80€</li><li style="padding:16px 0;border-bottom:1px solid rgba(201,169,110,.08);font-size:13px;color:var(--cream-dim);font-weight:200;display:flex;align-items:center;gap:12px"><span style="color:var(--gold)">—</span>Winzer-Tour Hegau: ab 180€</li></ul>
+    <div style="margin-top:36px;text-align:center">
+      <a href="hotel-halm-kontakt.html" class="btn-primary">Anfragen</a>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="footer-grid">
+    <div class="footer-brand">
+      <div class="logo-main">Hotel Halm</div>
+      <span class="logo-sub">Konstanz am Bodensee</span>
+      <p>Ihr Luxushotel direkt am Bodensee. Seit 1892 Gastgeber für anspruchsvolle Reisende aus aller Welt.</p>
+    </div>
+    <div class="footer-col">
+      <h4>Hotel</h4>
+      <ul>
+        <li><a href="hotel-halm-zimmer.html">Zimmer & Suiten</a></li>
+        <li><a href="hotel-halm-sauna.html">Sauna & Spa</a></li>
+        <li><a href="hotel-halm-gastronomie.html">Restaurant</a></li>
+        <li><a href="hotel-halm-tagen.html">Tagen & Feiern</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h4>Service</h4>
+      <ul>
+        <li><a href="hotel-halm-buchen.html">Online buchen</a></li>
+        <li><a href="hotel-halm-angebote.html">Angebote</a></li>
+        <li><a href="hotel-halm-parken.html">Parken</a></li>
+        <li><a href="hotel-halm-anfahrt.html">Anfahrt</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h4>Kontakt</h4>
+      <ul>
+        <li><a href="#">Seestraße 25, Konstanz</a></li>
+        <li><a href="tel:+4975311234">+49 7531 1234-0</a></li>
+        <li><a href="mailto:info@hotel-halm.de">info@hotel-halm.de</a></li>
+        <li><a href="hotel-halm-kontakt.html">Kontaktformular</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <p>© 2024 Hotel Halm Konstanz GmbH · Alle Rechte vorbehalten</p>
+    <p>Impressum · Datenschutz · AGB</p>
+  </div>
+</footer>
+<script>
+const obs=new IntersectionObserver((entries)=>{entries.forEach(e=>{if(e.isIntersecting){e.target.classList.add('visible');obs.unobserve(e.target)}})},{threshold:.1});
+document.querySelectorAll('.reveal').forEach(el=>obs.observe(el));
+</script>
+</body>
+</html>

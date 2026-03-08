@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Preise & Verfügbarkeit — Hotel Halm Konstanz</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300;1,400&family=Jost:wght@200;300;400&display=swap" rel="stylesheet">
+<style>
+
+  :root {
+    --bg:   #0a0906; --bg2: #111009; --bg3: #1a1814;
+    --gold: #c9a96e; --gold-l: #e2c99a;
+    --txt:  #f4ede0; --dim:  #c8bfb0; --faint: rgba(200,191,176,.35);
+    --w:    #faf7f2; --nav-a: 10,9,6;
+  }
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{background:var(--bg);color:var(--txt);font-family:'Jost',sans-serif;font-weight:300;overflow-x:hidden;cursor:none}
+body::before{content:'';position:fixed;inset:0;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");opacity:.028;pointer-events:none;z-index:9997}
+.cur{position:fixed;width:8px;height:8px;background:var(--gold);border-radius:50%;pointer-events:none;z-index:9999;transform:translate(-50%,-50%);transition:transform .1s}
+.cur-r{position:fixed;width:32px;height:32px;border:1px solid rgba(201,169,110,.5);border-radius:50%;pointer-events:none;z-index:9998;transform:translate(-50%,-50%);transition:all .15s}
+nav{position:fixed;top:0;left:0;right:0;z-index:1000;padding:22px 56px;display:flex;align-items:center;justify-content:space-between;background:rgba(var(--nav-a),.96);border-bottom:1px solid rgba(201,169,110,.09);backdrop-filter:blur(12px);animation:fD .9s ease both}
+.n-logo{font-family:'Cormorant Garamond',serif;font-size:20px;font-weight:300;letter-spacing:.25em;text-transform:uppercase;color:var(--txt);text-decoration:none;line-height:1}
+.n-logo span{display:block;font-size:8.5px;letter-spacing:.45em;color:var(--gold);margin-top:4px;font-family:'Jost';font-weight:200}
+.n-links{display:flex;gap:32px;list-style:none}
+.n-links a{font-size:10px;font-weight:300;letter-spacing:.2em;text-transform:uppercase;color:var(--dim);text-decoration:none;position:relative;transition:color .3s}
+.n-links a::after{content:'';position:absolute;bottom:-3px;left:0;width:0;height:1px;background:var(--gold);transition:width .4s}
+.n-links a:hover,.n-links a.act{color:var(--gold)}
+.n-links a:hover::after,.n-links a.act::after{width:100%}
+.n-cta{font-size:10px;font-weight:300;letter-spacing:.2em;text-transform:uppercase;color:var(--gold);text-decoration:none;border:1px solid var(--gold);padding:10px 22px;transition:all .4s;position:relative;overflow:hidden}
+.n-cta::before{content:'';position:absolute;inset:0;background:var(--gold);transform:scaleX(0);transform-origin:left;transition:transform .4s;z-index:-1}
+.n-cta:hover{color:var(--bg)}
+.n-cta:hover::before{transform:scaleX(1)}
+.sl{font-size:9px;letter-spacing:.45em;text-transform:uppercase;color:var(--gold);font-weight:200;margin-bottom:16px;display:flex;align-items:center;gap:14px}
+.sl::before{content:'';width:28px;height:1px;background:var(--gold);flex-shrink:0}
+.st{font-family:'Cormorant Garamond',serif;font-size:clamp(34px,5vw,62px);font-weight:300;line-height:1.05;color:var(--txt)}
+.st em{font-style:italic;color:var(--dim)}
+.bt{font-size:14px;font-weight:200;line-height:2.1;color:var(--dim)}
+.bp{font-size:13px;font-weight:200;line-height:2;color:var(--dim)}
+.bp+.bp{margin-top:14px}
+.btn-p{font-size:10px;letter-spacing:.27em;text-transform:uppercase;font-weight:300;color:var(--bg);background:var(--gold);padding:14px 32px;text-decoration:none;display:inline-block;transition:all .4s}
+.btn-p:hover{background:var(--gold-l);transform:translateY(-2px)}
+.btn-o{font-size:10px;letter-spacing:.27em;text-transform:uppercase;font-weight:300;color:var(--gold);border:1px solid var(--gold);padding:13px 30px;text-decoration:none;display:inline-block;transition:all .4s}
+.btn-o:hover{background:var(--gold);color:var(--bg)}
+.btn-g{font-size:10px;letter-spacing:.23em;text-transform:uppercase;font-weight:300;color:var(--dim);text-decoration:none;display:inline-flex;align-items:center;gap:10px;transition:color .3s}
+.btn-g::after{content:'→';font-size:14px;transition:transform .3s}
+.btn-g:hover{color:var(--gold)}
+.btn-g:hover::after{transform:translateX(5px)}
+@keyframes fU{from{opacity:0;transform:translateY(28px)}to{opacity:1;transform:translateY(0)}}
+@keyframes fD{from{opacity:0;transform:translateY(-14px)}to{opacity:1;transform:translateY(0)}}
+@keyframes fI{from{opacity:0}to{opacity:1}}
+@keyframes sZ{from{transform:scale(1)}to{transform:scale(1.06)}}
+.rv{opacity:0;transform:translateY(32px);transition:all .9s cubic-bezier(.25,.46,.45,.94)}
+.rv.vis{opacity:1;transform:translateY(0)}
+.d1{transition-delay:.1s}.d2{transition-delay:.2s}.d3{transition-delay:.32s}.d4{transition-delay:.45s}
+.divider{width:100%;height:1px;background:linear-gradient(to right,transparent,rgba(201,169,110,.18),transparent)}
+
+</style>
+</head>
+<body>
+<div class="cur" id="cur"></div>
+<div class="cur-r" id="curR"></div>
+<nav>
+  <a href="hotel-halm-home.html" class="n-logo">Hotel Halm<span>Konstanz am Bodensee</span></a>
+  <ul class="n-links">
+    <li><a href="hotel-halm-zimmer.html" id="nl-zimmer">Zimmer</a></li>
+    <li><a href="hotel-halm-gastronomie.html" id="nl-gastro">Gastronomie</a></li>
+    <li><a href="hotel-halm-sauna.html" id="nl-sauna">Wellness</a></li>
+    <li><a href="hotel-halm-tagen.html" id="nl-tagen">Tagen</a></li>
+    <li><a href="hotel-halm-ueber.html" id="nl-ueber">Über uns</a></li>
+  </ul>
+  <a href="hotel-halm-buchen.html" class="n-cta">Zimmer buchen</a>
+</nav>
+<section style="position:relative;height:62vh;min-height:440px;display:flex;align-items:flex-end;overflow:hidden;margin-top:66px">
+  <div style="position:absolute;inset:0;background:url('https://images.unsplash.com/photo-1631049307264-da0ec9d70304?w=1600&q=80') center/cover;animation:sZ 20s ease-in-out infinite alternate;filter:brightness(.32) saturate(.8)"></div>
+  <div style="position:absolute;inset:0;background:linear-gradient(to top,var(--bg) 0%,rgba(10,9,6,.5) 45%,transparent 75%)"></div>
+  <div style="position:relative;z-index:2;padding:0 56px 64px;animation:fU 1.2s ease both;animation-delay:.4s">
+    <p class="sl">Zimmer & Preise</p>
+    <h1 style="font-family:'Cormorant Garamond',serif;font-size:clamp(46px,8vw,100px);font-weight:300;line-height:.92;color:#faf7f2">
+      Preise &<br><em>Verfügbarkeit</em>
+    </h1>
+    <p style='font-size:14px;font-weight:200;color:var(--dim);max-width:420px;line-height:2;margin-top:18px'>Finden Sie das perfekte Zimmer für Ihren Aufenthalt am Bodensee.</p>
+  </div>
+</section>
+<section style="padding:80px 56px;background:var(--bg2)">
+  <div style="display:grid;grid-template-columns:1fr 1fr;gap:60px;align-items:end;margin-bottom:64px">
+    <div class="rv"><p class="sl">Zimmerauswahl</p><h2 class="st">Ihr Zimmer —<br><em>Ihr Preis</em></h2></div>
+    <div class="rv d2">
+      <p class="bt" style="margin-bottom:20px">Alle Preise verstehen sich pro Nacht inklusive Frühstücksbuffet und MwSt. Bei längeren Aufenthalten ab 3 Nächten gewähren wir gerne Sonderkonditionen.</p>
+      <div style="display:flex;gap:12px;flex-wrap:wrap">
+        <div style="padding:12px 18px;background:var(--bg3);border:1px solid rgba(201,169,110,.1);font-size:11px;color:var(--dim);font-weight:200">✓ Frühstück inklusive</div>
+        <div style="padding:12px 18px;background:var(--bg3);border:1px solid rgba(201,169,110,.1);font-size:11px;color:var(--dim);font-weight:200">✓ Kostenl. Stornierung</div>
+        <div style="padding:12px 18px;background:var(--bg3);border:1px solid rgba(201,169,110,.1);font-size:11px;color:var(--dim);font-weight:200">✓ Bestpreisgarantie</div>
+      </div>
+    </div>
+  </div>
+  <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:2px">
+    
+<div style="background:var(--bg2);border:1px solid rgba(201,169,110,.1);padding:40px 32px;position:relative" class="rv d0">
+  
+  <p style="font-size:9px;letter-spacing:.38em;text-transform:uppercase;color:var(--gold);font-weight:200;margin-bottom:8px">◦ Standard</p>
+  <h3 style="font-family:'Cormorant Garamond',serif;font-size:28px;font-weight:300;color:var(--txt);margin-bottom:6px">Standard</h3>
+  <p style="font-size:11px;color:var(--dim);font-weight:200;margin-bottom:20px">18 m² · 1 Person</p>
+  <div style="display:flex;gap:8px;margin-bottom:20px;align-items:flex-end">
+    <span style="font-family:'Cormorant Garamond',serif;font-size:48px;font-weight:300;color:var(--gold);line-height:1">99€</span>
+    <div style="padding-bottom:6px"><p style="font-size:9px;color:var(--dim);letter-spacing:.12em">/ Nacht</p><p style="font-size:9px;color:var(--dim)">ab EZ</p></div>
+  </div>
+  <p style="font-size:12px;color:var(--dim);font-weight:200;line-height:1.85;margin-bottom:24px">Gemütliches Einzelzimmer mit allen Annehmlichkeiten für den Geschäftsreisenden.</p>
+  <ul style="list-style:none;display:flex;flex-direction:column;gap:8px;margin-bottom:28px">
+    <li style="display:flex;align-items:center;gap:12px;font-size:12px;color:var(--dim);font-weight:200"><span style="width:16px;height:1px;background:var(--gold);flex-shrink:0"></span>Queensize-Bett</li><li style="display:flex;align-items:center;gap:12px;font-size:12px;color:var(--dim);font-weight:200"><span style="width:16px;height:1px;background:var(--gold);flex-shrink:0"></span>Bad mit Dusche</li><li style="display:flex;align-items:center;gap:12px;font-size:12px;color:var(--dim);font-weight:200"><span style="width:16px;height:1px;background:var(--gold);flex-shrink:0"></span>42" Smart-TV</li><li style="display:flex;align-items:center;gap:12px;font-size:12px;color:var(--dim);font-weight:200"><span style="width:16px;height:1px;background:var(--gold);flex-shrink:0"></span>Schreibtisch</li><li style="display:flex;align-items:center;gap:12px;font-size:12px;color:var(--dim);font-weight:200"><span style="width:16px;height:1px;background:var(--gold);flex-shrink:0"></span>Kostenl. WLAN</li>
+  </ul>
+  <a href="hotel-halm-buchen.html" class="btn-p" style="width:100%;text-align:center;display:block">Buchen</a>
+</div>
+<div style="background:var(--bg2);border:1px solid rgba(201,169,110,.1);padding:40px 32px;position:relative" class="rv d1">
+  
+  <p style="font-size:9px;letter-spacing:.38em;text-transform:uppercase;color:var(--gold);font-weight:200;margin-bottom:8px">◈ Komfort</p>
+  <h3 style="font-family:'Cormorant Garamond',serif;font-size:28px;font-weight:300;color:var(--txt);margin-bottom:6px">Komfort</h3>
+  <p style="font-size:11px;color:var(--dim);font-weight:200;margin-bottom:20px">28 m² · 1–2 Personen</p>
+  <div style="display:flex;gap:8px;margin-bottom:20px;align-items:flex-end">
+    <span style="font-family:'Cormorant Garamond',serif;font-size:48px;font-weight:300;color:var(--gold);line-height:1">129€</span>
+    <div style="padding-bottom:6px"><p style="font-size:9px;color:var(--dim);letter-spacing:.12em">/ Nacht</p><p style="font-size:9px;color:var(--dim)">ab EZ</p></div>
+  </div>
+  <p style="font-size:12px;color:var(--dim);font-weight:200;line-height:1.85;margin-bottom:24px">Großzügiges Doppelzimmer mit modernem Bad und angenehmem Raumgefühl.</p>
+  <ul style="list-style:none;display:flex;flex-direction:column;gap:8px;margin-bottom:28px">
+    <li style="display:flex;align-items:center;gap:12px;font-size:12px;color:var(--dim);font-weight:200"><span style="width:16px;height:1px;background:var(--gold);flex-shrink:0"></span>Queensize-Bett (160×200)</li><li style="display:flex;align-items:center;gap:12px;font-size:12px;color:var(--dim);font-weight:200"><span style="width:16px;height:1px;background:var(--gold);flex-shrink:0"></span>Bad mit Dusche/Wanne</li><li style="display:flex;align-items:center;gap:12px;font-size:12px;color:var(--dim);font-weight:200"><span style="width:16px;height:1px;background:var(--gold);flex-shrink:0"></span>55" Smart-TV</li><li style="display:flex;align-items:center;gap:12px;font-size:12px;color:var(--dim);font-weight:200"><span style="width:16px;height:1px;background:var(--gold);flex-shrink:0"></span>Minibar</li><li style="display:flex;align-items:center;gap:12px;font-size:12px;color:var(--dim);font-weight:200"><span style="width:16px;height:1px;background:var(--gold);flex-shrink:0"></span>Kostenl. WLAN</li>
+  </ul>
+  <a href="hotel-halm-buchen.html" class="btn-p" style="width:100%;text-align:center;display:block">Buchen</a>
+</div>
+<div style="background:var(--bg2);border:2px solid var(--gold);padding:40px 32px;position:relative" class="rv d2">
+  <span style="position:absolute;top:16px;right:16px;font-size:8px;letter-spacing:.3em;text-transform:uppercase;background:var(--gold);color:var(--bg);padding:4px 12px;font-weight:300">Beliebt</span>
+  <p style="font-size:9px;letter-spacing:.38em;text-transform:uppercase;color:var(--gold);font-weight:200;margin-bottom:8px">✦ Superior</p>
+  <h3 style="font-family:'Cormorant Garamond',serif;font-size:28px;font-weight:300;color:var(--txt);margin-bottom:6px">Superior</h3>
+  <p style="font-size:11px;color:var(--dim);font-weight:200;margin-bottom:20px">32 m² · 2 Personen</p>
+  <div style="display:flex;gap:8px;margin-bottom:20px;align-items:flex-end">
+    <span style="font-family:'Cormorant Garamond',serif;font-size:48px;font-weight:300;color:var(--gold);line-height:1">149€</span>
+    <div style="padding-bottom:6px"><p style="font-size:9px;color:var(--dim);letter-spacing:.12em">/ Nacht</p><p style="font-size:9px;color:var(--dim)">ab EZ</p></div>
+  </div>
+  <p style="font-size:12px;color:var(--dim);font-weight:200;line-height:1.85;margin-bottom:24px">Unser beliebtestes Zimmer — ideal für Paare mit etwas mehr Platz und Komfort.</p>
+  <ul style="list-style:none;display:flex;flex-direction:column;gap:8px;margin-bottom:28px">
+    <li style="display:flex;align-items:center;gap:12px;font-size:12px;color:var(--dim);font-weight:200"><span style="width:16px;height:1px;background:var(--gold);flex-shrink:0"></span>Kingsize-Bett (180×200)</li><li style="display:flex;align-items:center;gap:12px;font-size:12px;color:var(--dim);font-weight:200"><span style="width:16px;height:1px;background:var(--gold);flex-shrink:0"></span>Marmor-Bad</li><li style="display:flex;align-items:center;gap:12px;font-size:12px;color:var(--dim);font-weight:200"><span style="width:16px;height:1px;background:var(--gold);flex-shrink:0"></span>55" Smart-TV</li><li style="display:flex;align-items:center;gap:12px;font-size:12px;color:var(--dim);font-weight:200"><span style="width:16px;height:1px;background:var(--gold);flex-shrink:0"></span>Espressomaschine</li><li style="display:flex;align-items:center;gap:12px;font-size:12px;color:var(--dim);font-weight:200"><span style="width:16px;height:1px;background:var(--gold);flex-shrink:0"></span>Panoramafenster</li>
+  </ul>
+  <a href="hotel-halm-buchen.html" class="btn-p" style="width:100%;text-align:center;display:block">Buchen</a>
+</div>
+<div style="background:var(--bg2);border:1px solid rgba(201,169,110,.1);padding:40px 32px;position:relative" class="rv d3">
+  
+  <p style="font-size:9px;letter-spacing:.38em;text-transform:uppercase;color:var(--gold);font-weight:200;margin-bottom:8px">❋ Deluxe Suite</p>
+  <h3 style="font-family:'Cormorant Garamond',serif;font-size:28px;font-weight:300;color:var(--txt);margin-bottom:6px">Deluxe Suite</h3>
+  <p style="font-size:11px;color:var(--dim);font-weight:200;margin-bottom:20px">52 m² · 2 Personen</p>
+  <div style="display:flex;gap:8px;margin-bottom:20px;align-items:flex-end">
+    <span style="font-family:'Cormorant Garamond',serif;font-size:48px;font-weight:300;color:var(--gold);line-height:1">189€</span>
+    <div style="padding-bottom:6px"><p style="font-size:9px;color:var(--dim);letter-spacing:.12em">/ Nacht</p><p style="font-size:9px;color:var(--dim)">ab EZ</p></div>
+  </div>
+  <p style="font-size:12px;color:var(--dim);font-weight:200;line-height:1.85;margin-bottom:24px">Das Herzstück des Hotel Halm — exklusives Wohnen mit separatem Wohnbereich.</p>
+  <ul style="list-style:none;display:flex;flex-direction:column;gap:8px;margin-bottom:28px">
+    <li style="display:flex;align-items:center;gap:12px;font-size:12px;color:var(--dim);font-weight:200"><span style="width:16px;height:1px;background:var(--gold);flex-shrink:0"></span>Kingsize-Bett</li><li style="display:flex;align-items:center;gap:12px;font-size:12px;color:var(--dim);font-weight:200"><span style="width:16px;height:1px;background:var(--gold);flex-shrink:0"></span>Sep. Wohnzimmer</li><li style="display:flex;align-items:center;gap:12px;font-size:12px;color:var(--dim);font-weight:200"><span style="width:16px;height:1px;background:var(--gold);flex-shrink:0"></span>Marmorbad</li><li style="display:flex;align-items:center;gap:12px;font-size:12px;color:var(--dim);font-weight:200"><span style="width:16px;height:1px;background:var(--gold);flex-shrink:0"></span>Bademantel+Pantoffeln</li><li style="display:flex;align-items:center;gap:12px;font-size:12px;color:var(--dim);font-weight:200"><span style="width:16px;height:1px;background:var(--gold);flex-shrink:0"></span>Butler-Service</li>
+  </ul>
+  <a href="hotel-halm-buchen.html" class="btn-p" style="width:100%;text-align:center;display:block">Buchen</a>
+</div>
+  </div>
+</section>
+
+<section style="padding:80px 56px;background:var(--bg)">
+  <div class="rv" style="text-align:center;margin-bottom:56px">
+    <p class="sl" style="justify-content:center">Verfügbarkeit prüfen</p>
+    <h2 class="st" style="text-align:center">Jetzt Zimmer<br><em>reservieren</em></h2>
+  </div>
+  <div class="rv" style="max-width:700px;margin:0 auto;background:var(--bg2);border:1px solid rgba(201,169,110,.14);padding:48px">
+    <div style="display:grid;grid-template-columns:1fr 1fr 1fr auto;gap:12px;align-items:end">
+      <div>
+        <label style="font-size:8.5px;letter-spacing:.3em;text-transform:uppercase;color:var(--gold);font-weight:200;display:block;margin-bottom:7px">Anreise</label>
+        <input type="date" style="width:100%;background:var(--bg3);border:1px solid rgba(201,169,110,.12);color:var(--txt);padding:13px 14px;font-family:'Jost';font-size:12px;font-weight:200;outline:none">
+      </div>
+      <div>
+        <label style="font-size:8.5px;letter-spacing:.3em;text-transform:uppercase;color:var(--gold);font-weight:200;display:block;margin-bottom:7px">Abreise</label>
+        <input type="date" style="width:100%;background:var(--bg3);border:1px solid rgba(201,169,110,.12);color:var(--txt);padding:13px 14px;font-family:'Jost';font-size:12px;font-weight:200;outline:none">
+      </div>
+      <div>
+        <label style="font-size:8.5px;letter-spacing:.3em;text-transform:uppercase;color:var(--gold);font-weight:200;display:block;margin-bottom:7px">Personen</label>
+        <select style="width:100%;background:var(--bg3);border:1px solid rgba(201,169,110,.12);color:var(--txt);padding:13px 14px;font-family:'Jost';font-size:12px;font-weight:200;outline:none">
+          <option>1 Person</option><option selected>2 Personen</option><option>3 Personen</option>
+        </select>
+      </div>
+      <a href="hotel-halm-buchen.html" class="btn-p" style="white-space:nowrap;padding:13px 28px">Suchen</a>
+    </div>
+    <p style="font-size:10px;color:var(--dim);margin-top:18px;text-align:center;font-weight:200">Bestpreisgarantie · Kostenlose Stornierung bis 48h vor Anreise · Sofortbestätigung</p>
+  </div>
+</section>
+
+<section style="background:var(--gold);padding:72px 56px;display:grid;grid-template-columns:1fr auto;gap:56px;align-items:center">
+  <div class="rv">
+    <p class="sl" style="color:rgba(10,9,6,.5)">Gruppenrabatt</p>
+    <h2 style="font-family:'Cormorant Garamond',serif;font-size:clamp(32px,5vw,58px);font-weight:300;color:var(--bg);line-height:1.05">Ab 10 Zimmern:<br><em style="color:rgba(10,9,6,.4)">Sonderkonditionen</em></h2>
+    <p style="font-size:14px;font-weight:200;color:rgba(10,9,6,.55);margin-top:14px;max-width:440px;line-height:2">Planen Sie eine Gruppenreise? Wir erstellen Ihnen gerne ein individuelles Angebot mit attraktiven Gruppenpreisen.</p>
+  </div>
+  <div class="rv d2" style="flex-shrink:0">
+    <a href="hotel-halm-gruppenreisen.html" style="font-size:10px;letter-spacing:.27em;text-transform:uppercase;font-weight:300;color:var(--gold);background:var(--bg);padding:14px 32px;text-decoration:none;display:block;text-align:center;transition:all .4s;white-space:nowrap;margin-bottom:12px">Gruppenangebot anfragen</a>
+    <a href="tel:+4975311234" class="btn-g" style="color:rgba(10,9,6,.5);justify-content:center">Direkt anrufen</a>
+  </div>
+</section><footer style="background:#111009;border-top:1px solid rgba(201,169,110,.09);padding:64px 56px 32px">
+  <div style="display:grid;grid-template-columns:1.4fr 1fr 1fr 1fr;gap:48px;margin-bottom:48px;padding-bottom:48px;border-bottom:1px solid rgba(201,169,110,.07)">
+    <div>
+      <p style="font-family:'Cormorant Garamond',serif;font-size:21px;font-weight:300;letter-spacing:.22em;text-transform:uppercase;color:#faf7f2;margin-bottom:5px">Hotel Halm</p>
+      <p style="font-size:8px;letter-spacing:.4em;text-transform:uppercase;color:var(--gold);font-weight:200;margin-bottom:16px">Konstanz am Bodensee</p>
+      <p style="font-size:12px;font-weight:200;color:rgba(200,191,176,.4);line-height:2">Bahnhofplatz 6<br>78462 Konstanz<br>+49 7531 1234</p>
+    </div>
+    <div>
+      <p style="font-size:9px;letter-spacing:.38em;text-transform:uppercase;color:var(--gold);font-weight:200;margin-bottom:16px">Hotel</p>
+      <ul style="list-style:none;display:flex;flex-direction:column;gap:10px">
+        <li><a href="#" style="font-size:12px;color:rgba(200,191,176,.4);text-decoration:none;font-weight:200">Zimmer &amp; Suiten</a></li><li><a href="#" style="font-size:12px;color:rgba(200,191,176,.4);text-decoration:none;font-weight:200">Gastronomie</a></li><li><a href="#" style="font-size:12px;color:rgba(200,191,176,.4);text-decoration:none;font-weight:200">Wellness &amp; Sauna</a></li><li><a href="#" style="font-size:12px;color:rgba(200,191,176,.4);text-decoration:none;font-weight:200">Tagen &amp; Feiern</a></li>
+      </ul>
+    </div>
+    <div>
+      <p style="font-size:9px;letter-spacing:.38em;text-transform:uppercase;color:var(--gold);font-weight:200;margin-bottom:16px">Service</p>
+      <ul style="list-style:none;display:flex;flex-direction:column;gap:10px">
+        <li><a href="#" style="font-size:12px;color:rgba(200,191,176,.4);text-decoration:none;font-weight:200">Karriere</a></li><li><a href="#" style="font-size:12px;color:rgba(200,191,176,.4);text-decoration:none;font-weight:200">Gutscheine</a></li><li><a href="#" style="font-size:12px;color:rgba(200,191,176,.4);text-decoration:none;font-weight:200">Newsletter</a></li><li><a href="#" style="font-size:12px;color:rgba(200,191,176,.4);text-decoration:none;font-weight:200">Presse</a></li>
+      </ul>
+    </div>
+    <div>
+      <p style="font-size:9px;letter-spacing:.38em;text-transform:uppercase;color:var(--gold);font-weight:200;margin-bottom:16px">Rechtliches</p>
+      <ul style="list-style:none;display:flex;flex-direction:column;gap:10px">
+        <li><a href="#" style="font-size:12px;color:rgba(200,191,176,.4);text-decoration:none;font-weight:200">AGB</a></li><li><a href="#" style="font-size:12px;color:rgba(200,191,176,.4);text-decoration:none;font-weight:200">Impressum</a></li><li><a href="#" style="font-size:12px;color:rgba(200,191,176,.4);text-decoration:none;font-weight:200">Datenschutz</a></li><li><a href="#" style="font-size:12px;color:rgba(200,191,176,.4);text-decoration:none;font-weight:200">Barrierefreiheit</a></li>
+      </ul>
+    </div>
+  </div>
+  <div style="display:flex;justify-content:space-between;align-items:center">
+    <p style="font-size:10px;color:rgba(200,191,176,.22);letter-spacing:.07em">© 2024 Hotel Halm Konstanz. Alle Rechte vorbehalten.</p>
+    <a href="#" style="font-size:10px;letter-spacing:.2em;text-transform:uppercase;color:rgba(200,191,176,.22);text-decoration:none">↑ Nach oben</a>
+  </div>
+</footer><script>
+const cur=document.getElementById('cur'),cr=document.getElementById('curR');
+let rx=0,ry=0,mx=0,my=0;
+document.addEventListener('mousemove',e=>{mx=e.clientX;my=e.clientY;cur.style.left=mx+'px';cur.style.top=my+'px';});
+document.querySelectorAll('a,button,label,input,select,textarea,.card-hover').forEach(el=>{
+  el.addEventListener('mouseenter',()=>{cr.style.transform='translate(-50%,-50%) scale(1.7)';cr.style.borderColor='rgba(201,169,110,.75)';});
+  el.addEventListener('mouseleave',()=>{cr.style.transform='translate(-50%,-50%) scale(1)';cr.style.borderColor='rgba(201,169,110,.5)';});
+});
+(function loop(){rx+=(mx-rx)*.12;ry+=(my-ry)*.12;cr.style.left=rx+'px';cr.style.top=ry+'px';requestAnimationFrame(loop);})();
+const obs=new IntersectionObserver(e=>e.forEach(x=>{if(x.isIntersecting)x.target.classList.add('vis');}),{threshold:.08});
+document.querySelectorAll('.rv').forEach(el=>obs.observe(el));
+</script>
+</body>
+</html>

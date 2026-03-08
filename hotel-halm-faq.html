@@ -1,0 +1,296 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>FAQ – Häufige Fragen — Hotel Halm Konstanz</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300;1,400&family=Jost:wght@200;300;400&display=swap" rel="stylesheet">
+<style>
+
+  :root {
+    --bg:   #0a0906; --bg2: #111009; --bg3: #1a1814;
+    --gold: #c9a96e; --gold-l: #e2c99a;
+    --txt:  #f4ede0; --dim:  #c8bfb0; --faint: rgba(200,191,176,.35);
+    --w:    #faf7f2; --nav-a: 10,9,6;
+  }
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{background:var(--bg);color:var(--txt);font-family:'Jost',sans-serif;font-weight:300;overflow-x:hidden;cursor:none}
+body::before{content:'';position:fixed;inset:0;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");opacity:.028;pointer-events:none;z-index:9997}
+.cur{position:fixed;width:8px;height:8px;background:var(--gold);border-radius:50%;pointer-events:none;z-index:9999;transform:translate(-50%,-50%);transition:transform .1s}
+.cur-r{position:fixed;width:32px;height:32px;border:1px solid rgba(201,169,110,.5);border-radius:50%;pointer-events:none;z-index:9998;transform:translate(-50%,-50%);transition:all .15s}
+nav{position:fixed;top:0;left:0;right:0;z-index:1000;padding:22px 56px;display:flex;align-items:center;justify-content:space-between;background:rgba(var(--nav-a),.96);border-bottom:1px solid rgba(201,169,110,.09);backdrop-filter:blur(12px);animation:fD .9s ease both}
+.n-logo{font-family:'Cormorant Garamond',serif;font-size:20px;font-weight:300;letter-spacing:.25em;text-transform:uppercase;color:var(--txt);text-decoration:none;line-height:1}
+.n-logo span{display:block;font-size:8.5px;letter-spacing:.45em;color:var(--gold);margin-top:4px;font-family:'Jost';font-weight:200}
+.n-links{display:flex;gap:32px;list-style:none}
+.n-links a{font-size:10px;font-weight:300;letter-spacing:.2em;text-transform:uppercase;color:var(--dim);text-decoration:none;position:relative;transition:color .3s}
+.n-links a::after{content:'';position:absolute;bottom:-3px;left:0;width:0;height:1px;background:var(--gold);transition:width .4s}
+.n-links a:hover,.n-links a.act{color:var(--gold)}
+.n-links a:hover::after,.n-links a.act::after{width:100%}
+.n-cta{font-size:10px;font-weight:300;letter-spacing:.2em;text-transform:uppercase;color:var(--gold);text-decoration:none;border:1px solid var(--gold);padding:10px 22px;transition:all .4s;position:relative;overflow:hidden}
+.n-cta::before{content:'';position:absolute;inset:0;background:var(--gold);transform:scaleX(0);transform-origin:left;transition:transform .4s;z-index:-1}
+.n-cta:hover{color:var(--bg)}
+.n-cta:hover::before{transform:scaleX(1)}
+.sl{font-size:9px;letter-spacing:.45em;text-transform:uppercase;color:var(--gold);font-weight:200;margin-bottom:16px;display:flex;align-items:center;gap:14px}
+.sl::before{content:'';width:28px;height:1px;background:var(--gold);flex-shrink:0}
+.st{font-family:'Cormorant Garamond',serif;font-size:clamp(34px,5vw,62px);font-weight:300;line-height:1.05;color:var(--txt)}
+.st em{font-style:italic;color:var(--dim)}
+.bt{font-size:14px;font-weight:200;line-height:2.1;color:var(--dim)}
+.bp{font-size:13px;font-weight:200;line-height:2;color:var(--dim)}
+.bp+.bp{margin-top:14px}
+.btn-p{font-size:10px;letter-spacing:.27em;text-transform:uppercase;font-weight:300;color:var(--bg);background:var(--gold);padding:14px 32px;text-decoration:none;display:inline-block;transition:all .4s}
+.btn-p:hover{background:var(--gold-l);transform:translateY(-2px)}
+.btn-o{font-size:10px;letter-spacing:.27em;text-transform:uppercase;font-weight:300;color:var(--gold);border:1px solid var(--gold);padding:13px 30px;text-decoration:none;display:inline-block;transition:all .4s}
+.btn-o:hover{background:var(--gold);color:var(--bg)}
+.btn-g{font-size:10px;letter-spacing:.23em;text-transform:uppercase;font-weight:300;color:var(--dim);text-decoration:none;display:inline-flex;align-items:center;gap:10px;transition:color .3s}
+.btn-g::after{content:'→';font-size:14px;transition:transform .3s}
+.btn-g:hover{color:var(--gold)}
+.btn-g:hover::after{transform:translateX(5px)}
+@keyframes fU{from{opacity:0;transform:translateY(28px)}to{opacity:1;transform:translateY(0)}}
+@keyframes fD{from{opacity:0;transform:translateY(-14px)}to{opacity:1;transform:translateY(0)}}
+@keyframes fI{from{opacity:0}to{opacity:1}}
+@keyframes sZ{from{transform:scale(1)}to{transform:scale(1.06)}}
+.rv{opacity:0;transform:translateY(32px);transition:all .9s cubic-bezier(.25,.46,.45,.94)}
+.rv.vis{opacity:1;transform:translateY(0)}
+.d1{transition-delay:.1s}.d2{transition-delay:.2s}.d3{transition-delay:.32s}.d4{transition-delay:.45s}
+.divider{width:100%;height:1px;background:linear-gradient(to right,transparent,rgba(201,169,110,.18),transparent)}
+
+</style>
+</head>
+<body>
+<div class="cur" id="cur"></div>
+<div class="cur-r" id="curR"></div>
+<nav>
+  <a href="hotel-halm-home.html" class="n-logo">Hotel Halm<span>Konstanz am Bodensee</span></a>
+  <ul class="n-links">
+    <li><a href="hotel-halm-zimmer.html" id="nl-zimmer">Zimmer</a></li>
+    <li><a href="hotel-halm-gastronomie.html" id="nl-gastro">Gastronomie</a></li>
+    <li><a href="hotel-halm-sauna.html" id="nl-sauna">Wellness</a></li>
+    <li><a href="hotel-halm-tagen.html" id="nl-tagen">Tagen</a></li>
+    <li><a href="hotel-halm-ueber.html" id="nl-ueber">Über uns</a></li>
+  </ul>
+  <a href="hotel-halm-buchen.html" class="n-cta">Zimmer buchen</a>
+</nav>
+<section style="position:relative;height:62vh;min-height:440px;display:flex;align-items:flex-end;overflow:hidden;margin-top:66px">
+  <div style="position:absolute;inset:0;background:url('https://images.unsplash.com/photo-1516321318423-f06f85e504b3?w=1600&q=80') center/cover;animation:sZ 20s ease-in-out infinite alternate;filter:brightness(.32) saturate(.8)"></div>
+  <div style="position:absolute;inset:0;background:linear-gradient(to top,var(--bg) 0%,rgba(10,9,6,.5) 45%,transparent 75%)"></div>
+  <div style="position:relative;z-index:2;padding:0 56px 64px;animation:fU 1.2s ease both;animation-delay:.4s">
+    <p class="sl">Häufige Fragen</p>
+    <h1 style="font-family:'Cormorant Garamond',serif;font-size:clamp(46px,8vw,100px);font-weight:300;line-height:.92;color:#faf7f2">
+      FAQ &<br><em>Antworten</em>
+    </h1>
+    <p style='font-size:14px;font-weight:200;color:var(--dim);max-width:420px;line-height:2;margin-top:18px'>Alles Wichtige rund um Ihren Aufenthalt im Hotel Halm.</p>
+  </div>
+</section>
+<section style="padding:80px 56px;background:var(--bg2);display:grid;grid-template-columns:280px 1fr;gap:60px">
+  <div>
+    <div style="position:sticky;top:100px">
+      <p class="sl">Kategorien</p>
+      <div style="display:flex;flex-direction:column;gap:4px;margin-top:8px">
+        <a href="#" style="padding:11px 16px;font-size:12px;font-weight:200;color:var(--dim);text-decoration:none;border:1px solid rgba(201,169,110,.08);transition:all .3s;display:block" onmouseover="this.style.borderColor='rgba(201,169,110,.4)';this.style.color='var(--gold)'" onmouseout="this.style.borderColor='rgba(201,169,110,.08)';this.style.color='var(--dim)'">Allgemein</a><a href="#" style="padding:11px 16px;font-size:12px;font-weight:200;color:var(--dim);text-decoration:none;border:1px solid rgba(201,169,110,.08);transition:all .3s;display:block" onmouseover="this.style.borderColor='rgba(201,169,110,.4)';this.style.color='var(--gold)'" onmouseout="this.style.borderColor='rgba(201,169,110,.08)';this.style.color='var(--dim)'">Zimmer & Buchung</a><a href="#" style="padding:11px 16px;font-size:12px;font-weight:200;color:var(--dim);text-decoration:none;border:1px solid rgba(201,169,110,.08);transition:all .3s;display:block" onmouseover="this.style.borderColor='rgba(201,169,110,.4)';this.style.color='var(--gold)'" onmouseout="this.style.borderColor='rgba(201,169,110,.08)';this.style.color='var(--dim)'">Restaurant & Frühstück</a><a href="#" style="padding:11px 16px;font-size:12px;font-weight:200;color:var(--dim);text-decoration:none;border:1px solid rgba(201,169,110,.08);transition:all .3s;display:block" onmouseover="this.style.borderColor='rgba(201,169,110,.4)';this.style.color='var(--gold)'" onmouseout="this.style.borderColor='rgba(201,169,110,.08)';this.style.color='var(--dim)'">Wellness & Sauna</a>
+      </div>
+      <div style="margin-top:32px;padding:24px;background:var(--bg);border:1px solid rgba(201,169,110,.1)">
+        <p style="font-size:9px;letter-spacing:.3em;text-transform:uppercase;color:var(--gold);font-weight:200;margin-bottom:10px">Nicht gefunden?</p>
+        <p style="font-size:12px;color:var(--dim);font-weight:200;margin-bottom:16px;line-height:1.7">Wir helfen gerne persönlich weiter.</p>
+        <a href="hotel-halm-kontakt.html" class="btn-p" style="display:block;text-align:center;font-size:9px">Kontakt</a>
+      </div>
+    </div>
+  </div>
+  <div>
+    
+<div style="margin-bottom:56px" class="rv">
+  <h3 style="font-family:'Cormorant Garamond',serif;font-size:28px;font-weight:300;color:var(--txt);margin-bottom:2px;padding-bottom:14px;border-bottom:1px solid rgba(201,169,110,.15)">Allgemein</h3>
+  
+<div class="faq-item rv" style="border-bottom:1px solid rgba(201,169,110,.09);overflow:hidden">
+  <button onclick="toggleFaq(this)" style="width:100%;text-align:left;background:none;border:none;padding:22px 0;display:flex;justify-content:space-between;align-items:center;cursor:none;font-family:'Jost'">
+    <span style="font-family:'Cormorant Garamond',serif;font-size:20px;font-weight:300;color:var(--txt)">Wo befindet sich das Hotel Halm?</span>
+    <span class="faq-arrow" style="color:var(--gold);font-size:18px;transition:transform .35s;flex-shrink:0;margin-left:20px">+</span>
+  </button>
+  <div class="faq-answer" style="display:none;padding-bottom:20px">
+    <p class="bp">Das Hotel Halm liegt direkt am Bahnhofplatz 6 in Konstanz — nur 2 Gehminuten vom Bahnhof und 5 Minuten vom Bodensee entfernt. Die Innenstadt ist fußläufig erreichbar.</p>
+  </div>
+</div>
+<div class="faq-item rv" style="border-bottom:1px solid rgba(201,169,110,.09);overflow:hidden">
+  <button onclick="toggleFaq(this)" style="width:100%;text-align:left;background:none;border:none;padding:22px 0;display:flex;justify-content:space-between;align-items:center;cursor:none;font-family:'Jost'">
+    <span style="font-family:'Cormorant Garamond',serif;font-size:20px;font-weight:300;color:var(--txt)">Welche Parkoptionen gibt es?</span>
+    <span class="faq-arrow" style="color:var(--gold);font-size:18px;transition:transform .35s;flex-shrink:0;margin-left:20px">+</span>
+  </button>
+  <div class="faq-answer" style="display:none;padding-bottom:20px">
+    <p class="bp">Das Hotel Halm verfügt über eine eigene Tiefgarage (kostenpflichtig, bitte vorab reservieren) sowie öffentliche Parkmöglichkeiten in unmittelbarer Nähe. Details finden Sie auf unserer Parken-Seite.</p>
+  </div>
+</div>
+<div class="faq-item rv" style="border-bottom:1px solid rgba(201,169,110,.09);overflow:hidden">
+  <button onclick="toggleFaq(this)" style="width:100%;text-align:left;background:none;border:none;padding:22px 0;display:flex;justify-content:space-between;align-items:center;cursor:none;font-family:'Jost'">
+    <span style="font-family:'Cormorant Garamond',serif;font-size:20px;font-weight:300;color:var(--txt)">Ist das Hotel haustierfreundlich?</span>
+    <span class="faq-arrow" style="color:var(--gold);font-size:18px;transition:transform .35s;flex-shrink:0;margin-left:20px">+</span>
+  </button>
+  <div class="faq-answer" style="display:none;padding-bottom:20px">
+    <p class="bp">Ja — in ausgewählten Zimmern sind Haustiere (bis 10 kg) herzlich willkommen. Bitte informieren Sie uns bei der Buchung. Es fällt eine Reinigungspauschale von 25 € pro Aufenthalt an.</p>
+  </div>
+</div>
+<div class="faq-item rv" style="border-bottom:1px solid rgba(201,169,110,.09);overflow:hidden">
+  <button onclick="toggleFaq(this)" style="width:100%;text-align:left;background:none;border:none;padding:22px 0;display:flex;justify-content:space-between;align-items:center;cursor:none;font-family:'Jost'">
+    <span style="font-family:'Cormorant Garamond',serif;font-size:20px;font-weight:300;color:var(--txt)">Gibt es WLAN im Hotel?</span>
+    <span class="faq-arrow" style="color:var(--gold);font-size:18px;transition:transform .35s;flex-shrink:0;margin-left:20px">+</span>
+  </button>
+  <div class="faq-answer" style="display:none;padding-bottom:20px">
+    <p class="bp">Kostenfreies High-Speed-WLAN steht Ihnen in allen Zimmern und öffentlichen Bereichen zur Verfügung.</p>
+  </div>
+</div>
+</div>
+<div style="margin-bottom:56px" class="rv">
+  <h3 style="font-family:'Cormorant Garamond',serif;font-size:28px;font-weight:300;color:var(--txt);margin-bottom:2px;padding-bottom:14px;border-bottom:1px solid rgba(201,169,110,.15)">Zimmer & Buchung</h3>
+  
+<div class="faq-item rv" style="border-bottom:1px solid rgba(201,169,110,.09);overflow:hidden">
+  <button onclick="toggleFaq(this)" style="width:100%;text-align:left;background:none;border:none;padding:22px 0;display:flex;justify-content:space-between;align-items:center;cursor:none;font-family:'Jost'">
+    <span style="font-family:'Cormorant Garamond',serif;font-size:20px;font-weight:300;color:var(--txt)">Ab wann kann ich einchecken?</span>
+    <span class="faq-arrow" style="color:var(--gold);font-size:18px;transition:transform .35s;flex-shrink:0;margin-left:20px">+</span>
+  </button>
+  <div class="faq-answer" style="display:none;padding-bottom:20px">
+    <p class="bp">Der Check-in ist ab 15:00 Uhr möglich. Frühere Anreisen sind nach Verfügbarkeit und auf Anfrage möglich. Der Check-out ist spätestens um 12:00 Uhr.</p>
+  </div>
+</div>
+<div class="faq-item rv" style="border-bottom:1px solid rgba(201,169,110,.09);overflow:hidden">
+  <button onclick="toggleFaq(this)" style="width:100%;text-align:left;background:none;border:none;padding:22px 0;display:flex;justify-content:space-between;align-items:center;cursor:none;font-family:'Jost'">
+    <span style="font-family:'Cormorant Garamond',serif;font-size:20px;font-weight:300;color:var(--txt)">Wie kann ich stornieren?</span>
+    <span class="faq-arrow" style="color:var(--gold);font-size:18px;transition:transform .35s;flex-shrink:0;margin-left:20px">+</span>
+  </button>
+  <div class="faq-answer" style="display:none;padding-bottom:20px">
+    <p class="bp">Kostenlose Stornierung bis 48 Stunden vor Anreise. Bei Stornierung innerhalb von 48 Stunden wird eine Gebühr von 50 % des Zimmerpreises erhoben. Bei No-Show 100 %.</p>
+  </div>
+</div>
+<div class="faq-item rv" style="border-bottom:1px solid rgba(201,169,110,.09);overflow:hidden">
+  <button onclick="toggleFaq(this)" style="width:100%;text-align:left;background:none;border:none;padding:22px 0;display:flex;justify-content:space-between;align-items:center;cursor:none;font-family:'Jost'">
+    <span style="font-family:'Cormorant Garamond',serif;font-size:20px;font-weight:300;color:var(--txt)">Kann ich ein Kinderbett bestellen?</span>
+    <span class="faq-arrow" style="color:var(--gold);font-size:18px;transition:transform .35s;flex-shrink:0;margin-left:20px">+</span>
+  </button>
+  <div class="faq-answer" style="display:none;padding-bottom:20px">
+    <p class="bp">Ja, Kinderbetten und Babybadewannen können kostenlos auf Anfrage bereitgestellt werden. Bitte bei der Buchung angeben.</p>
+  </div>
+</div>
+<div class="faq-item rv" style="border-bottom:1px solid rgba(201,169,110,.09);overflow:hidden">
+  <button onclick="toggleFaq(this)" style="width:100%;text-align:left;background:none;border:none;padding:22px 0;display:flex;justify-content:space-between;align-items:center;cursor:none;font-family:'Jost'">
+    <span style="font-family:'Cormorant Garamond',serif;font-size:20px;font-weight:300;color:var(--txt)">Gibt es eine Bestpreisgarantie?</span>
+    <span class="faq-arrow" style="color:var(--gold);font-size:18px;transition:transform .35s;flex-shrink:0;margin-left:20px">+</span>
+  </button>
+  <div class="faq-answer" style="display:none;padding-bottom:20px">
+    <p class="bp">Ja! Wenn Sie dasselbe Zimmer auf einer Drittplattform günstiger finden, passen wir den Preis an — direkt gebucht bei uns.</p>
+  </div>
+</div>
+</div>
+<div style="margin-bottom:56px" class="rv">
+  <h3 style="font-family:'Cormorant Garamond',serif;font-size:28px;font-weight:300;color:var(--txt);margin-bottom:2px;padding-bottom:14px;border-bottom:1px solid rgba(201,169,110,.15)">Restaurant & Frühstück</h3>
+  
+<div class="faq-item rv" style="border-bottom:1px solid rgba(201,169,110,.09);overflow:hidden">
+  <button onclick="toggleFaq(this)" style="width:100%;text-align:left;background:none;border:none;padding:22px 0;display:flex;justify-content:space-between;align-items:center;cursor:none;font-family:'Jost'">
+    <span style="font-family:'Cormorant Garamond',serif;font-size:20px;font-weight:300;color:var(--txt)">Ist das Frühstück im Zimmerpreis inbegriffen?</span>
+    <span class="faq-arrow" style="color:var(--gold);font-size:18px;transition:transform .35s;flex-shrink:0;margin-left:20px">+</span>
+  </button>
+  <div class="faq-answer" style="display:none;padding-bottom:20px">
+    <p class="bp">Ja — unser reichhaltiges Frühstücksbuffet mit regionalen Produkten ist in allen Zimmerkategorien inklusive. Es wird täglich von 07:00 bis 10:30 Uhr serviert.</p>
+  </div>
+</div>
+<div class="faq-item rv" style="border-bottom:1px solid rgba(201,169,110,.09);overflow:hidden">
+  <button onclick="toggleFaq(this)" style="width:100%;text-align:left;background:none;border:none;padding:22px 0;display:flex;justify-content:space-between;align-items:center;cursor:none;font-family:'Jost'">
+    <span style="font-family:'Cormorant Garamond',serif;font-size:20px;font-weight:300;color:var(--txt)">Kann ich auch ohne Übernachtung im Restaurant essen?</span>
+    <span class="faq-arrow" style="color:var(--gold);font-size:18px;transition:transform .35s;flex-shrink:0;margin-left:20px">+</span>
+  </button>
+  <div class="faq-answer" style="display:none;padding-bottom:20px">
+    <p class="bp">Selbstverständlich — unser Restaurant ist auch für externe Gäste geöffnet. Tischreservierungen empfehlen wir besonders am Wochenende.</p>
+  </div>
+</div>
+<div class="faq-item rv" style="border-bottom:1px solid rgba(201,169,110,.09);overflow:hidden">
+  <button onclick="toggleFaq(this)" style="width:100%;text-align:left;background:none;border:none;padding:22px 0;display:flex;justify-content:space-between;align-items:center;cursor:none;font-family:'Jost'">
+    <span style="font-family:'Cormorant Garamond',serif;font-size:20px;font-weight:300;color:var(--txt)">Werden Diätwünsche berücksichtigt?</span>
+    <span class="faq-arrow" style="color:var(--gold);font-size:18px;transition:transform .35s;flex-shrink:0;margin-left:20px">+</span>
+  </button>
+  <div class="faq-answer" style="display:none;padding-bottom:20px">
+    <p class="bp">Unser Küchenteam berücksichtigt gerne vegetarische, vegane, glutenfreie und weitere Ernährungsanforderungen. Bitte teilen Sie uns Ihre Wünsche bei der Reservierung mit.</p>
+  </div>
+</div>
+</div>
+<div style="margin-bottom:56px" class="rv">
+  <h3 style="font-family:'Cormorant Garamond',serif;font-size:28px;font-weight:300;color:var(--txt);margin-bottom:2px;padding-bottom:14px;border-bottom:1px solid rgba(201,169,110,.15)">Wellness & Sauna</h3>
+  
+<div class="faq-item rv" style="border-bottom:1px solid rgba(201,169,110,.09);overflow:hidden">
+  <button onclick="toggleFaq(this)" style="width:100%;text-align:left;background:none;border:none;padding:22px 0;display:flex;justify-content:space-between;align-items:center;cursor:none;font-family:'Jost'">
+    <span style="font-family:'Cormorant Garamond',serif;font-size:20px;font-weight:300;color:var(--txt)">Was ist im Wellnessbereich inbegriffen?</span>
+    <span class="faq-arrow" style="color:var(--gold);font-size:18px;transition:transform .35s;flex-shrink:0;margin-left:20px">+</span>
+  </button>
+  <div class="faq-answer" style="display:none;padding-bottom:20px">
+    <p class="bp">Der Zugang zum 800 m² großen Wellnessbereich mit Finnischer Sauna, Biosauna, Dampfbad, Whirlpool und Ruheraum ist für alle Hotelgäste kostenlos inklusive.</p>
+  </div>
+</div>
+<div class="faq-item rv" style="border-bottom:1px solid rgba(201,169,110,.09);overflow:hidden">
+  <button onclick="toggleFaq(this)" style="width:100%;text-align:left;background:none;border:none;padding:22px 0;display:flex;justify-content:space-between;align-items:center;cursor:none;font-family:'Jost'">
+    <span style="font-family:'Cormorant Garamond',serif;font-size:20px;font-weight:300;color:var(--txt)">Kann ich Massagen im Hotel buchen?</span>
+    <span class="faq-arrow" style="color:var(--gold);font-size:18px;transition:transform .35s;flex-shrink:0;margin-left:20px">+</span>
+  </button>
+  <div class="faq-answer" style="display:none;padding-bottom:20px">
+    <p class="bp">Ja — unser Spa-Bereich bietet eine Vielzahl an Massagen und Behandlungen. Buchungen können über die Rezeption oder direkt bei uns erfolgen.</p>
+  </div>
+</div>
+<div class="faq-item rv" style="border-bottom:1px solid rgba(201,169,110,.09);overflow:hidden">
+  <button onclick="toggleFaq(this)" style="width:100%;text-align:left;background:none;border:none;padding:22px 0;display:flex;justify-content:space-between;align-items:center;cursor:none;font-family:'Jost'">
+    <span style="font-family:'Cormorant Garamond',serif;font-size:20px;font-weight:300;color:var(--txt)">Sind Kinder im Wellnessbereich erlaubt?</span>
+    <span class="faq-arrow" style="color:var(--gold);font-size:18px;transition:transform .35s;flex-shrink:0;margin-left:20px">+</span>
+  </button>
+  <div class="faq-answer" style="display:none;padding-bottom:20px">
+    <p class="bp">Der Saunabereich ist Erwachsenen vorbehalten (ab 16 Jahre). Der Whirlpool-Bereich ist für Kinder ab 12 Jahren in Begleitung Erwachsener zugänglich.</p>
+  </div>
+</div>
+</div>
+  </div>
+</section>
+<script>
+function toggleFaq(btn){
+  const ans=btn.nextElementSibling, arrow=btn.querySelector('.faq-arrow');
+  const open=ans.style.display==='block';
+  document.querySelectorAll('.faq-answer').forEach(a=>a.style.display='none');
+  document.querySelectorAll('.faq-arrow').forEach(a=>{a.textContent='+';a.style.transform='rotate(0deg)'});
+  if(!open){ans.style.display='block';arrow.textContent='−';arrow.style.transform='rotate(180deg)';}
+}
+</script><footer style="background:#111009;border-top:1px solid rgba(201,169,110,.09);padding:64px 56px 32px">
+  <div style="display:grid;grid-template-columns:1.4fr 1fr 1fr 1fr;gap:48px;margin-bottom:48px;padding-bottom:48px;border-bottom:1px solid rgba(201,169,110,.07)">
+    <div>
+      <p style="font-family:'Cormorant Garamond',serif;font-size:21px;font-weight:300;letter-spacing:.22em;text-transform:uppercase;color:#faf7f2;margin-bottom:5px">Hotel Halm</p>
+      <p style="font-size:8px;letter-spacing:.4em;text-transform:uppercase;color:var(--gold);font-weight:200;margin-bottom:16px">Konstanz am Bodensee</p>
+      <p style="font-size:12px;font-weight:200;color:rgba(200,191,176,.4);line-height:2">Bahnhofplatz 6<br>78462 Konstanz<br>+49 7531 1234</p>
+    </div>
+    <div>
+      <p style="font-size:9px;letter-spacing:.38em;text-transform:uppercase;color:var(--gold);font-weight:200;margin-bottom:16px">Hotel</p>
+      <ul style="list-style:none;display:flex;flex-direction:column;gap:10px">
+        <li><a href="#" style="font-size:12px;color:rgba(200,191,176,.4);text-decoration:none;font-weight:200">Zimmer &amp; Suiten</a></li><li><a href="#" style="font-size:12px;color:rgba(200,191,176,.4);text-decoration:none;font-weight:200">Gastronomie</a></li><li><a href="#" style="font-size:12px;color:rgba(200,191,176,.4);text-decoration:none;font-weight:200">Wellness &amp; Sauna</a></li><li><a href="#" style="font-size:12px;color:rgba(200,191,176,.4);text-decoration:none;font-weight:200">Tagen &amp; Feiern</a></li>
+      </ul>
+    </div>
+    <div>
+      <p style="font-size:9px;letter-spacing:.38em;text-transform:uppercase;color:var(--gold);font-weight:200;margin-bottom:16px">Service</p>
+      <ul style="list-style:none;display:flex;flex-direction:column;gap:10px">
+        <li><a href="#" style="font-size:12px;color:rgba(200,191,176,.4);text-decoration:none;font-weight:200">Karriere</a></li><li><a href="#" style="font-size:12px;color:rgba(200,191,176,.4);text-decoration:none;font-weight:200">Gutscheine</a></li><li><a href="#" style="font-size:12px;color:rgba(200,191,176,.4);text-decoration:none;font-weight:200">Newsletter</a></li><li><a href="#" style="font-size:12px;color:rgba(200,191,176,.4);text-decoration:none;font-weight:200">Presse</a></li>
+      </ul>
+    </div>
+    <div>
+      <p style="font-size:9px;letter-spacing:.38em;text-transform:uppercase;color:var(--gold);font-weight:200;margin-bottom:16px">Rechtliches</p>
+      <ul style="list-style:none;display:flex;flex-direction:column;gap:10px">
+        <li><a href="#" style="font-size:12px;color:rgba(200,191,176,.4);text-decoration:none;font-weight:200">AGB</a></li><li><a href="#" style="font-size:12px;color:rgba(200,191,176,.4);text-decoration:none;font-weight:200">Impressum</a></li><li><a href="#" style="font-size:12px;color:rgba(200,191,176,.4);text-decoration:none;font-weight:200">Datenschutz</a></li><li><a href="#" style="font-size:12px;color:rgba(200,191,176,.4);text-decoration:none;font-weight:200">Barrierefreiheit</a></li>
+      </ul>
+    </div>
+  </div>
+  <div style="display:flex;justify-content:space-between;align-items:center">
+    <p style="font-size:10px;color:rgba(200,191,176,.22);letter-spacing:.07em">© 2024 Hotel Halm Konstanz. Alle Rechte vorbehalten.</p>
+    <a href="#" style="font-size:10px;letter-spacing:.2em;text-transform:uppercase;color:rgba(200,191,176,.22);text-decoration:none">↑ Nach oben</a>
+  </div>
+</footer><script>
+const cur=document.getElementById('cur'),cr=document.getElementById('curR');
+let rx=0,ry=0,mx=0,my=0;
+document.addEventListener('mousemove',e=>{mx=e.clientX;my=e.clientY;cur.style.left=mx+'px';cur.style.top=my+'px';});
+document.querySelectorAll('a,button,label,input,select,textarea,.card-hover').forEach(el=>{
+  el.addEventListener('mouseenter',()=>{cr.style.transform='translate(-50%,-50%) scale(1.7)';cr.style.borderColor='rgba(201,169,110,.75)';});
+  el.addEventListener('mouseleave',()=>{cr.style.transform='translate(-50%,-50%) scale(1)';cr.style.borderColor='rgba(201,169,110,.5)';});
+});
+(function loop(){rx+=(mx-rx)*.12;ry+=(my-ry)*.12;cr.style.left=rx+'px';cr.style.top=ry+'px';requestAnimationFrame(loop);})();
+const obs=new IntersectionObserver(e=>e.forEach(x=>{if(x.isIntersecting)x.target.classList.add('vis');}),{threshold:.08});
+document.querySelectorAll('.rv').forEach(el=>obs.observe(el));
+</script>
+</body>
+</html>

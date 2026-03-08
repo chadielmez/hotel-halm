@@ -1,0 +1,287 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Newsletter — Hotel Halm Konstanz</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300;1,400&family=Jost:wght@200;300;400&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#0a0906; --bg2:#111009; --bg3:#1a1814;
+  --gold:#c9a96e; --gold-l:#e2c99a;
+  --txt:#f4ede0; --dim:#c8bfb0; --faint:rgba(200,191,176,.35);
+  --w:#faf7f2; --nav-rgb:10,9,6;
+  --hero-overlay:rgba(10,9,6,.5);
+  --footer-bg:#111009; --footer-border:rgba(201,169,110,.09);
+  --card-border:rgba(201,169,110,.1); --divider:rgba(201,169,110,.18);
+}
+
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{background:var(--bg);color:var(--txt);font-family:'Jost',sans-serif;font-weight:300;overflow-x:hidden;cursor:none}
+body::before{content:'';position:fixed;inset:0;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");opacity:.03;pointer-events:none;z-index:9997}
+.cur{position:fixed;width:8px;height:8px;background:var(--gold);border-radius:50%;pointer-events:none;z-index:9999;transform:translate(-50%,-50%);transition:transform .1s}
+.cur-r{position:fixed;width:32px;height:32px;border:1px solid rgba(201,169,110,.5);border-radius:50%;pointer-events:none;z-index:9998;transform:translate(-50%,-50%);transition:all .15s}
+/* NAV */
+nav{position:fixed;top:0;left:0;right:0;z-index:1000;padding:20px 56px;display:flex;align-items:center;justify-content:space-between;background:rgba(var(--nav-rgb),.97);border-bottom:1px solid rgba(201,169,110,.09);backdrop-filter:blur(14px);animation:fD .9s ease both}
+.nav-logo{font-family:'Cormorant Garamond',serif;font-size:19px;font-weight:300;letter-spacing:.25em;text-transform:uppercase;color:var(--txt);text-decoration:none;line-height:1}
+.nav-logo span{display:block;font-size:8px;letter-spacing:.45em;color:var(--gold);margin-top:3px;font-family:'Jost';font-weight:200}
+.nav-links{display:flex;gap:28px;list-style:none}
+.nav-links a{font-size:9px;font-weight:300;letter-spacing:.2em;text-transform:uppercase;color:var(--dim);text-decoration:none;position:relative;transition:color .3s}
+.nav-links a::after{content:'';position:absolute;bottom:-3px;left:0;width:0;height:1px;background:var(--gold);transition:width .4s}
+.nav-links a:hover,.nav-links a.act{color:var(--gold)}
+.nav-links a:hover::after,.nav-links a.act::after{width:100%}
+.nav-cta{font-size:9px;font-weight:300;letter-spacing:.2em;text-transform:uppercase;color:var(--gold);text-decoration:none;border:1px solid var(--gold);padding:10px 22px;transition:all .4s;position:relative;overflow:hidden}
+.nav-cta::before{content:'';position:absolute;inset:0;background:var(--gold);transform:scaleX(0);transform-origin:left;transition:transform .4s;z-index:-1}
+.nav-cta:hover{color:var(--bg)}
+.nav-cta:hover::before{transform:scaleX(1)}
+/* HAMBURGER */
+.hamburger{display:none;flex-direction:column;gap:5px;cursor:pointer;padding:4px;background:none;border:none;z-index:2001}
+.hamburger span{display:block;width:24px;height:1.5px;background:var(--gold)}
+.mobile-menu{display:none;position:fixed;top:0;left:0;right:0;bottom:0;background:var(--bg);z-index:2000;flex-direction:column;align-items:center;justify-content:center;gap:28px}
+.mobile-menu.open{display:flex}
+.mobile-menu a{font-family:'Cormorant Garamond',serif;font-size:30px;font-weight:300;color:var(--txt);text-decoration:none;letter-spacing:.06em}
+.mobile-menu a:hover{color:var(--gold)}
+.mobile-menu-close{position:absolute;top:24px;right:24px;font-size:28px;color:var(--gold);background:none;border:none;cursor:pointer;font-family:'Jost'}
+.mobile-menu-sub{font-size:10px;letter-spacing:.3em;text-transform:uppercase;color:var(--faint);margin-top:8px}
+/* TYPOGRAPHY */
+.sl{font-size:9px;letter-spacing:.45em;text-transform:uppercase;color:var(--gold);font-weight:200;margin-bottom:14px;display:flex;align-items:center;gap:12px}
+.sl::before{content:'';width:28px;height:1px;background:var(--gold);flex-shrink:0}
+.st{font-family:'Cormorant Garamond',serif;font-size:clamp(36px,5vw,64px);font-weight:300;line-height:1.05;color:var(--txt)}
+.st em{font-style:italic;color:var(--dim)}
+.bt{font-size:14px;font-weight:200;line-height:2.1;color:var(--dim)}
+.bp{font-size:13px;font-weight:200;line-height:2;color:var(--dim)}
+/* BUTTONS */
+.btn-p{font-size:10px;letter-spacing:.27em;text-transform:uppercase;font-weight:300;color:var(--bg);background:var(--gold);padding:14px 32px;text-decoration:none;display:inline-block;transition:all .4s}
+.btn-p:hover{background:var(--gold-l);transform:translateY(-2px)}
+.btn-o{font-size:10px;letter-spacing:.27em;text-transform:uppercase;font-weight:300;color:var(--gold);border:1px solid var(--gold);padding:13px 30px;text-decoration:none;display:inline-block;transition:all .4s;position:relative;overflow:hidden}
+.btn-o::before{content:'';position:absolute;inset:0;background:var(--gold);transform:scaleX(0);transform-origin:left;transition:transform .4s;z-index:-1}
+.btn-o:hover{color:var(--bg)}
+.btn-o:hover::before{transform:scaleX(1)}
+.btn-g{font-size:10px;letter-spacing:.23em;text-transform:uppercase;font-weight:300;color:var(--dim);text-decoration:none;display:inline-flex;align-items:center;gap:10px;transition:color .3s}
+.btn-g::after{content:'→';font-size:14px;transition:transform .3s}
+.btn-g:hover{color:var(--gold)}
+.btn-g:hover::after{transform:translateX(5px)}
+/* LAYOUT */
+.divider{width:100%;height:1px;background:linear-gradient(to right,transparent,var(--divider),transparent)}
+.reveal{opacity:0;transform:translateY(32px);transition:all .9s cubic-bezier(.25,.46,.45,.94)}
+.reveal.vis{opacity:1;transform:translateY(0)}
+.d1{transition-delay:.1s}.d2{transition-delay:.22s}.d3{transition-delay:.34s}.d4{transition-delay:.46s}
+/* ANIMATIONS */
+@keyframes fU{from{opacity:0;transform:translateY(28px)}to{opacity:1;transform:translateY(0)}}
+@keyframes fD{from{opacity:0;transform:translateY(-14px)}to{opacity:1;transform:translateY(0)}}
+@keyframes sZ{from{transform:scale(1)}to{transform:scale(1.06)}}
+@keyframes fI{from{opacity:0}to{opacity:1}}
+/* FORM */
+.f-label{font-size:8.5px;letter-spacing:.3em;text-transform:uppercase;color:var(--gold);font-weight:200;display:block;margin-bottom:7px}
+.f-input{width:100%;background:var(--bg2);border:1px solid rgba(201,169,110,.14);color:var(--txt);padding:12px 16px;font-family:'Jost';font-size:12.5px;font-weight:200;outline:none;transition:border-color .3s;appearance:none}
+.f-input:focus{border-color:rgba(201,169,110,.5)}
+textarea.f-input{resize:vertical;min-height:120px}
+select.f-input{cursor:pointer}
+.f-row{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:16px}
+.f-full{grid-column:span 2;margin-bottom:16px}
+/* MOBILE */
+@media(max-width:900px){
+  nav{padding:14px 24px}
+  .nav-links{display:none!important}
+  .hamburger{display:flex!important}
+  section[style*="padding:80px 56px"],section[style*="padding:72px 56px"],section[style*="padding:64px 56px"]{padding:48px 24px!important}
+  div[style*="grid-template-columns"]{display:flex!important;flex-direction:column!important}
+  [style*="padding:0 56px"]{padding:0 24px 48px!important}
+}
+
+
+</style>
+</head>
+<body>
+<div class="cur" id="cur"></div>
+<div class="cur-r" id="curR"></div>
+<nav>
+  <a href="hotel-halm-home.html" class="nav-logo">Hotel Halm<span>Konstanz am Bodensee</span></a>
+  <ul class="nav-links"><li><a href="hotel-halm-zimmer.html">Zimmer</a></li>
+    <li><a href="hotel-halm-gastronomie.html">Gastronomie</a></li>
+    <li><a href="hotel-halm-sauna.html">Wellness</a></li>
+    <li><a href="hotel-halm-tagen.html">Tagen</a></li>
+    <li><a href="hotel-halm-angebote.html">Angebote</a></li>
+    <li><a href="hotel-halm-ueber.html">Über uns</a></li></ul>
+  <div style="display:flex;align-items:center;gap:14px">
+    <a href="hotel-halm-buchen.html" class="nav-cta">Zimmer buchen</a>
+    <button class="hamburger" onclick="document.getElementById('mm').classList.toggle('open')"><span></span><span></span><span></span></button>
+  </div>
+</nav>
+<div class="mobile-menu" id="mm">
+  <button class="mobile-menu-close" onclick="document.getElementById('mm').classList.remove('open')">✕</button>
+  <a href="hotel-halm-zimmer.html">Zimmer</a>
+  <a href="hotel-halm-gastronomie.html">Gastronomie</a>
+  <a href="hotel-halm-sauna.html">Wellness</a>
+  <a href="hotel-halm-tagen.html">Tagen</a>
+  <a href="hotel-halm-angebote.html">Angebote</a>
+  <a href="hotel-halm-ueber.html">Über uns</a>
+  <a href="hotel-halm-buchen.html" style="color:var(--gold);font-size:24px">Zimmer buchen →</a>
+  <p class="mobile-menu-sub">Hotel Halm · Konstanz · +49 7531 1234</p>
+</div>
+<section style="position:relative;height:58vh;min-height:420px;display:flex;align-items:flex-end;overflow:hidden;margin-top:66px">
+  <div style="position:absolute;inset:0;background:url('https://images.unsplash.com/photo-1516321318423-f06f85e504b3?w=1800&q=80') center/cover;animation:sZ 20s ease-in-out infinite alternate;filter:brightness(.35) saturate(.85)"></div>
+  <div style="position:absolute;inset:0;background:linear-gradient(to top,var(--bg) 0%,rgba(10,9,6,.5) 45%,transparent 75%)"></div>
+  <div style="position:relative;z-index:2;padding:0 56px 64px;animation:fU 1.2s ease both;animation-delay:.35s">
+    <p class="sl">Exklusive Neuigkeiten</p>
+    <h1 class="st" style="font-size:clamp(48px,8vw,100px);line-height:.92;color:#faf7f2">Newsletter &<br><em>Angebote</em></h1>
+    <p style='font-size:14px;font-weight:200;color:rgba(200,191,176,.75);max-width:460px;line-height:2;margin-top:18px'>Seien Sie als Erster informiert — über Angebote, Events und Neuigkeiten aus dem Hotel Halm.</p>
+  </div>
+</section>
+<!-- BENEFITS -->
+<section style="padding:80px 56px;background:var(--bg2)">
+  <div style="display:grid;grid-template-columns:1fr 1fr;gap:72px;align-items:start">
+
+    <!-- ANMELDEFORMULAR -->
+    <div class="reveal">
+      <p class="sl">Jetzt anmelden</p>
+      <h2 class="st" style="margin-bottom:24px">Exklusive Vorteile<br><em>für Abonnenten</em></h2>
+      <p class="bt" style="margin-bottom:36px">Tragen Sie sich ein und profitieren Sie von exklusiven Angeboten, Frühbucherrabatten und Einladungen zu besonderen Events.</p>
+
+      <form onsubmit="handleNL(event)" style="display:flex;flex-direction:column;gap:0">
+        <div class="f-row" style="margin-bottom:16px">
+          <div><label class="f-label">Vorname</label><input type="text" class="f-input" placeholder="Maria"></div>
+          <div><label class="f-label">Nachname</label><input type="text" class="f-input" placeholder="Muster"></div>
+        </div>
+        <div style="margin-bottom:16px"><label class="f-label">E-Mail-Adresse *</label><input type="email" class="f-input" placeholder="maria@beispiel.de" required></div>
+        <div style="margin-bottom:20px">
+          <label class="f-label">Ich interessiere mich für</label>
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:4px">
+            <label style="display:flex;align-items:center;gap:10px;font-size:12px;color:var(--dim);font-weight:200;cursor:pointer"><input type="checkbox" style="accent-color:var(--gold);width:14px;height:14px" checked>Sonderangebote</label><label style="display:flex;align-items:center;gap:10px;font-size:12px;color:var(--dim);font-weight:200;cursor:pointer"><input type="checkbox" style="accent-color:var(--gold);width:14px;height:14px" checked>Saisonale Pakete</label><label style="display:flex;align-items:center;gap:10px;font-size:12px;color:var(--dim);font-weight:200;cursor:pointer"><input type="checkbox" style="accent-color:var(--gold);width:14px;height:14px" checked>Events & Weinabende</label><label style="display:flex;align-items:center;gap:10px;font-size:12px;color:var(--dim);font-weight:200;cursor:pointer"><input type="checkbox" style="accent-color:var(--gold);width:14px;height:14px" checked>Wellness & Spa</label><label style="display:flex;align-items:center;gap:10px;font-size:12px;color:var(--dim);font-weight:200;cursor:pointer"><input type="checkbox" style="accent-color:var(--gold);width:14px;height:14px" >Restaurant-News</label><label style="display:flex;align-items:center;gap:10px;font-size:12px;color:var(--dim);font-weight:200;cursor:pointer"><input type="checkbox" style="accent-color:var(--gold);width:14px;height:14px" >Gruppenreisen</label>
+          </div>
+        </div>
+        <div style="display:flex;align-items:flex-start;gap:12px;margin-bottom:24px">
+          <input type="checkbox" id="nl-dsgvo" style="width:15px;height:15px;flex-shrink:0;margin-top:2px;accent-color:var(--gold)" required>
+          <label for="nl-dsgvo" style="font-size:11px;color:var(--dim);font-weight:200;line-height:1.7">Ich bin damit einverstanden, regelmäßig Newsletter und Angebote des Hotel Halm per E-Mail zu erhalten. Die <a href="hotel-halm-datenschutz.html" style="color:var(--gold);text-decoration:none">Datenschutzerklärung</a> habe ich gelesen. Abmeldung jederzeit möglich.</label>
+        </div>
+        <button type="submit" class="btn-p" style="align-self:flex-start;border:none;cursor:pointer">Jetzt anmelden & Vorteile sichern</button>
+        <div id="nlSuccess" style="display:none;margin-top:20px;padding:20px 24px;background:rgba(201,169,110,.07);border:1px solid rgba(201,169,110,.25);font-size:13px;color:var(--gold);font-weight:200;line-height:1.7">
+          ✓ <strong>Willkommen im Hotel Halm Club!</strong><br>Sie erhalten in Kürze eine Bestätigungs-E-Mail.
+        </div>
+        <p style="font-size:10px;color:var(--faint);margin-top:14px;font-weight:200">Ihre Daten werden niemals an Dritte weitergegeben. Abmeldung jederzeit mit einem Klick.</p>
+      </form>
+    </div>
+
+    <!-- VORTEILE -->
+    <div>
+      <p class="sl reveal d1">Ihre Vorteile</p>
+      <div style="display:flex;flex-direction:column;gap:2px;margin-top:36px">
+        <div class="reveal d0" style="background:var(--bg);border:1px solid var(--card-border);padding:28px 28px;display:flex;gap:20px;align-items:flex-start;transition:border-color .3s" onmouseover="this.style.borderColor='rgba(201,169,110,.35)'" onmouseout="this.style.borderColor='var(--card-border)'"><div style="width:44px;height:44px;background:rgba(201,169,110,.1);border:1px solid rgba(201,169,110,.2);display:flex;align-items:center;justify-content:center;font-size:18px;flex-shrink:0">🎁</div><div><h3 style="font-family:'Cormorant Garamond',serif;font-size:19px;font-weight:300;color:var(--txt);margin-bottom:6px">Exklusive Frühbucher-Angebote</h3><p style="font-size:12px;color:var(--dim);font-weight:200;line-height:1.8">Bis zu 20% Rabatt auf ausgewählte Zimmerkategorien — nur für Newsletter-Abonnenten.</p></div></div><div class="reveal d1" style="background:var(--bg);border:1px solid var(--card-border);padding:28px 28px;display:flex;gap:20px;align-items:flex-start;transition:border-color .3s" onmouseover="this.style.borderColor='rgba(201,169,110,.35)'" onmouseout="this.style.borderColor='var(--card-border)'"><div style="width:44px;height:44px;background:rgba(201,169,110,.1);border:1px solid rgba(201,169,110,.2);display:flex;align-items:center;justify-content:center;font-size:18px;flex-shrink:0">🍷</div><div><h3 style="font-family:'Cormorant Garamond',serif;font-size:19px;font-weight:300;color:var(--txt);margin-bottom:6px">Event-Einladungen</h3><p style="font-size:12px;color:var(--dim);font-weight:200;line-height:1.8">Zuerst informiert über Weinabende, Kochkurse, Konzerte und saisonale Events.</p></div></div><div class="reveal d2" style="background:var(--bg);border:1px solid var(--card-border);padding:28px 28px;display:flex;gap:20px;align-items:flex-start;transition:border-color .3s" onmouseover="this.style.borderColor='rgba(201,169,110,.35)'" onmouseout="this.style.borderColor='var(--card-border)'"><div style="width:44px;height:44px;background:rgba(201,169,110,.1);border:1px solid rgba(201,169,110,.2);display:flex;align-items:center;justify-content:center;font-size:18px;flex-shrink:0">🌸</div><div><h3 style="font-family:'Cormorant Garamond',serif;font-size:19px;font-weight:300;color:var(--txt);margin-bottom:6px">Saisonale Pakete</h3><p style="font-size:12px;color:var(--dim);font-weight:200;line-height:1.8">Frühling, Sommer, Herbst, Winter — maßgeschneiderte Pakete mit Zusatzleistungen.</p></div></div><div class="reveal d0" style="background:var(--bg);border:1px solid var(--card-border);padding:28px 28px;display:flex;gap:20px;align-items:flex-start;transition:border-color .3s" onmouseover="this.style.borderColor='rgba(201,169,110,.35)'" onmouseout="this.style.borderColor='var(--card-border)'"><div style="width:44px;height:44px;background:rgba(201,169,110,.1);border:1px solid rgba(201,169,110,.2);display:flex;align-items:center;justify-content:center;font-size:18px;flex-shrink:0">🏨</div><div><h3 style="font-family:'Cormorant Garamond',serif;font-size:19px;font-weight:300;color:var(--txt);margin-bottom:6px">Roomupgrade-Überraschungen</h3><p style="font-size:12px;color:var(--dim);font-weight:200;line-height:1.8">Gelegentliche kostenlose Zimmer-Upgrades für treue Newsletter-Leser.</p></div></div><div class="reveal d1" style="background:var(--bg);border:1px solid var(--card-border);padding:28px 28px;display:flex;gap:20px;align-items:flex-start;transition:border-color .3s" onmouseover="this.style.borderColor='rgba(201,169,110,.35)'" onmouseout="this.style.borderColor='var(--card-border)'"><div style="width:44px;height:44px;background:rgba(201,169,110,.1);border:1px solid rgba(201,169,110,.2);display:flex;align-items:center;justify-content:center;font-size:18px;flex-shrink:0">📰</div><div><h3 style="font-family:'Cormorant Garamond',serif;font-size:19px;font-weight:300;color:var(--txt);margin-bottom:6px">Hotel-Neuigkeiten</h3><p style="font-size:12px;color:var(--dim);font-weight:200;line-height:1.8">Renovierungen, neue Menüs, neue Mitarbeiter — alles aus erster Hand.</p></div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- BISHERIGE AUSGABEN -->
+<section style="padding:72px 56px;background:var(--bg)">
+  <div class="reveal" style="margin-bottom:48px">
+    <p class="sl">Newsletter-Archiv</p>
+    <h2 class="st">Letzte<br><em>Ausgaben</em></h2>
+  </div>
+  <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:2px">
+    <div class="reveal d0" style="background:var(--bg2);border:1px solid var(--card-border);padding:32px 28px">
+      <p style="font-size:9px;letter-spacing:.3em;text-transform:uppercase;color:var(--gold);font-weight:200;margin-bottom:8px">März 2024</p>
+      <h3 style="font-family:'Cormorant Garamond',serif;font-size:20px;font-weight:300;color:var(--txt);margin-bottom:10px">Frühling am Bodensee</h3>
+      <p style="font-size:12px;color:var(--dim);font-weight:200;line-height:1.85;margin-bottom:18px">Obstblüte, neue Saisonangebote und unser Frühlingsmenü mit regionalen Spargelvariationen.</p>
+      <a href="#" class="btn-g" style="font-size:9px;color:var(--gold)">Ausgabe lesen</a>
+    </div><div class="reveal d1" style="background:var(--bg2);border:1px solid var(--card-border);padding:32px 28px">
+      <p style="font-size:9px;letter-spacing:.3em;text-transform:uppercase;color:var(--gold);font-weight:200;margin-bottom:8px">Februar 2024</p>
+      <h3 style="font-family:'Cormorant Garamond',serif;font-size:20px;font-weight:300;color:var(--txt);margin-bottom:10px">Valentinstag & Romantik</h3>
+      <p style="font-size:12px;color:var(--dim);font-weight:200;line-height:1.85;margin-bottom:18px">Unser Liebespaket-Angebot, der perfekte Abend zu zweit und Tipps für einen romantischen Konstanz-Besuch.</p>
+      <a href="#" class="btn-g" style="font-size:9px;color:var(--gold)">Ausgabe lesen</a>
+    </div><div class="reveal d2" style="background:var(--bg2);border:1px solid var(--card-border);padding:32px 28px">
+      <p style="font-size:9px;letter-spacing:.3em;text-transform:uppercase;color:var(--gold);font-weight:200;margin-bottom:8px">Januar 2024</p>
+      <h3 style="font-family:'Cormorant Garamond',serif;font-size:20px;font-weight:300;color:var(--txt);margin-bottom:10px">Neues Jahr, neue Pläne</h3>
+      <p style="font-size:12px;color:var(--dim);font-weight:200;line-height:1.85;margin-bottom:18px">Rückblick auf 2023, Vorschau auf spannende Events und unser renovierter Spa-Bereich.</p>
+      <a href="#" class="btn-g" style="font-size:9px;color:var(--gold)">Ausgabe lesen</a>
+    </div>
+  </div>
+</section>
+
+<script>
+function handleNL(e){
+  e.preventDefault();
+  document.getElementById('nlSuccess').style.display='block';
+  e.target.reset();
+}
+</script>
+<footer style="background:var(--footer-bg);border-top:1px solid rgba(201,169,110,.09);padding:64px 56px 32px" id="page-footer">
+  <div style="display:grid;grid-template-columns:1.5fr 1fr 1fr 1fr 1fr;gap:40px;margin-bottom:48px;padding-bottom:48px;border-bottom:1px solid rgba(201,169,110,.07)">
+    <div>
+      <p style="font-family:'Cormorant Garamond',serif;font-size:21px;font-weight:300;letter-spacing:.22em;text-transform:uppercase;color:#faf7f2;margin-bottom:5px">Hotel Halm</p>
+      <p style="font-size:8px;letter-spacing:.42em;text-transform:uppercase;color:var(--gold);font-weight:200;margin-bottom:16px">Konstanz am Bodensee</p>
+      <p style="font-size:12px;font-weight:200;color:rgba(200,191,176,.42);line-height:2.1">Bahnhofplatz 6<br>78462 Konstanz<br><a href="tel:+4975311234" style="color:rgba(200,191,176,.42);text-decoration:none">+49 7531 1234</a><br><a href="mailto:info@hotel-halm.de" style="color:rgba(200,191,176,.42);text-decoration:none">info@hotel-halm.de</a></p>
+    </div>
+    <div>
+      <p style="font-size:9px;letter-spacing:.38em;text-transform:uppercase;color:var(--gold);font-weight:200;margin-bottom:16px">Zimmer</p>
+      <ul style="list-style:none;display:flex;flex-direction:column;gap:10px">
+        <li><a href="hotel-halm-zimmer.html" style="font-size:12px;color:rgba(200,191,176,.42);text-decoration:none;font-weight:200;transition:color .3s" onmouseover="this.style.color='var(--gold)'" onmouseout="this.style.color='rgba(200,191,176,.42)'">Zimmer & Suiten</a></li>
+        <li><a href="hotel-halm-preise.html" style="font-size:12px;color:rgba(200,191,176,.42);text-decoration:none;font-weight:200;transition:color .3s" onmouseover="this.style.color='var(--gold)'" onmouseout="this.style.color='rgba(200,191,176,.42)'">Preise</a></li>
+        <li><a href="hotel-halm-buchen.html" style="font-size:12px;color:rgba(200,191,176,.42);text-decoration:none;font-weight:200;transition:color .3s" onmouseover="this.style.color='var(--gold)'" onmouseout="this.style.color='rgba(200,191,176,.42)'">Jetzt buchen</a></li>
+        <li><a href="hotel-halm-angebote.html" style="font-size:12px;color:rgba(200,191,176,.42);text-decoration:none;font-weight:200;transition:color .3s" onmouseover="this.style.color='var(--gold)'" onmouseout="this.style.color='rgba(200,191,176,.42)'">Angebote</a></li>
+        <li><a href="hotel-halm-saisonangebote.html" style="font-size:12px;color:rgba(200,191,176,.42);text-decoration:none;font-weight:200;transition:color .3s" onmouseover="this.style.color='var(--gold)'" onmouseout="this.style.color='rgba(200,191,176,.42)'">Saisonangebote</a></li>
+      </ul>
+    </div>
+    <div>
+      <p style="font-size:9px;letter-spacing:.38em;text-transform:uppercase;color:var(--gold);font-weight:200;margin-bottom:16px">Erlebnis</p>
+      <ul style="list-style:none;display:flex;flex-direction:column;gap:10px">
+        <li><a href="hotel-halm-gastronomie.html" style="font-size:12px;color:rgba(200,191,176,.42);text-decoration:none;font-weight:200;transition:color .3s" onmouseover="this.style.color='var(--gold)'" onmouseout="this.style.color='rgba(200,191,176,.42)'">Restaurant</a></li>
+        <li><a href="hotel-halm-fruehstueck.html" style="font-size:12px;color:rgba(200,191,176,.42);text-decoration:none;font-weight:200;transition:color .3s" onmouseover="this.style.color='var(--gold)'" onmouseout="this.style.color='rgba(200,191,176,.42)'">Frühstück</a></li>
+        <li><a href="hotel-halm-bar.html" style="font-size:12px;color:rgba(200,191,176,.42);text-decoration:none;font-weight:200;transition:color .3s" onmouseover="this.style.color='var(--gold)'" onmouseout="this.style.color='rgba(200,191,176,.42)'">Bar & Weinbar</a></li>
+        <li><a href="hotel-halm-sauna.html" style="font-size:12px;color:rgba(200,191,176,.42);text-decoration:none;font-weight:200;transition:color .3s" onmouseover="this.style.color='var(--gold)'" onmouseout="this.style.color='rgba(200,191,176,.42)'">Wellness & Sauna</a></li>
+        <li><a href="hotel-halm-spa-wellness.html" style="font-size:12px;color:rgba(200,191,176,.42);text-decoration:none;font-weight:200;transition:color .3s" onmouseover="this.style.color='var(--gold)'" onmouseout="this.style.color='rgba(200,191,176,.42)'">Spa</a></li>
+      </ul>
+    </div>
+    <div>
+      <p style="font-size:9px;letter-spacing:.38em;text-transform:uppercase;color:var(--gold);font-weight:200;margin-bottom:16px">Hotel</p>
+      <ul style="list-style:none;display:flex;flex-direction:column;gap:10px">
+        <li><a href="hotel-halm-tagen.html" style="font-size:12px;color:rgba(200,191,176,.42);text-decoration:none;font-weight:200;transition:color .3s" onmouseover="this.style.color='var(--gold)'" onmouseout="this.style.color='rgba(200,191,176,.42)'">Tagen & Feiern</a></li>
+        <li><a href="hotel-halm-hochzeit.html" style="font-size:12px;color:rgba(200,191,176,.42);text-decoration:none;font-weight:200;transition:color .3s" onmouseover="this.style.color='var(--gold)'" onmouseout="this.style.color='rgba(200,191,176,.42)'">Hochzeit</a></li>
+        <li><a href="hotel-halm-gruppenreisen.html" style="font-size:12px;color:rgba(200,191,176,.42);text-decoration:none;font-weight:200;transition:color .3s" onmouseover="this.style.color='var(--gold)'" onmouseout="this.style.color='rgba(200,191,176,.42)'">Gruppen</a></li>
+        <li><a href="hotel-halm-ueber.html" style="font-size:12px;color:rgba(200,191,176,.42);text-decoration:none;font-weight:200;transition:color .3s" onmouseover="this.style.color='var(--gold)'" onmouseout="this.style.color='rgba(200,191,176,.42)'">Über uns</a></li>
+        <li><a href="hotel-halm-karriere.html" style="font-size:12px;color:rgba(200,191,176,.42);text-decoration:none;font-weight:200;transition:color .3s" onmouseover="this.style.color='var(--gold)'" onmouseout="this.style.color='rgba(200,191,176,.42)'">Karriere</a></li>
+      </ul>
+    </div>
+    <div>
+      <p style="font-size:9px;letter-spacing:.38em;text-transform:uppercase;color:var(--gold);font-weight:200;margin-bottom:16px">Service</p>
+      <ul style="list-style:none;display:flex;flex-direction:column;gap:10px">
+        <li><a href="hotel-halm-kontakt.html" style="font-size:12px;color:rgba(200,191,176,.42);text-decoration:none;font-weight:200;transition:color .3s" onmouseover="this.style.color='var(--gold)'" onmouseout="this.style.color='rgba(200,191,176,.42)'">Kontakt</a></li>
+        <li><a href="hotel-halm-concierge.html" style="font-size:12px;color:rgba(200,191,176,.42);text-decoration:none;font-weight:200;transition:color .3s" onmouseover="this.style.color='var(--gold)'" onmouseout="this.style.color='rgba(200,191,176,.42)'">Concierge</a></li>
+        <li><a href="hotel-halm-faq.html" style="font-size:12px;color:rgba(200,191,176,.42);text-decoration:none;font-weight:200;transition:color .3s" onmouseover="this.style.color='var(--gold)'" onmouseout="this.style.color='rgba(200,191,176,.42)'">FAQ</a></li>
+        <li><a href="hotel-halm-newsletter.html" style="font-size:12px;color:rgba(200,191,176,.42);text-decoration:none;font-weight:200;transition:color .3s" onmouseover="this.style.color='var(--gold)'" onmouseout="this.style.color='rgba(200,191,176,.42)'">Newsletter</a></li>
+        <li><a href="hotel-halm-gutscheine.html" style="font-size:12px;color:rgba(200,191,176,.42);text-decoration:none;font-weight:200;transition:color .3s" onmouseover="this.style.color='var(--gold)'" onmouseout="this.style.color='rgba(200,191,176,.42)'">Gutscheine</a></li>
+      </ul>
+    </div>
+  </div>
+  <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:16px">
+    <p style="font-size:10px;color:rgba(200,191,176,.2);letter-spacing:.07em">© 2024 Hotel Halm Konstanz GmbH. Alle Rechte vorbehalten.</p>
+    <div style="display:flex;gap:20px">
+      <li><a href="hotel-halm-agb.html" style="font-size:12px;color:rgba(200,191,176,.42);text-decoration:none;font-weight:200;transition:color .3s" onmouseover="this.style.color='var(--gold)'" onmouseout="this.style.color='rgba(200,191,176,.42)'">AGB</a></li>
+      <li><a href="hotel-halm-impressum.html" style="font-size:12px;color:rgba(200,191,176,.42);text-decoration:none;font-weight:200;transition:color .3s" onmouseover="this.style.color='var(--gold)'" onmouseout="this.style.color='rgba(200,191,176,.42)'">Impressum</a></li>
+      <li><a href="hotel-halm-datenschutz.html" style="font-size:12px;color:rgba(200,191,176,.42);text-decoration:none;font-weight:200;transition:color .3s" onmouseover="this.style.color='var(--gold)'" onmouseout="this.style.color='rgba(200,191,176,.42)'">Datenschutz</a></li>
+      <li><a href="hotel-halm-barrierefreiheit.html" style="font-size:12px;color:rgba(200,191,176,.42);text-decoration:none;font-weight:200;transition:color .3s" onmouseover="this.style.color='var(--gold)'" onmouseout="this.style.color='rgba(200,191,176,.42)'">Barrierefreiheit</a></li>
+    </div>
+    <a href="#" onclick="window.scrollTo({top:0,behavior:'smooth'});return false;" style="font-size:10px;letter-spacing:.2em;text-transform:uppercase;color:rgba(200,191,176,.2);text-decoration:none">↑ Nach oben</a>
+  </div>
+</footer>
+<style>
+.mode-toggle{position:fixed;bottom:28px;right:28px;z-index:9990;display:flex;align-items:center;gap:10px;background:var(--bg2);border:1px solid rgba(201,169,110,.25);padding:10px 18px;cursor:pointer;text-decoration:none;font-family:'Jost';font-size:9px;letter-spacing:.25em;text-transform:uppercase;font-weight:300;color:var(--gold);box-shadow:0 8px 32px rgba(0,0,0,.3);transition:all .3s}
+.mode-toggle:hover{border-color:var(--gold);transform:translateY(-2px)}
+.mode-toggle-dot{width:10px;height:10px;border-radius:50%;background:var(--gold);flex-shrink:0}
+</style>
+<a href="hotel-halm-newsletter-light.html" class="mode-toggle"><span class="mode-toggle-dot"></span>☀ Hell</a>
+<script>
+const cur=document.getElementById('cur'),cr=document.getElementById('curR');
+let rx=0,ry=0,mx=0,my=0;
+document.addEventListener('mousemove',e=>{mx=e.clientX;my=e.clientY;cur.style.left=mx+'px';cur.style.top=my+'px';});
+document.querySelectorAll('a,button,label,input,select,textarea').forEach(el=>{
+  el.addEventListener('mouseenter',()=>{cr.style.transform='translate(-50%,-50%) scale(1.7)';cr.style.borderColor='rgba(201,169,110,.8)';});
+  el.addEventListener('mouseleave',()=>{cr.style.transform='translate(-50%,-50%) scale(1)';cr.style.borderColor='rgba(201,169,110,.5)';});
+});
+(function loop(){rx+=(mx-rx)*.12;ry+=(my-ry)*.12;cr.style.left=rx+'px';cr.style.top=ry+'px';requestAnimationFrame(loop);})();
+const obs=new IntersectionObserver(e=>e.forEach(x=>{if(x.isIntersecting)x.target.classList.add('vis');}),{threshold:.08});
+document.querySelectorAll('.reveal').forEach(el=>obs.observe(el));
+</script>
+</body>
+</html>

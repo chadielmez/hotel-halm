@@ -1,0 +1,287 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Sauna & Wellness — Hotel Halm Konstanz</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400;1,600&family=Jost:wght@200;300;400&display=swap" rel="stylesheet">
+<style>
+:root {
+  --black: #0a0906; --dark: #111009; --dark2: #1a1814;
+  --gold: #c9a96e; --gold-light: #e2c99a;
+  --cream: #f4ede0; --cream-dim: #c8bfb0; --white: #faf7f2;
+}
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+body { background: var(--black); color: var(--cream); font-family: 'Jost', sans-serif; font-weight: 300; overflow-x: hidden; cursor: none; }
+body::before { content: ''; position: fixed; inset: 0; background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='1'/%3E%3C/svg%3E"); opacity: 0.032; pointer-events: none; z-index: 9997; }
+.cursor { position: fixed; width: 8px; height: 8px; background: var(--gold); border-radius: 50%; pointer-events: none; z-index: 9999; transform: translate(-50%, -50%); transition: transform 0.1s ease; }
+.cursor-ring { position: fixed; width: 32px; height: 32px; border: 1px solid rgba(201,169,110,0.5); border-radius: 50%; pointer-events: none; z-index: 9998; transform: translate(-50%, -50%); transition: all 0.15s ease; }
+nav { position: fixed; top: 0; left: 0; right: 0; z-index: 1000; padding: 24px 56px; display: flex; align-items: center; justify-content: space-between; background: rgba(10,9,6,0.97); border-bottom: 1px solid rgba(201,169,110,0.08); backdrop-filter: blur(12px); animation: fadeDown 1s ease both; }
+.nav-logo { font-family: 'Cormorant Garamond', serif; font-size: 20px; font-weight: 300; letter-spacing: 0.25em; text-transform: uppercase; color: var(--cream); text-decoration: none; line-height: 1; }
+.nav-logo span { display: block; font-size: 8px; letter-spacing: 0.45em; color: var(--gold); margin-top: 4px; font-family: 'Jost', sans-serif; font-weight: 200; }
+.nav-links { display: flex; gap: 28px; list-style: none; }
+.nav-links a { font-family: 'Jost', sans-serif; font-size: 9.5px; font-weight: 300; letter-spacing: 0.2em; text-transform: uppercase; color: var(--cream-dim); text-decoration: none; position: relative; transition: color 0.3s ease; }
+.nav-links a::after { content: ''; position: absolute; bottom: -3px; left: 0; width: 0; height: 1px; background: var(--gold); transition: width 0.4s ease; }
+.nav-links a:hover, .nav-links a.active { color: var(--gold-light); }
+.nav-links a:hover::after, .nav-links a.active::after { width: 100%; }
+.nav-cta { font-size: 9.5px; font-weight: 300; letter-spacing: 0.22em; text-transform: uppercase; color: var(--gold); text-decoration: none; border: 1px solid var(--gold); padding: 10px 20px; transition: all 0.4s ease; position: relative; overflow: hidden; }
+.nav-cta::before { content: ''; position: absolute; inset: 0; background: var(--gold); transform: scaleX(0); transform-origin: left; transition: transform 0.4s ease; z-index: -1; }
+.nav-cta:hover { color: var(--black); }
+.nav-cta:hover::before { transform: scaleX(1); }
+.page-hero { position: relative; height: 55vh; min-height: 400px; display: flex; align-items: flex-end; overflow: hidden; margin-top: 73px; }
+.page-hero-bg { position: absolute; inset: 0; background-size: cover; background-position: center; animation: slowZoom 20s ease-in-out infinite alternate; }
+.page-hero-overlay { position: absolute; inset: 0; background: linear-gradient(to top, var(--black) 0%, rgba(10,9,6,0.5) 50%, rgba(10,9,6,0.3) 100%); }
+.page-hero-content { position: relative; z-index: 2; padding: 0 56px 64px; animation: fadeUp 1.2s ease both; animation-delay: 0.3s; }
+.page-hero-label { font-size: 9px; letter-spacing: 0.45em; text-transform: uppercase; color: var(--gold); font-weight: 200; margin-bottom: 16px; display: flex; align-items: center; gap: 14px; }
+.page-hero-label::before { content: ''; width: 30px; height: 1px; background: var(--gold); }
+.page-hero-title { font-family: 'Cormorant Garamond', serif; font-size: clamp(48px, 7vw, 96px); font-weight: 300; line-height: 0.95; color: var(--white); }
+.page-hero-title em { font-style: italic; color: var(--cream-dim); }
+.container { padding: 0 56px; }
+.section-label { font-size: 9px; letter-spacing: 0.45em; text-transform: uppercase; color: var(--gold); font-weight: 200; margin-bottom: 16px; display: flex; align-items: center; gap: 14px; }
+.section-label::before { content: ''; width: 30px; height: 1px; background: var(--gold); flex-shrink: 0; }
+.section-title { font-family: 'Cormorant Garamond', serif; font-size: clamp(36px, 4.5vw, 60px); font-weight: 300; line-height: 1.1; color: var(--white); }
+.section-title em { font-style: italic; color: var(--cream-dim); }
+.body-text { font-size: 14px; font-weight: 200; line-height: 2.1; color: var(--cream-dim); }
+.btn-primary { font-size: 10px; letter-spacing: 0.28em; text-transform: uppercase; font-weight: 300; color: var(--black); background: var(--gold); padding: 16px 36px; text-decoration: none; transition: all 0.4s ease; display: inline-block; }
+.btn-primary:hover { background: var(--gold-light); transform: translateY(-2px); }
+.btn-outline { font-size: 10px; letter-spacing: 0.28em; text-transform: uppercase; font-weight: 300; color: var(--gold); border: 1px solid var(--gold); padding: 14px 32px; text-decoration: none; display: inline-block; transition: all 0.4s ease; position: relative; overflow: hidden; }
+.btn-outline::before { content: ''; position: absolute; inset: 0; background: var(--gold); transform: scaleX(0); transform-origin: left; transition: transform 0.4s ease; z-index: -1; }
+.btn-outline:hover { color: var(--black); }
+.btn-outline:hover::before { transform: scaleX(1); }
+.btn-ghost { font-size: 10px; letter-spacing: 0.25em; text-transform: uppercase; font-weight: 300; color: var(--cream-dim); text-decoration: none; display: inline-flex; align-items: center; gap: 10px; transition: color 0.3s ease; }
+.btn-ghost::after { content: '→'; font-size: 14px; transition: transform 0.3s ease; }
+.btn-ghost:hover { color: var(--gold); }
+.btn-ghost:hover::after { transform: translateX(5px); }
+.divider { width: 100%; height: 1px; background: linear-gradient(to right, transparent, rgba(201,169,110,0.25), transparent); }
+.reveal { opacity: 0; transform: translateY(36px); transition: all 0.9s cubic-bezier(0.25, 0.46, 0.45, 0.94); }
+.reveal.visible { opacity: 1; transform: translateY(0); }
+footer { background: var(--dark); border-top: 1px solid rgba(201,169,110,0.1); padding: 72px 56px 36px; }
+.footer-top { display: grid; grid-template-columns: 1.4fr 1fr 1fr 1fr; gap: 56px; margin-bottom: 56px; padding-bottom: 56px; border-bottom: 1px solid rgba(201,169,110,0.07); }
+.footer-brand .logo { font-family: 'Cormorant Garamond', serif; font-size: 24px; font-weight: 300; letter-spacing: 0.2em; text-transform: uppercase; color: var(--white); margin-bottom: 6px; }
+.footer-brand .tagline { font-size: 9px; letter-spacing: 0.38em; text-transform: uppercase; color: var(--gold); font-weight: 200; margin-bottom: 18px; }
+.footer-brand p { font-size: 12px; font-weight: 200; color: var(--cream-dim); line-height: 2; max-width: 240px; }
+.footer-col h4 { font-size: 9px; letter-spacing: 0.4em; text-transform: uppercase; color: var(--gold); font-weight: 200; margin-bottom: 20px; }
+.footer-col ul { list-style: none; display: flex; flex-direction: column; gap: 11px; }
+.footer-col ul a { font-size: 12px; color: var(--cream-dim); text-decoration: none; font-weight: 200; transition: color 0.3s ease; }
+.footer-col ul a:hover { color: var(--gold); }
+.footer-bottom { display: flex; justify-content: space-between; align-items: center; }
+.footer-bottom p { font-size: 10px; color: rgba(200,191,176,0.35); letter-spacing: 0.08em; }
+.footer-socials { display: flex; gap: 20px; }
+.footer-socials a { font-size: 10px; letter-spacing: 0.2em; text-transform: uppercase; color: rgba(200,191,176,0.35); text-decoration: none; transition: color 0.3s ease; }
+.footer-socials a:hover { color: var(--gold); }
+@keyframes slowZoom { from { transform: scale(1); } to { transform: scale(1.06); } }
+@keyframes fadeUp { from { opacity: 0; transform: translateY(28px); } to { opacity: 1; transform: translateY(0); } }
+@keyframes fadeDown { from { opacity: 0; transform: translateY(-16px); } to { opacity: 1; transform: translateY(0); } }
+@keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+
+.sauna-split { display: grid; grid-template-columns: 1fr 1fr; }
+.sauna-half { position: relative; min-height: 600px; }
+.sauna-half img { width: 100%; height: 100%; object-fit: cover; filter: brightness(0.55); position: absolute; inset: 0; }
+.sauna-half-content { position: relative; z-index: 2; padding: 72px 56px; height: 100%; display: flex; flex-direction: column; justify-content: center; }
+.wellness-cards { display: grid; grid-template-columns: repeat(3, 1fr); gap: 4px; }
+.wellness-card { position: relative; overflow: hidden; }
+.wellness-img { width: 100%; height: 380px; object-fit: cover; filter: brightness(0.55); transition: all 0.7s ease; display: block; }
+.wellness-card:hover .wellness-img { filter: brightness(0.75); transform: scale(1.04); }
+.wellness-overlay { position: absolute; inset: 0; background: linear-gradient(to top, rgba(10,9,6,0.9) 0%, transparent 55%); display: flex; flex-direction: column; justify-content: flex-end; padding: 32px; }
+.wellness-name { font-family: 'Cormorant Garamond', serif; font-size: 26px; font-weight: 300; color: var(--white); margin-bottom: 8px; }
+.wellness-desc { font-size: 12px; color: var(--cream-dim); font-weight: 200; line-height: 1.8; margin-bottom: 12px; }
+.wellness-detail { font-size: 10px; letter-spacing: 0.2em; color: var(--gold); text-transform: uppercase; }
+.hours-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; margin-top: 48px; }
+.hours-item { padding: 32px; border: 1px solid rgba(201,169,110,0.12); text-align: center; }
+.hours-day { font-family: 'Cormorant Garamond', serif; font-size: 22px; color: var(--white); font-weight: 300; margin-bottom: 12px; }
+.hours-time { font-size: 28px; font-family: 'Cormorant Garamond', serif; color: var(--gold); font-weight: 300; margin-bottom: 8px; }
+.hours-note { font-size: 10px; color: var(--cream-dim); font-weight: 200; letter-spacing: 0.1em; }
+    
+</style>
+</head>
+<body>
+<div class="cursor" id="cursor"></div>
+<div class="cursor-ring" id="cursorRing"></div>
+<nav>
+  <a href="hotel-halm-home.html" class="nav-logo">Hotel Halm<span>Konstanz am Bodensee</span></a>
+  <ul class="nav-links">
+    <li><a href="hotel-halm-zimmer.html" >Zimmer</a></li>
+    <li><a href="hotel-halm-gastronomie.html" >Gastronomie</a></li>
+    <li><a href="hotel-halm-sauna.html" class="active">Sauna</a></li>
+    <li><a href="hotel-halm-tagen.html" >Tagen & Feiern</a></li>
+    <li><a href="hotel-halm-angebote.html" >Angebote</a></li>
+    <li><a href="hotel-halm-ueber.html" >Über uns</a></li>
+    <li><a href="hotel-halm-konstanz.html" >Konstanz</a></li>
+    <li><a href="hotel-halm-parken.html" >Parken</a></li>
+    <li><a href="hotel-halm-anfahrt.html" >Anfahrt</a></li>
+  </ul>
+  <a href="hotel-halm-buchen.html" class="nav-cta">Zimmer Buchen</a>
+</nav>
+
+<section class="page-hero">
+  <div class="page-hero-bg" style="background-image: url('https://images.unsplash.com/photo-1571896349842-33c89424de2d?w=1800&q=80')"></div>
+  <div class="page-hero-overlay"></div>
+  <div class="page-hero-content">
+    <p class="page-hero-label">Wellness & Erholung</p>
+    <h1 class="page-hero-title">Sauna &<br><em>Wohlbefinden</em></h1>
+  </div>
+</section>
+
+<div class="sauna-split">
+  <div class="sauna-half">
+    <img src="https://images.unsplash.com/photo-1542314831-068cd1dbfeeb?w=900&q=80" alt="Sauna">
+    <div style="position:absolute;inset:0;background:linear-gradient(135deg,rgba(10,9,6,0.6) 0%,rgba(10,9,6,0.2) 100%);z-index:1"></div>
+    <div class="sauna-half-content">
+      <p class="section-label" style="margin-bottom:20px">Finnische Sauna</p>
+      <h2 class="section-title" style="margin-bottom:24px">Wärme,<br><em>die befreit</em></h2>
+      <p class="body-text">Unsere traditionelle finnische Sauna mit Kiefernholz und aromatischen Aufgüssen. Temperaturen zwischen 80 und 100°C reinigen Körper und Geist.</p>
+      <div style="margin-top:32px;display:flex;flex-direction:column;gap:12px">
+        <p style="font-size:11px;color:var(--cream-dim);font-weight:200;display:flex;align-items:center;gap:12px"><span style="color:var(--gold)">✦</span> Bis 10 Personen · 90–100°C</p>
+        <p style="font-size:11px;color:var(--cream-dim);font-weight:200;display:flex;align-items:center;gap:12px"><span style="color:var(--gold)">✦</span> Aufgüsse täglich um 17 & 19 Uhr</p>
+        <p style="font-size:11px;color:var(--cream-dim);font-weight:200;display:flex;align-items:center;gap:12px"><span style="color:var(--gold)">✦</span> Premium Aufgussöle: Eukalyptus, Birke</p>
+      </div>
+    </div>
+  </div>
+  <div class="sauna-half" style="background:var(--dark)">
+    <div class="sauna-half-content" style="position:relative;z-index:1">
+      <p class="section-label" style="margin-bottom:20px">Dampfbad</p>
+      <h2 class="section-title" style="margin-bottom:24px">Sanfte<br><em>Wärme</em></h2>
+      <p class="body-text">Das Dampfbad mit wohltuendem Eukalyptusduft bei 42°C. Ideal für Atemwege und Entspannung. Sanfter als die finnische Sauna — perfekt für Einsteiger.</p>
+      <div style="margin-top:32px;display:flex;flex-direction:column;gap:12px">
+        <p style="font-size:11px;color:var(--cream-dim);font-weight:200;display:flex;align-items:center;gap:12px"><span style="color:var(--gold)">✦</span> Bis 6 Personen · 40–45°C</p>
+        <p style="font-size:11px;color:var(--cream-dim);font-weight:200;display:flex;align-items:center;gap:12px"><span style="color:var(--gold)">✦</span> Eukalyptus & Menthol Aroma</p>
+        <p style="font-size:11px;color:var(--cream-dim);font-weight:200;display:flex;align-items:center;gap:12px"><span style="color:var(--gold)">✦</span> Ideal für Atemwege</p>
+      </div>
+      <img src="https://images.unsplash.com/photo-1515377905703-c4788e51af15?w=600&q=80" style="width:100%;height:220px;object-fit:cover;filter:brightness(0.6);margin-top:36px" alt="Dampfbad">
+    </div>
+  </div>
+</div>
+
+<section style="padding: 80px 0; background: var(--black);">
+  <div style="padding: 0 56px; margin-bottom: 48px;" class="reveal">
+    <p class="section-label">Wellness-Angebote</p>
+    <h2 class="section-title">Massagen &<br><em>Behandlungen</em></h2>
+  </div>
+  <div class="wellness-cards reveal" style="transition-delay:0.1s">
+    <div class="wellness-card">
+      <img class="wellness-img" src="https://images.unsplash.com/photo-1600334089648-b0d9d3028eb2?w=700&q=80" alt="Massage">
+      <div class="wellness-overlay">
+        <h3 class="wellness-name">Hot Stone Massage</h3>
+        <p class="wellness-desc">Wärme trifft Tiefenentspannung — 60 oder 90 Minuten reiner Genuss.</p>
+        <p class="wellness-detail">Ab 89€ · 60 Min.</p>
+      </div>
+    </div>
+    <div class="wellness-card">
+      <img class="wellness-img" src="https://images.unsplash.com/photo-1519823551278-64ac92734fb1?w=700&q=80" alt="Aromatherapie">
+      <div class="wellness-overlay">
+        <h3 class="wellness-name">Aromatherapie</h3>
+        <p class="wellness-desc">Ätherische Öle und sanfte Berührung für Körper und Seele.</p>
+        <p class="wellness-detail">Ab 79€ · 50 Min.</p>
+      </div>
+    </div>
+    <div class="wellness-card">
+      <img class="wellness-img" src="https://images.unsplash.com/photo-1544161515-4ab6ce6db874?w=700&q=80" alt="Ganzkörper">
+      <div class="wellness-overlay">
+        <h3 class="wellness-name">Ganzkörpermassage</h3>
+        <p class="wellness-desc">Klassische Entspannungsmassage — Muskelspannungen lösen sich in Luft auf.</p>
+        <p class="wellness-detail">Ab 75€ · 60 Min.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section style="padding: 80px 56px; background: var(--dark2);">
+  <div class="reveal">
+    <p class="section-label">Öffnungszeiten</p>
+    <h2 class="section-title">Wann wir<br><em>für Sie da sind</em></h2>
+  </div>
+  <div class="hours-grid reveal" style="transition-delay:0.15s">
+    <div class="hours-item">
+      <p class="hours-day">Mo – Fr</p>
+      <p class="hours-time">15 – 22 Uhr</p>
+      <p class="hours-note">Aufguss tägl. 17 & 19 Uhr</p>
+    </div>
+    <div class="hours-item">
+      <p class="hours-day">Sa & So</p>
+      <p class="hours-time">10 – 22 Uhr</p>
+      <p class="hours-note">Aufguss 11, 15, 17, 19 Uhr</p>
+    </div>
+    <div class="hours-item">
+      <p class="hours-day">Feiertage</p>
+      <p class="hours-time">10 – 21 Uhr</p>
+      <p class="hours-note">Bitte vorab anfragen</p>
+    </div>
+  </div>
+  <div style="margin-top: 48px; padding: 32px; border: 1px solid rgba(201,169,110,0.15); background: rgba(201,169,110,0.04);" class="reveal" style="transition-delay:0.25s">
+    <p style="font-size:12px;color:var(--cream-dim);line-height:2;font-weight:200">
+      <strong style="color:var(--gold);font-weight:300;font-family:'Cormorant Garamond',serif;font-size:16px">Hinweis:</strong> Der Saunabereich steht ausschließlich Hotelgästen zur Verfügung. Handtücher, Bademäntel und Saunazubehör sind inklusive. Massagen bitte 24h vorher an der Rezeption buchen.
+    </p>
+  </div>
+  <div style="text-align:center; margin-top: 56px;" class="reveal">
+    <a href="hotel-halm-buchen.html" class="btn-primary">Wellnesspaket buchen</a>
+  </div>
+</section>
+    
+<footer>
+  <div class="footer-top">
+    <div class="footer-brand">
+      <p class="logo">Hotel Halm</p>
+      <p class="tagline">Konstanz am Bodensee</p>
+      <p>Ein Haus mit Geschichte, Charakter und herzlicher Gastfreundschaft — seit Generationen.</p>
+    </div>
+    <div class="footer-col">
+      <h4>Hotel</h4>
+      <ul>
+        <li><a href="hotel-halm-zimmer.html">Zimmer</a></li>
+        <li><a href="hotel-halm-sauna.html">Sauna</a></li>
+        <li><a href="hotel-halm-gastronomie.html">Gastronomie</a></li>
+        <li><a href="hotel-halm-tagen.html">Tagen & Feiern</a></li>
+        <li><a href="hotel-halm-angebote.html">Angebote</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h4>Informationen</h4>
+      <ul>
+        <li><a href="hotel-halm-ueber.html">Über uns</a></li>
+        <li><a href="hotel-halm-konstanz.html">Konstanz erleben</a></li>
+        <li><a href="hotel-halm-parken.html">Parkmöglichkeiten</a></li>
+        <li><a href="hotel-halm-anfahrt.html">Anfahrt</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h4>Kontakt</h4>
+      <ul>
+        <li><a href="tel:+4975311234">+49 7531 1234</a></li>
+        <li><a href="mailto:info@hotel-halm.de">info@hotel-halm.de</a></li>
+        <li><a href="hotel-halm-buchen.html">Zimmer buchen</a></li>
+        <li><a href="#">Datenschutz</a></li>
+        <li><a href="#">Impressum</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <p>© 2024 Hotel Halm Konstanz. Alle Rechte vorbehalten.</p>
+    <div class="footer-socials">
+      <a href="#">Instagram</a>
+      <a href="#">Facebook</a>
+      <a href="#">TripAdvisor</a>
+    </div>
+  </div>
+</footer>
+
+<script>
+const cursor = document.getElementById('cursor');
+const ring = document.getElementById('cursorRing');
+let mx=0,my=0,rx=0,ry=0;
+document.addEventListener('mousemove',e=>{mx=e.clientX;my=e.clientY;cursor.style.left=mx+'px';cursor.style.top=my+'px';});
+function animRing(){rx+=(mx-rx)*0.12;ry+=(my-ry)*0.12;ring.style.left=rx+'px';ring.style.top=ry+'px';requestAnimationFrame(animRing);}
+animRing();
+document.querySelectorAll('a,button,input,select,textarea').forEach(el=>{
+  el.addEventListener('mouseenter',()=>{cursor.style.transform='translate(-50%,-50%) scale(2)';ring.style.transform='translate(-50%,-50%) scale(1.5)';ring.style.borderColor='rgba(201,169,110,0.8)';});
+  el.addEventListener('mouseleave',()=>{cursor.style.transform='translate(-50%,-50%) scale(1)';ring.style.transform='translate(-50%,-50%) scale(1)';ring.style.borderColor='rgba(201,169,110,0.5)';});
+});
+const reveals=document.querySelectorAll('.reveal');
+const obs=new IntersectionObserver((entries)=>{entries.forEach(e=>{if(e.isIntersecting){e.target.classList.add('visible');obs.unobserve(e.target);}});},{threshold:0.1});
+reveals.forEach(el=>obs.observe(el));
+</script>
+
+</body>
+</html>

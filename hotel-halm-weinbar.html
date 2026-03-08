@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Weinbar & Weinkarte — Hotel Halm Konstanz</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300;1,400&family=Jost:wght@200;300;400&display=swap" rel="stylesheet">
+<style>
+
+  :root {
+    --bg:   #0a0906; --bg2: #111009; --bg3: #1a1814;
+    --gold: #c9a96e; --gold-l: #e2c99a;
+    --txt:  #f4ede0; --dim:  #c8bfb0; --faint: rgba(200,191,176,.35);
+    --w:    #faf7f2; --nav-a: 10,9,6;
+  }
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{background:var(--bg);color:var(--txt);font-family:'Jost',sans-serif;font-weight:300;overflow-x:hidden;cursor:none}
+body::before{content:'';position:fixed;inset:0;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");opacity:.028;pointer-events:none;z-index:9997}
+.cur{position:fixed;width:8px;height:8px;background:var(--gold);border-radius:50%;pointer-events:none;z-index:9999;transform:translate(-50%,-50%);transition:transform .1s}
+.cur-r{position:fixed;width:32px;height:32px;border:1px solid rgba(201,169,110,.5);border-radius:50%;pointer-events:none;z-index:9998;transform:translate(-50%,-50%);transition:all .15s}
+nav{position:fixed;top:0;left:0;right:0;z-index:1000;padding:22px 56px;display:flex;align-items:center;justify-content:space-between;background:rgba(var(--nav-a),.96);border-bottom:1px solid rgba(201,169,110,.09);backdrop-filter:blur(12px);animation:fD .9s ease both}
+.n-logo{font-family:'Cormorant Garamond',serif;font-size:20px;font-weight:300;letter-spacing:.25em;text-transform:uppercase;color:var(--txt);text-decoration:none;line-height:1}
+.n-logo span{display:block;font-size:8.5px;letter-spacing:.45em;color:var(--gold);margin-top:4px;font-family:'Jost';font-weight:200}
+.n-links{display:flex;gap:32px;list-style:none}
+.n-links a{font-size:10px;font-weight:300;letter-spacing:.2em;text-transform:uppercase;color:var(--dim);text-decoration:none;position:relative;transition:color .3s}
+.n-links a::after{content:'';position:absolute;bottom:-3px;left:0;width:0;height:1px;background:var(--gold);transition:width .4s}
+.n-links a:hover,.n-links a.act{color:var(--gold)}
+.n-links a:hover::after,.n-links a.act::after{width:100%}
+.n-cta{font-size:10px;font-weight:300;letter-spacing:.2em;text-transform:uppercase;color:var(--gold);text-decoration:none;border:1px solid var(--gold);padding:10px 22px;transition:all .4s;position:relative;overflow:hidden}
+.n-cta::before{content:'';position:absolute;inset:0;background:var(--gold);transform:scaleX(0);transform-origin:left;transition:transform .4s;z-index:-1}
+.n-cta:hover{color:var(--bg)}
+.n-cta:hover::before{transform:scaleX(1)}
+.sl{font-size:9px;letter-spacing:.45em;text-transform:uppercase;color:var(--gold);font-weight:200;margin-bottom:16px;display:flex;align-items:center;gap:14px}
+.sl::before{content:'';width:28px;height:1px;background:var(--gold);flex-shrink:0}
+.st{font-family:'Cormorant Garamond',serif;font-size:clamp(34px,5vw,62px);font-weight:300;line-height:1.05;color:var(--txt)}
+.st em{font-style:italic;color:var(--dim)}
+.bt{font-size:14px;font-weight:200;line-height:2.1;color:var(--dim)}
+.bp{font-size:13px;font-weight:200;line-height:2;color:var(--dim)}
+.bp+.bp{margin-top:14px}
+.btn-p{font-size:10px;letter-spacing:.27em;text-transform:uppercase;font-weight:300;color:var(--bg);background:var(--gold);padding:14px 32px;text-decoration:none;display:inline-block;transition:all .4s}
+.btn-p:hover{background:var(--gold-l);transform:translateY(-2px)}
+.btn-o{font-size:10px;letter-spacing:.27em;text-transform:uppercase;font-weight:300;color:var(--gold);border:1px solid var(--gold);padding:13px 30px;text-decoration:none;display:inline-block;transition:all .4s}
+.btn-o:hover{background:var(--gold);color:var(--bg)}
+.btn-g{font-size:10px;letter-spacing:.23em;text-transform:uppercase;font-weight:300;color:var(--dim);text-decoration:none;display:inline-flex;align-items:center;gap:10px;transition:color .3s}
+.btn-g::after{content:'→';font-size:14px;transition:transform .3s}
+.btn-g:hover{color:var(--gold)}
+.btn-g:hover::after{transform:translateX(5px)}
+@keyframes fU{from{opacity:0;transform:translateY(28px)}to{opacity:1;transform:translateY(0)}}
+@keyframes fD{from{opacity:0;transform:translateY(-14px)}to{opacity:1;transform:translateY(0)}}
+@keyframes fI{from{opacity:0}to{opacity:1}}
+@keyframes sZ{from{transform:scale(1)}to{transform:scale(1.06)}}
+.rv{opacity:0;transform:translateY(32px);transition:all .9s cubic-bezier(.25,.46,.45,.94)}
+.rv.vis{opacity:1;transform:translateY(0)}
+.d1{transition-delay:.1s}.d2{transition-delay:.2s}.d3{transition-delay:.32s}.d4{transition-delay:.45s}
+.divider{width:100%;height:1px;background:linear-gradient(to right,transparent,rgba(201,169,110,.18),transparent)}
+
+</style>
+</head>
+<body>
+<div class="cur" id="cur"></div>
+<div class="cur-r" id="curR"></div>
+<nav>
+  <a href="hotel-halm-home.html" class="n-logo">Hotel Halm<span>Konstanz am Bodensee</span></a>
+  <ul class="n-links">
+    <li><a href="hotel-halm-zimmer.html" id="nl-zimmer">Zimmer</a></li>
+    <li><a href="hotel-halm-gastronomie.html" id="nl-gastro">Gastronomie</a></li>
+    <li><a href="hotel-halm-sauna.html" id="nl-sauna">Wellness</a></li>
+    <li><a href="hotel-halm-tagen.html" id="nl-tagen">Tagen</a></li>
+    <li><a href="hotel-halm-ueber.html" id="nl-ueber">Über uns</a></li>
+  </ul>
+  <a href="hotel-halm-buchen.html" class="n-cta">Zimmer buchen</a>
+</nav>
+<section style="position:relative;height:100vh;min-height:680px;display:flex;align-items:flex-end;overflow:hidden">
+  <div style="position:absolute;inset:0;background:url('https://images.unsplash.com/photo-1510812431401-41d2bd2722f3?w=1800&q=80') center/cover;animation:sZ 20s ease-in-out infinite alternate;filter:brightness(.28) saturate(.9)"></div>
+  <div style="position:absolute;inset:0;background:linear-gradient(to top,var(--bg) 0%,rgba(10,9,6,.5) 38%,transparent 70%)"></div>
+  <div style="position:relative;z-index:2;padding:0 56px 80px;animation:fU 1.4s ease both;animation-delay:.5s;max-width:700px">
+    <p class="sl">Getränke & Genuss</p>
+    <h1 style="font-family:'Cormorant Garamond',serif;font-size:clamp(56px,9vw,118px);font-weight:300;line-height:.92;color:#faf7f2;margin-bottom:24px">Weinbar<br><em style="color:var(--dim)">& Weinkarte</em></h1>
+    <p style="font-size:14px;font-weight:200;color:var(--dim);max-width:420px;line-height:2;margin-bottom:40px">Entdecken Sie eine kuratierte Auswahl der besten Weine der Region — mit Schwerpunkt auf badischen und Bodensee-Weingütern.</p>
+    <a href="#weinkarte" class="btn-p">Zur Weinkarte</a>
+  </div>
+  <div style="position:absolute;right:56px;bottom:80px;z-index:2;text-align:right;animation:fI 2s ease both;animation-delay:1.2s">
+    <p style="font-family:'Cormorant Garamond',serif;font-size:13px;font-style:italic;color:rgba(200,191,176,.5);line-height:2">Öffnungszeiten<br><span style="color:var(--gold)">17:00 – 01:00 Uhr</span><br>täglich</p>
+  </div>
+</section>
+
+<section style="padding:80px 56px;background:var(--bg2);display:grid;grid-template-columns:1fr 1fr;gap:80px;align-items:center">
+  <div class="rv">
+    <p class="sl">Unsere Bar</p>
+    <h2 class="st" style="margin-bottom:22px">Eine Weinbar<br><em>mit Geschichte</em></h2>
+    <p class="bt" style="margin-bottom:16px">Die Weinbar im Hotel Halm ist seit 1892 ein Ort der Begegnung. Hier treffen sich Einheimische und Reisende, Winzer und Liebhaber — verbunden durch die Liebe zum guten Tropfen.</p>
+    <p class="bt">Unsere Weinkarte vereint über 80 Positionen, darunter rare Raritäten aus dem Bodenseeraum sowie handverlesene internationale Weine. Unser Sommelier berät Sie gerne persönlich.</p>
+  </div>
+  <img src="https://images.unsplash.com/photo-1414235077428-338989a2e8c0?w=900&q=80" alt="Weinbar" class="rv d2" style="width:100%;aspect-ratio:4/3;object-fit:cover;filter:brightness(.75) saturate(.85);display:block">
+</section>
+
+<section style="padding:80px 56px;background:var(--bg)" id="weinkarte">
+  <div class="rv" style="display:flex;justify-content:space-between;align-items:flex-end;margin-bottom:56px">
+    <div><p class="sl">Weinkarte</p><h2 class="st">Unsere <em>Weine</em></h2></div>
+    <p class="bt" style="max-width:300px;text-align:right">Alle Preise pro Flasche (0,75 l). Gläserweise auf Anfrage.</p>
+  </div>
+  <div style="display:grid;grid-template-columns:1fr 1fr;gap:60px">
+    <div>
+<div class="rv" style="margin-bottom:52px">
+  <h3 style="font-family:'Cormorant Garamond',serif;font-size:26px;font-weight:300;color:var(--txt);margin-bottom:4px;display:flex;align-items:center;gap:16px">Weißweine<span style="flex:1;height:1px;background:rgba(201,169,110,.15)"></span></h3>
+  
+<div style="display:grid;grid-template-columns:1fr auto;gap:20px;padding:18px 0;border-bottom:1px solid rgba(201,169,110,.08);align-items:start">
+  <div>
+    <h4 style="font-family:'Cormorant Garamond',serif;font-size:19px;font-weight:300;color:var(--txt);margin-bottom:2px">Müller-Thurgau</h4>
+    <p style="font-size:9.5px;letter-spacing:.15em;color:var(--gold);font-weight:200;margin-bottom:5px">Weingut Aufricht · Meersburg</p>
+    <p style="font-size:12px;color:var(--dim);font-weight:200;line-height:1.7;font-style:italic">Frisch, elegant, mit feiner Frucht und mineralischem Abgang.</p>
+  </div>
+  <p style="font-family:'Cormorant Garamond',serif;font-size:22px;font-weight:300;color:var(--gold);white-space:nowrap;padding-top:4px">38 €</p>
+</div>
+<div style="display:grid;grid-template-columns:1fr auto;gap:20px;padding:18px 0;border-bottom:1px solid rgba(201,169,110,.08);align-items:start">
+  <div>
+    <h4 style="font-family:'Cormorant Garamond',serif;font-size:19px;font-weight:300;color:var(--txt);margin-bottom:2px">Grauburgunder</h4>
+    <p style="font-size:9.5px;letter-spacing:.15em;color:var(--gold);font-weight:200;margin-bottom:5px">Weingut Zähringer · Vogtsburg</p>
+    <p style="font-size:12px;color:var(--dim);font-weight:200;line-height:1.7;font-style:italic">Vollmundig mit zarter Würze und feiner Butternote.</p>
+  </div>
+  <p style="font-family:'Cormorant Garamond',serif;font-size:22px;font-weight:300;color:var(--gold);white-space:nowrap;padding-top:4px">44 €</p>
+</div>
+<div style="display:grid;grid-template-columns:1fr auto;gap:20px;padding:18px 0;border-bottom:1px solid rgba(201,169,110,.08);align-items:start">
+  <div>
+    <h4 style="font-family:'Cormorant Garamond',serif;font-size:19px;font-weight:300;color:var(--txt);margin-bottom:2px">Riesling Spätlese</h4>
+    <p style="font-size:9.5px;letter-spacing:.15em;color:var(--gold);font-weight:200;margin-bottom:5px">Weingut Seeger · Leimen</p>
+    <p style="font-size:12px;color:var(--dim);font-weight:200;line-height:1.7;font-style:italic">Elegant mit lebendiger Säure, Zitrus und Steinobst.</p>
+  </div>
+  <p style="font-family:'Cormorant Garamond',serif;font-size:22px;font-weight:300;color:var(--gold);white-space:nowrap;padding-top:4px">52 €</p>
+</div>
+<div style="display:grid;grid-template-columns:1fr auto;gap:20px;padding:18px 0;border-bottom:1px solid rgba(201,169,110,.08);align-items:start">
+  <div>
+    <h4 style="font-family:'Cormorant Garamond',serif;font-size:19px;font-weight:300;color:var(--txt);margin-bottom:2px">Chardonnay</h4>
+    <p style="font-size:9.5px;letter-spacing:.15em;color:var(--gold);font-weight:200;margin-bottom:5px">Weingut Fürst · Bürgstadt</p>
+    <p style="font-size:12px;color:var(--dim);font-weight:200;line-height:1.7;font-style:italic">Elegant ausgebaut, cremig mit Vanille und Buttertoast.</p>
+  </div>
+  <p style="font-family:'Cormorant Garamond',serif;font-size:22px;font-weight:300;color:var(--gold);white-space:nowrap;padding-top:4px">58 €</p>
+</div>
+</div>
+<div class="rv" style="margin-bottom:52px">
+  <h3 style="font-family:'Cormorant Garamond',serif;font-size:26px;font-weight:300;color:var(--txt);margin-bottom:4px;display:flex;align-items:center;gap:16px">Rotweine<span style="flex:1;height:1px;background:rgba(201,169,110,.15)"></span></h3>
+  
+<div style="display:grid;grid-template-columns:1fr auto;gap:20px;padding:18px 0;border-bottom:1px solid rgba(201,169,110,.08);align-items:start">
+  <div>
+    <h4 style="font-family:'Cormorant Garamond',serif;font-size:19px;font-weight:300;color:var(--txt);margin-bottom:2px">Spätburgunder</h4>
+    <p style="font-size:9.5px;letter-spacing:.15em;color:var(--gold);font-weight:200;margin-bottom:5px">Weingut Huber · Malterdingen</p>
+    <p style="font-size:12px;color:var(--dim);font-weight:200;line-height:1.7;font-style:italic">Kirsche, Pflaume, samtweiche Tannine. Klassisch badisch.</p>
+  </div>
+  <p style="font-family:'Cormorant Garamond',serif;font-size:22px;font-weight:300;color:var(--gold);white-space:nowrap;padding-top:4px">46 €</p>
+</div>
+<div style="display:grid;grid-template-columns:1fr auto;gap:20px;padding:18px 0;border-bottom:1px solid rgba(201,169,110,.08);align-items:start">
+  <div>
+    <h4 style="font-family:'Cormorant Garamond',serif;font-size:19px;font-weight:300;color:var(--txt);margin-bottom:2px">Lemberger</h4>
+    <p style="font-size:9.5px;letter-spacing:.15em;color:var(--gold);font-weight:200;margin-bottom:5px">Weingut Dautel · Bönnigheim</p>
+    <p style="font-size:12px;color:var(--dim);font-weight:200;line-height:1.7;font-style:italic">Kraftvoll, würzig, dunkelfruchtig mit langer Persistenz.</p>
+  </div>
+  <p style="font-family:'Cormorant Garamond',serif;font-size:22px;font-weight:300;color:var(--gold);white-space:nowrap;padding-top:4px">54 €</p>
+</div>
+<div style="display:grid;grid-template-columns:1fr auto;gap:20px;padding:18px 0;border-bottom:1px solid rgba(201,169,110,.08);align-items:start">
+  <div>
+    <h4 style="font-family:'Cormorant Garamond',serif;font-size:19px;font-weight:300;color:var(--txt);margin-bottom:2px">Regent</h4>
+    <p style="font-size:9.5px;letter-spacing:.15em;color:var(--gold);font-weight:200;margin-bottom:5px">Weingut Diehl · Hammelburg</p>
+    <p style="font-size:12px;color:var(--dim);font-weight:200;line-height:1.7;font-style:italic">Tiefes Rubinrot, Cassis und dunkle Schokolade.</p>
+  </div>
+  <p style="font-family:'Cormorant Garamond',serif;font-size:22px;font-weight:300;color:var(--gold);white-space:nowrap;padding-top:4px">42 €</p>
+</div>
+</div>
+<div class="rv" style="margin-bottom:52px">
+  <h3 style="font-family:'Cormorant Garamond',serif;font-size:26px;font-weight:300;color:var(--txt);margin-bottom:4px;display:flex;align-items:center;gap:16px">Schaumweine & Rosé<span style="flex:1;height:1px;background:rgba(201,169,110,.15)"></span></h3>
+  
+<div style="display:grid;grid-template-columns:1fr auto;gap:20px;padding:18px 0;border-bottom:1px solid rgba(201,169,110,.08);align-items:start">
+  <div>
+    <h4 style="font-family:'Cormorant Garamond',serif;font-size:19px;font-weight:300;color:var(--txt);margin-bottom:2px">Sekt Brut</h4>
+    <p style="font-size:9.5px;letter-spacing:.15em;color:var(--gold);font-weight:200;margin-bottom:5px">Weingut Huber · Breisgau</p>
+    <p style="font-size:12px;color:var(--dim);font-weight:200;line-height:1.7;font-style:italic">Feine Perlage, Brioche-Noten, frisch und animierend.</p>
+  </div>
+  <p style="font-family:'Cormorant Garamond',serif;font-size:22px;font-weight:300;color:var(--gold);white-space:nowrap;padding-top:4px">36 €</p>
+</div>
+<div style="display:grid;grid-template-columns:1fr auto;gap:20px;padding:18px 0;border-bottom:1px solid rgba(201,169,110,.08);align-items:start">
+  <div>
+    <h4 style="font-family:'Cormorant Garamond',serif;font-size:19px;font-weight:300;color:var(--txt);margin-bottom:2px">Rosé Sekt</h4>
+    <p style="font-size:9.5px;letter-spacing:.15em;color:var(--gold);font-weight:200;margin-bottom:5px">Weingut Klumpp · Bruchsal</p>
+    <p style="font-size:12px;color:var(--dim);font-weight:200;line-height:1.7;font-style:italic">Zartes Lachs, Erdbeere, spielerisch und elegant.</p>
+  </div>
+  <p style="font-family:'Cormorant Garamond',serif;font-size:22px;font-weight:300;color:var(--gold);white-space:nowrap;padding-top:4px">40 €</p>
+</div>
+<div style="display:grid;grid-template-columns:1fr auto;gap:20px;padding:18px 0;border-bottom:1px solid rgba(201,169,110,.08);align-items:start">
+  <div>
+    <h4 style="font-family:'Cormorant Garamond',serif;font-size:19px;font-weight:300;color:var(--txt);margin-bottom:2px">Champagne Billecart-Salmon Brut</h4>
+    <p style="font-size:9.5px;letter-spacing:.15em;color:var(--gold);font-weight:200;margin-bottom:5px">Ay · Marne · Frankreich</p>
+    <p style="font-size:12px;color:var(--dim);font-weight:200;line-height:1.7;font-style:italic">Der Klassiker. Cremig, komplex, festlich.</p>
+  </div>
+  <p style="font-family:'Cormorant Garamond',serif;font-size:22px;font-weight:300;color:var(--gold);white-space:nowrap;padding-top:4px">98 €</p>
+</div>
+</div></div>
+    <div>
+      <div class="rv" style="background:var(--bg2);border:1px solid rgba(201,169,110,.14);padding:40px 36px;margin-bottom:24px">
+        <p class="sl">Sommelier-Empfehlung</p>
+        <h3 style="font-family:'Cormorant Garamond',serif;font-size:24px;font-weight:300;color:var(--txt);margin-bottom:14px">Spätburgunder<br>Weingut Bernhard Huber</h3>
+        <p style="font-size:9px;letter-spacing:.2em;text-transform:uppercase;color:var(--gold);font-weight:200;margin-bottom:12px">Malterdingen · Breisgau · 2020</p>
+        <p style="font-size:13px;color:var(--dim);font-weight:200;line-height:1.9;font-style:italic;margin-bottom:20px">„Ein Wein, der erzählt — von roter Erde, alten Reben und dem besonderen Klima des Kaiserstuhls. Seidig, komplex, unvergesslich."</p>
+        <div style="display:flex;justify-content:space-between;align-items:center">
+          <span style="font-family:'Cormorant Garamond',serif;font-size:36px;font-weight:300;color:var(--gold)">78 €</span>
+          <a href="#" class="btn-o">Bestellen</a>
+        </div>
+      </div>
+      <div class="rv d1" style="background:var(--bg2);border:1px solid rgba(201,169,110,.1);padding:28px 28px">
+        <p class="sl" style="margin-bottom:14px">Bar-Öffnungszeiten</p>
+        <div style="display:flex;justify-content:space-between;padding:10px 0;border-bottom:1px solid rgba(201,169,110,.07);font-size:12.5px;font-weight:200"><span style="color:var(--dim)">Montag – Donnerstag</span><span style="color:var(--txt)">17:00 – 24:00 Uhr</span></div><div style="display:flex;justify-content:space-between;padding:10px 0;border-bottom:1px solid rgba(201,169,110,.07);font-size:12.5px;font-weight:200"><span style="color:var(--dim)">Freitag – Samstag</span><span style="color:var(--txt)">17:00 – 01:00 Uhr</span></div><div style="display:flex;justify-content:space-between;padding:10px 0;border-bottom:1px solid rgba(201,169,110,.07);font-size:12.5px;font-weight:200"><span style="color:var(--dim)">Sonntag</span><span style="color:var(--txt)">16:00 – 23:00 Uhr</span></div>
+        <p style="font-size:11px;color:var(--dim);font-weight:200;margin-top:14px">Hotelgäste haben jederzeit Zugang über die Lobby-Bar.</p>
+      </div>
+    </div>
+  </div>
+</section><footer style="background:#111009;border-top:1px solid rgba(201,169,110,.09);padding:64px 56px 32px">
+  <div style="display:grid;grid-template-columns:1.4fr 1fr 1fr 1fr;gap:48px;margin-bottom:48px;padding-bottom:48px;border-bottom:1px solid rgba(201,169,110,.07)">
+    <div>
+      <p style="font-family:'Cormorant Garamond',serif;font-size:21px;font-weight:300;letter-spacing:.22em;text-transform:uppercase;color:#faf7f2;margin-bottom:5px">Hotel Halm</p>
+      <p style="font-size:8px;letter-spacing:.4em;text-transform:uppercase;color:var(--gold);font-weight:200;margin-bottom:16px">Konstanz am Bodensee</p>
+      <p style="font-size:12px;font-weight:200;color:rgba(200,191,176,.4);line-height:2">Bahnhofplatz 6<br>78462 Konstanz<br>+49 7531 1234</p>
+    </div>
+    <div>
+      <p style="font-size:9px;letter-spacing:.38em;text-transform:uppercase;color:var(--gold);font-weight:200;margin-bottom:16px">Hotel</p>
+      <ul style="list-style:none;display:flex;flex-direction:column;gap:10px">
+        <li><a href="#" style="font-size:12px;color:rgba(200,191,176,.4);text-decoration:none;font-weight:200">Zimmer &amp; Suiten</a></li><li><a href="#" style="font-size:12px;color:rgba(200,191,176,.4);text-decoration:none;font-weight:200">Gastronomie</a></li><li><a href="#" style="font-size:12px;color:rgba(200,191,176,.4);text-decoration:none;font-weight:200">Wellness &amp; Sauna</a></li><li><a href="#" style="font-size:12px;color:rgba(200,191,176,.4);text-decoration:none;font-weight:200">Tagen &amp; Feiern</a></li>
+      </ul>
+    </div>
+    <div>
+      <p style="font-size:9px;letter-spacing:.38em;text-transform:uppercase;color:var(--gold);font-weight:200;margin-bottom:16px">Service</p>
+      <ul style="list-style:none;display:flex;flex-direction:column;gap:10px">
+        <li><a href="#" style="font-size:12px;color:rgba(200,191,176,.4);text-decoration:none;font-weight:200">Karriere</a></li><li><a href="#" style="font-size:12px;color:rgba(200,191,176,.4);text-decoration:none;font-weight:200">Gutscheine</a></li><li><a href="#" style="font-size:12px;color:rgba(200,191,176,.4);text-decoration:none;font-weight:200">Newsletter</a></li><li><a href="#" style="font-size:12px;color:rgba(200,191,176,.4);text-decoration:none;font-weight:200">Presse</a></li>
+      </ul>
+    </div>
+    <div>
+      <p style="font-size:9px;letter-spacing:.38em;text-transform:uppercase;color:var(--gold);font-weight:200;margin-bottom:16px">Rechtliches</p>
+      <ul style="list-style:none;display:flex;flex-direction:column;gap:10px">
+        <li><a href="#" style="font-size:12px;color:rgba(200,191,176,.4);text-decoration:none;font-weight:200">AGB</a></li><li><a href="#" style="font-size:12px;color:rgba(200,191,176,.4);text-decoration:none;font-weight:200">Impressum</a></li><li><a href="#" style="font-size:12px;color:rgba(200,191,176,.4);text-decoration:none;font-weight:200">Datenschutz</a></li><li><a href="#" style="font-size:12px;color:rgba(200,191,176,.4);text-decoration:none;font-weight:200">Barrierefreiheit</a></li>
+      </ul>
+    </div>
+  </div>
+  <div style="display:flex;justify-content:space-between;align-items:center">
+    <p style="font-size:10px;color:rgba(200,191,176,.22);letter-spacing:.07em">© 2024 Hotel Halm Konstanz. Alle Rechte vorbehalten.</p>
+    <a href="#" style="font-size:10px;letter-spacing:.2em;text-transform:uppercase;color:rgba(200,191,176,.22);text-decoration:none">↑ Nach oben</a>
+  </div>
+</footer><script>
+const cur=document.getElementById('cur'),cr=document.getElementById('curR');
+let rx=0,ry=0,mx=0,my=0;
+document.addEventListener('mousemove',e=>{mx=e.clientX;my=e.clientY;cur.style.left=mx+'px';cur.style.top=my+'px';});
+document.querySelectorAll('a,button,label,input,select,textarea,.card-hover').forEach(el=>{
+  el.addEventListener('mouseenter',()=>{cr.style.transform='translate(-50%,-50%) scale(1.7)';cr.style.borderColor='rgba(201,169,110,.75)';});
+  el.addEventListener('mouseleave',()=>{cr.style.transform='translate(-50%,-50%) scale(1)';cr.style.borderColor='rgba(201,169,110,.5)';});
+});
+(function loop(){rx+=(mx-rx)*.12;ry+=(my-ry)*.12;cr.style.left=rx+'px';cr.style.top=ry+'px';requestAnimationFrame(loop);})();
+const obs=new IntersectionObserver(e=>e.forEach(x=>{if(x.isIntersecting)x.target.classList.add('vis');}),{threshold:.08});
+document.querySelectorAll('.rv').forEach(el=>obs.observe(el));
+</script>
+</body>
+</html>

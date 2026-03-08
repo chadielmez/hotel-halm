@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>Saisonangebote — Hotel Halm Konstanz</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300;1,400&family=Jost:wght@200;300;400&display=swap" rel="stylesheet">
+<style>
+
+  :root {
+    --bg:         #0a0906;
+    --bg2:        #111009;
+    --bg3:        #1a1814;
+    --gold:       #c9a96e;
+    --gold-light: #e2c99a;
+    --text:       #f4ede0;
+    --text-dim:   #c8bfb0;
+    --white:      #faf7f2;
+    --mode: dark;
+  }
+
+  --nav-rgb: 10,9,6;
+
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+  body { background: var(--bg); color: var(--text); font-family: 'Jost', sans-serif; font-weight: 300; overflow-x: hidden; cursor: none; }
+  body::before { content: ''; position: fixed; inset: 0; background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='1'/%3E%3C/svg%3E"); opacity: .028; pointer-events: none; z-index: 9997; }
+  .cursor { position: fixed; width: 8px; height: 8px; background: var(--gold); border-radius: 50%; pointer-events: none; z-index: 9999; transform: translate(-50%,-50%); transition: transform .1s; }
+  .cursor-ring { position: fixed; width: 32px; height: 32px; border: 1px solid rgba(201,169,110,.5); border-radius: 50%; pointer-events: none; z-index: 9998; transform: translate(-50%,-50%); transition: all .15s; }
+  nav { position: fixed; top: 0; left: 0; right: 0; z-index: 1000; padding: 22px 56px; display: flex; align-items: center; justify-content: space-between; background: rgba(var(--nav-rgb),.96); border-bottom: 1px solid rgba(201,169,110,.09); backdrop-filter: blur(12px); animation: fadeDown 1.2s ease both; }
+  .nav-logo { font-family: 'Cormorant Garamond', serif; font-size: 20px; font-weight: 300; letter-spacing: .25em; text-transform: uppercase; color: var(--text); text-decoration: none; line-height: 1; }
+  .nav-logo span { display: block; font-size: 9px; letter-spacing: .45em; color: var(--gold); margin-top: 4px; font-family: 'Jost'; font-weight: 200; }
+  .nav-links { display: flex; gap: 32px; list-style: none; }
+  .nav-links a { font-size: 10px; font-weight: 300; letter-spacing: .22em; text-transform: uppercase; color: var(--text-dim); text-decoration: none; position: relative; transition: color .3s; }
+  .nav-links a::after { content: ''; position: absolute; bottom: -3px; left: 0; width: 0; height: 1px; background: var(--gold); transition: width .4s; }
+  .nav-links a:hover, .nav-links a.active { color: var(--gold); }
+  .nav-links a:hover::after, .nav-links a.active::after { width: 100%; }
+  .nav-cta { font-size: 10px; font-weight: 300; letter-spacing: .22em; text-transform: uppercase; color: var(--gold); text-decoration: none; border: 1px solid var(--gold); padding: 10px 22px; transition: all .4s; position: relative; overflow: hidden; }
+  .nav-cta::before { content: ''; position: absolute; inset: 0; background: var(--gold); transform: scaleX(0); transform-origin: left; transition: transform .4s; z-index: -1; }
+  .nav-cta:hover { color: var(--bg); }
+  .nav-cta:hover::before { transform: scaleX(1); }
+  .sl { font-size: 9px; letter-spacing: .45em; text-transform: uppercase; color: var(--gold); font-weight: 200; margin-bottom: 16px; display: flex; align-items: center; gap: 14px; }
+  .sl::before { content: ''; width: 30px; height: 1px; background: var(--gold); flex-shrink: 0; }
+  .st { font-family: 'Cormorant Garamond', serif; font-size: clamp(34px,5vw,62px); font-weight: 300; line-height: 1.05; color: var(--text); }
+  .st em { font-style: italic; color: var(--text-dim); }
+  .bt { font-size: 14px; font-weight: 200; line-height: 2.1; color: var(--text-dim); }
+  .btn-p { font-size: 10px; letter-spacing: .28em; text-transform: uppercase; font-weight: 300; color: var(--bg); background: var(--gold); padding: 15px 34px; text-decoration: none; display: inline-block; transition: all .4s; }
+  .btn-p:hover { background: var(--gold-light); transform: translateY(-2px); }
+  .btn-o { font-size: 10px; letter-spacing: .28em; text-transform: uppercase; font-weight: 300; color: var(--gold); border: 1px solid var(--gold); padding: 13px 30px; text-decoration: none; display: inline-block; transition: all .4s; }
+  .btn-o:hover { background: var(--gold); color: var(--bg); }
+  .btn-g { font-size: 10px; letter-spacing: .25em; text-transform: uppercase; font-weight: 300; color: var(--text-dim); text-decoration: none; display: inline-flex; align-items: center; gap: 10px; transition: color .3s; }
+  .btn-g::after { content: '→'; font-size: 14px; transition: transform .3s; }
+  .btn-g:hover { color: var(--gold); }
+  .btn-g:hover::after { transform: translateX(5px); }
+  @keyframes slowZoom { from { transform: scale(1); } to { transform: scale(1.06); } }
+  @keyframes fadeUp   { from { opacity: 0; transform: translateY(28px); } to { opacity: 1; transform: translateY(0); } }
+  @keyframes fadeDown { from { opacity: 0; transform: translateY(-16px); } to { opacity: 1; transform: translateY(0); } }
+  @keyframes fadeIn   { from { opacity: 0; } to { opacity: 1; } }
+  .reveal { opacity: 0; transform: translateY(32px); transition: all .9s cubic-bezier(.25,.46,.45,.94); }
+  .reveal.visible { opacity: 1; transform: translateY(0); }
+  .d1{transition-delay:.1s}.d2{transition-delay:.2s}.d3{transition-delay:.3s}.d4{transition-delay:.45s}
+  .divider { width: 100%; height: 1px; background: linear-gradient(to right, transparent, rgba(201,169,110,.2), transparent); }
+
+
+  .sa-hero{position:relative;height:100vh;min-height:680px;display:flex;align-items:flex-end;overflow:hidden}
+  .sa-hero-bg{position:absolute;inset:0;background:url('https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=1800&q=80') center/cover;animation:slowZoom 20s ease-in-out infinite alternate;filter:brightness(.38) saturate(.8)}
+  .sa-hero-grad{position:absolute;inset:0;background:linear-gradient(to top,var(--bg) 0%,rgba(10,9,6,.55) 40%,transparent 70%)}
+  .sa-hero-content{position:relative;z-index:2;padding:0 56px 80px;animation:fadeUp 1.4s ease both;animation-delay:.5s}
+  .sa-seasons{padding:80px 56px;background:var(--bg2);display:flex;gap:2px}
+  .sa-season-tab{flex:1;padding:28px 24px;border-bottom:2px solid transparent;cursor:none;transition:all .3s;text-align:center}
+  .sa-season-tab.active,.sa-season-tab:hover{border-bottom-color:var(--gold);background:rgba(201,169,110,.04)}
+  .sa-season-icon{font-size:28px;margin-bottom:10px;display:block}
+  .sa-season-name{font-family:'Cormorant Garamond',serif;font-size:20px;font-weight:300;color:var(--text);margin-bottom:4px}
+  .sa-season-date{font-size:9px;letter-spacing:.2em;text-transform:uppercase;color:var(--text-dim);font-weight:200}
+  .sa-offers-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:2px;margin-top:0}
+  .sa-offer{position:relative;overflow:hidden;min-height:380px;display:flex;align-items:flex-end}
+  .sa-offer-img{position:absolute;inset:0;object-fit:cover;width:100%;height:100%;filter:brightness(.55) saturate(.8);transition:all .6s}
+  .sa-offer:hover .sa-offer-img{filter:brightness(.75) saturate(1);transform:scale(1.04)}
+  .sa-offer-content{position:relative;z-index:2;padding:32px 36px;background:linear-gradient(to top,rgba(10,9,6,.95) 0%,transparent 65%);width:100%}
+  .sa-offer-tag{font-size:8.5px;letter-spacing:.35em;text-transform:uppercase;color:var(--gold);font-weight:200;margin-bottom:8px}
+  .sa-offer-title{font-family:'Cormorant Garamond',serif;font-size:28px;font-weight:300;color:var(--white);margin-bottom:8px;line-height:1.15}
+  .sa-offer-desc{font-size:12px;color:var(--text-dim);font-weight:200;line-height:1.8;margin-bottom:16px;max-width:360px}
+  .sa-offer-price{font-family:'Cormorant Garamond',serif;font-size:32px;font-weight:300;color:var(--gold);margin-bottom:16px}
+  .sa-highlight{padding:80px 56px;background:var(--bg);display:grid;grid-template-columns:1fr 1fr;gap:80px;align-items:center}
+  .sa-highlight img{width:100%;aspect-ratio:4/3;object-fit:cover;filter:brightness(.75) saturate(.85);display:block}
+  .sa-cta{background:var(--gold);padding:80px 56px;display:grid;grid-template-columns:1fr auto;gap:56px;align-items:center}
+
+</style>
+</head>
+<body>
+<div class="cursor" id="cursor"></div>
+<div class="cursor-ring" id="cursorRing"></div>
+<nav>
+  <a href="hotel-halm-home.html" class="nav-logo">Hotel Halm<span>Konstanz am Bodensee</span></a>
+  <ul class="nav-links">
+    <li><a href="hotel-halm-zimmer.html" class='active'>Zimmer</a></li>
+    <li><a href="hotel-halm-gastronomie.html" >Gastronomie</a></li>
+    <li><a href="hotel-halm-sauna.html" >Sauna</a></li>
+    <li><a href="hotel-halm-tagen.html" >Tagen</a></li>
+    <li><a href="hotel-halm-ueber.html" >Über uns</a></li>
+  </ul>
+  <a href="hotel-halm-buchen.html" class="nav-cta">Zimmer buchen</a>
+</nav>
+
+<section class="sa-hero">
+  <div class="sa-hero-bg"></div>
+  <div class="sa-hero-grad"></div>
+  <div class="sa-hero-content">
+    <p class="sl">Saisonale Angebote</p>
+    <h1 class="st" style="font-size:clamp(56px,8vw,112px);line-height:.92;color:var(--white)">Jede Jahreszeit<br>ein <em>besonderes</em><br>Erlebnis.</h1>
+    <p style="font-size:14px;font-weight:200;color:var(--text-dim);max-width:440px;line-height:2;margin-top:24px;margin-bottom:40px">Erleben Sie den Bodensee in seiner schönsten Jahreszeit — mit exklusiven Paketen für jeden Anlass.</p>
+    <a href="#angebote" class="btn-p">Alle Angebote entdecken</a>
+  </div>
+</section>
+
+<section class="sa-seasons">
+  <div class="sa-season-tab active"><span class="sa-season-icon">🌸</span><div class="sa-season-name">Frühling</div><div class="sa-season-date">März — Mai</div></div>
+  <div class="sa-season-tab"><span class="sa-season-icon">☀️</span><div class="sa-season-name">Sommer</div><div class="sa-season-date">Juni — August</div></div>
+  <div class="sa-season-tab"><span class="sa-season-icon">🍂</span><div class="sa-season-name">Herbst</div><div class="sa-season-date">September — November</div></div>
+  <div class="sa-season-tab"><span class="sa-season-icon">❄️</span><div class="sa-season-name">Winter</div><div class="sa-season-date">Dezember — Februar</div></div>
+</section>
+
+<div id="angebote">
+<div class="sa-offers-grid">
+  <div class="sa-offer reveal">
+    <img class="sa-offer-img" src="https://images.unsplash.com/photo-1559827260-dc66d52bef19?w=900&q=80" alt="Frühling">
+    <div class="sa-offer-content">
+      <p class="sa-offer-tag">Frühjahrsangebot · März – Mai</p>
+      <h2 class="sa-offer-title">Bodensee Erwacht</h2>
+      <p class="sa-offer-desc">3 Nächte, Frühstücksbuffet, Weinprobe und Obstblüten-Radtour rund um den Bodensee.</p>
+      <div class="sa-offer-price">ab 389 € <span style="font-size:14px;color:var(--text-dim);font-family:'Jost';font-weight:200">/ Person</span></div>
+      <a href="hotel-halm-buchen.html" class="btn-p">Jetzt buchen</a>
+    </div>
+  </div>
+  <div class="sa-offer reveal d1">
+    <img class="sa-offer-img" src="https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=900&q=80" alt="Sommer">
+    <div class="sa-offer-content">
+      <p class="sa-offer-tag">Sommerangebot · Juni – August</p>
+      <h2 class="sa-offer-title">Sommer am See</h2>
+      <p class="sa-offer-desc">2 Nächte, Frühstück, Schifffahrt auf dem Bodensee und Picknickkorb für zwei.</p>
+      <div class="sa-offer-price">ab 299 € <span style="font-size:14px;color:var(--text-dim);font-family:'Jost';font-weight:200">/ Person</span></div>
+      <a href="hotel-halm-buchen.html" class="btn-p">Jetzt buchen</a>
+    </div>
+  </div>
+  <div class="sa-offer reveal d1">
+    <img class="sa-offer-img" src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=900&q=80" alt="Herbst">
+    <div class="sa-offer-content">
+      <p class="sa-offer-tag">Herbstangebot · September – November</p>
+      <h2 class="sa-offer-title">Goldener Oktober</h2>
+      <p class="sa-offer-desc">3 Nächte, Frühstück, Weinlese-Tour, Saunabereich und regionales Abendessen.</p>
+      <div class="sa-offer-price">ab 449 € <span style="font-size:14px;color:var(--text-dim);font-family:'Jost';font-weight:200">/ Person</span></div>
+      <a href="hotel-halm-buchen.html" class="btn-p">Jetzt buchen</a>
+    </div>
+  </div>
+  <div class="sa-offer reveal d2">
+    <img class="sa-offer-img" src="https://images.unsplash.com/photo-1418985991508-e47386d96a71?w=900&q=80" alt="Winter">
+    <div class="sa-offer-content">
+      <p class="sa-offer-tag">Winterangebot · Dezember – Februar</p>
+      <h2 class="sa-offer-title">Winterzauber</h2>
+      <p class="sa-offer-desc">2 Nächte, Frühstücksbuffet, Saunazugang, Glühwein am Kamin und festliches Dinner.</p>
+      <div class="sa-offer-price">ab 349 € <span style="font-size:14px;color:var(--text-dim);font-family:'Jost';font-weight:200">/ Person</span></div>
+      <a href="hotel-halm-buchen.html" class="btn-p">Jetzt buchen</a>
+    </div>
+  </div>
+</div>
+
+<section class="sa-highlight">
+  <img src="https://images.unsplash.com/photo-1542314831-068cd1dbfeeb?w=900&q=80" alt="Wellness" class="reveal">
+  <div class="reveal d2">
+    <p class="sl">Ganzjährig verfügbar</p>
+    <h2 class="st" style="margin-bottom:24px">Wellness-Paket<br><em>für alle Jahreszeiten</em></h2>
+    <p class="bt" style="margin-bottom:28px">Unser beliebtestes Paket — kombiniert exzellenten Schlaf, Sauna-Genuss und kulinarische Verwöhnung. Ideal für Paare, die sich eine Auszeit gönnen möchten.</p>
+    <ul style="list-style:none;display:flex;flex-direction:column;gap:12px;margin-bottom:36px">
+      <li style="display:flex;align-items:center;gap:14px;font-size:13px;color:var(--text-dim);font-weight:200"><span style="width:20px;height:1px;background:var(--gold);flex-shrink:0"></span>2 Nächte in der Deluxe Suite</li>
+      <li style="display:flex;align-items:center;gap:14px;font-size:13px;color:var(--text-dim);font-weight:200"><span style="width:20px;height:1px;background:var(--gold);flex-shrink:0"></span>Tägliches Frühstücksbuffet</li>
+      <li style="display:flex;align-items:center;gap:14px;font-size:13px;color:var(--text-dim);font-weight:200"><span style="width:20px;height:1px;background:var(--gold);flex-shrink:0"></span>Unbegrenzter Saunazugang</li>
+      <li style="display:flex;align-items:center;gap:14px;font-size:13px;color:var(--text-dim);font-weight:200"><span style="width:20px;height:1px;background:var(--gold);flex-shrink:0"></span>60-Min. Entspannungsmassage</li>
+    </ul>
+    <div style="display:flex;align-items:center;gap:20px;flex-wrap:wrap">
+      <div><p style="font-family:'Cormorant Garamond',serif;font-size:40px;font-weight:300;color:var(--gold)">ab 299 €</p><p style="font-size:9px;color:var(--text-dim);letter-spacing:.15em">pro Person</p></div>
+      <a href="hotel-halm-buchen.html" class="btn-p">Jetzt buchen</a>
+    </div>
+  </div>
+</section>
+
+<section class="sa-cta">
+  <div class="reveal">
+    <p class="sl" style="color:rgba(10,9,6,.5)">Individuelle Wünsche?</p>
+    <h2 class="sa-cta-title" style="font-family:'Cormorant Garamond',serif;font-size:clamp(32px,4.5vw,56px);font-weight:300;color:var(--bg);line-height:1.05">Wir schnüren Ihr<br><em style="color:rgba(10,9,6,.45)">Wunschpaket.</em></h2>
+    <p style="font-size:14px;font-weight:200;color:rgba(10,9,6,.55);margin-top:16px;max-width:460px;line-height:2">Besondere Anlässe verdienen besondere Angebote. Sprechen Sie uns an — wir gestalten ein Paket ganz nach Ihren Wünschen.</p>
+  </div>
+  <div class="reveal d2" style="display:flex;flex-direction:column;gap:14px;flex-shrink:0;align-items:flex-start">
+    <a href="hotel-halm-kontakt.html" style="font-size:10px;letter-spacing:.28em;text-transform:uppercase;font-weight:300;color:var(--gold);background:var(--bg);padding:15px 34px;text-decoration:none;display:inline-block;transition:all .4s;white-space:nowrap" onmouseover="this.style.background='#1a1814'" onmouseout="this.style.background='var(--bg)'">Anfrage senden</a>
+    <a href="tel:+4975311234" class="btn-g" style="color:rgba(10,9,6,.55)">Direkt anrufen</a>
+    <p style="font-size:10px;color:rgba(10,9,6,.38);letter-spacing:.06em">info@hotel-halm.de</p>
+  </div>
+</section>
+</div>
+
+
+<footer style="background:#111009;border-top:1px solid rgba(201,169,110,.09);padding:64px 56px 32px">
+  <div style="display:grid;grid-template-columns:1.4fr 1fr 1fr 1fr;gap:48px;margin-bottom:48px;padding-bottom:48px;border-bottom:1px solid rgba(201,169,110,.06)">
+    <div>
+      <p style="font-family:'Cormorant Garamond',serif;font-size:21px;font-weight:300;letter-spacing:.22em;text-transform:uppercase;color:#faf7f2;margin-bottom:5px">Hotel Halm</p>
+      <p style="font-size:8.5px;letter-spacing:.4em;text-transform:uppercase;color:var(--gold);font-weight:200;margin-bottom:16px">Konstanz am Bodensee</p>
+      <p style="font-size:12px;font-weight:200;color:rgba(200,191,176,.4);line-height:2;max-width:210px">Bahnhofplatz 6 · 78462 Konstanz<br>+49 7531 1234</p>
+    </div>
+    <div><p style="font-size:9px;letter-spacing:.4em;text-transform:uppercase;color:var(--gold);font-weight:200;margin-bottom:16px">Hotel</p><ul style="list-style:none;display:flex;flex-direction:column;gap:10px"><li><a href="#" style="font-size:12px;color:rgba(200,191,176,.4);text-decoration:none;font-weight:200">Zimmer &amp; Suiten</a></li><li><a href="#" style="font-size:12px;color:rgba(200,191,176,.4);text-decoration:none;font-weight:200">Gastronomie</a></li><li><a href="#" style="font-size:12px;color:rgba(200,191,176,.4);text-decoration:none;font-weight:200">Wellness &amp; Sauna</a></li><li><a href="#" style="font-size:12px;color:rgba(200,191,176,.4);text-decoration:none;font-weight:200">Tagen &amp; Feiern</a></li></ul></div>
+    <div><p style="font-size:9px;letter-spacing:.4em;text-transform:uppercase;color:var(--gold);font-weight:200;margin-bottom:16px">Service</p><ul style="list-style:none;display:flex;flex-direction:column;gap:10px"><li><a href="#" style="font-size:12px;color:rgba(200,191,176,.4);text-decoration:none;font-weight:200">Karriere</a></li><li><a href="#" style="font-size:12px;color:rgba(200,191,176,.4);text-decoration:none;font-weight:200">Gutscheine</a></li><li><a href="#" style="font-size:12px;color:rgba(200,191,176,.4);text-decoration:none;font-weight:200">Newsletter</a></li><li><a href="#" style="font-size:12px;color:rgba(200,191,176,.4);text-decoration:none;font-weight:200">Presse</a></li></ul></div>
+    <div><p style="font-size:9px;letter-spacing:.4em;text-transform:uppercase;color:var(--gold);font-weight:200;margin-bottom:16px">Rechtliches</p><ul style="list-style:none;display:flex;flex-direction:column;gap:10px"><li><a href="#" style="font-size:12px;color:rgba(200,191,176,.4);text-decoration:none;font-weight:200">Datenschutz</a></li><li><a href="#" style="font-size:12px;color:rgba(200,191,176,.4);text-decoration:none;font-weight:200">Impressum</a></li><li><a href="#" style="font-size:12px;color:rgba(200,191,176,.4);text-decoration:none;font-weight:200">AGB</a></li></ul></div>
+  </div>
+  <div style="display:flex;justify-content:space-between;align-items:center">
+    <p style="font-size:10px;color:rgba(200,191,176,.25);letter-spacing:.07em">© 2024 Hotel Halm Konstanz. Alle Rechte vorbehalten.</p>
+    <a href="#" style="font-size:10px;letter-spacing:.2em;text-transform:uppercase;color:rgba(200,191,176,.25);text-decoration:none">↑ Nach oben</a>
+  </div>
+</footer>
+
+
+<script>
+const cur=document.getElementById('cursor'),ring=document.getElementById('cursorRing');
+let rx=0,ry=0,mx=0,my=0;
+document.addEventListener('mousemove',e=>{mx=e.clientX;my=e.clientY;cur.style.left=mx+'px';cur.style.top=my+'px';});
+document.querySelectorAll('a,button,label,input,select,textarea').forEach(el=>{
+  el.addEventListener('mouseenter',()=>{ring.style.transform='translate(-50%,-50%) scale(1.7)';ring.style.borderColor='rgba(201,169,110,.75)';});
+  el.addEventListener('mouseleave',()=>{ring.style.transform='translate(-50%,-50%) scale(1)';ring.style.borderColor='rgba(201,169,110,.5)';});
+});
+(function animR(){rx+=(mx-rx)*.12;ry+=(my-ry)*.12;ring.style.left=rx+'px';ring.style.top=ry+'px';requestAnimationFrame(animR);})();
+const obs=new IntersectionObserver(e=>{e.forEach(x=>{if(x.isIntersecting)x.target.classList.add('visible');});},{threshold:.1});
+document.querySelectorAll('.reveal').forEach(el=>obs.observe(el));
+const nav=document.querySelector('nav');
+window.addEventListener('scroll',()=>{nav.style.opacity=window.scrollY>60?'1':'1';});
+</script>
+
+</body>
+</html>

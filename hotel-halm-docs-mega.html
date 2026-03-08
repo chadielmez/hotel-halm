@@ -1,0 +1,781 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>Hotel Halm — Mega Design Dokumentation</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300&family=Jost:wght@200;300;400&family=JetBrains+Mono:wght@300;400&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#080706;--dark:#0f0e0b;--dark2:#171511;--border:rgba(201,169,110,.11);--gold:#c9a96e;--cream:#f0e8d8;--cream2:#c4b9a8;--cream3:#7a7060;}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{background:var(--bg);color:var(--cream);font-family:'Jost',sans-serif;font-weight:300;display:flex;height:100vh;overflow:hidden}
+::-webkit-scrollbar{width:4px;height:4px}
+::-webkit-scrollbar-track{background:transparent}
+::-webkit-scrollbar-thumb{background:rgba(201,169,110,.2);border-radius:2px}
+/* Sidebar */
+.sidebar{width:240px;min-width:240px;background:var(--dark);border-right:1px solid var(--border);display:flex;flex-direction:column;overflow-y:auto;flex-shrink:0}
+.sb-logo{padding:20px 18px 18px;border-bottom:1px solid var(--border)}
+.sb-logo h1{font-family:'Cormorant Garamond',serif;font-size:16px;font-weight:300;letter-spacing:.2em;text-transform:uppercase;color:#faf6f0;line-height:1.2}
+.sb-logo p{font-size:8px;letter-spacing:.4em;text-transform:uppercase;color:var(--gold);font-weight:200;margin-top:4px}
+.sb-badge{font-size:7.5px;background:rgba(201,169,110,.07);border:1px solid var(--border);color:var(--gold);padding:2px 7px;letter-spacing:.1em;display:inline-block;margin-top:8px}
+.sb-sec{padding:12px 0 4px}
+.sb-sec-lbl{font-size:7px;letter-spacing:.5em;text-transform:uppercase;color:rgba(201,169,110,.38);font-weight:200;padding:0 18px 6px;display:block}
+.sb-item{display:flex;align-items:center;gap:8px;padding:8px 18px;font-size:11px;color:var(--cream3);cursor:pointer;transition:all .2s;border-left:2px solid transparent;font-weight:200;letter-spacing:.02em}
+.sb-item:hover{color:var(--cream);background:rgba(201,169,110,.04)}
+.sb-item.active{color:var(--gold);border-left-color:var(--gold);background:rgba(201,169,110,.05)}
+.sb-ic{width:14px;font-size:11px;text-align:center;opacity:.5;flex-shrink:0}
+.sb-item.active .sb-ic{opacity:1}
+.sb-cnt{margin-left:auto;font-size:7.5px;background:rgba(201,169,110,.08);border:1px solid rgba(201,169,110,.14);color:var(--gold);padding:1px 5px}
+/* Main */
+.main{flex:1;display:flex;flex-direction:column;overflow:hidden;min-width:0}
+.topbar{background:rgba(8,7,6,.96);border-bottom:1px solid var(--border);padding:0 28px;height:48px;display:flex;align-items:center;gap:0;flex-shrink:0;backdrop-filter:blur(10px)}
+.tbtab{padding:0 18px;height:48px;font-size:9.5px;letter-spacing:.2em;text-transform:uppercase;color:var(--cream3);cursor:pointer;border:none;background:none;font-family:'Jost';font-weight:300;border-bottom:2px solid transparent;margin-bottom:-1px;transition:all .25s;white-space:nowrap}
+.tbtab:hover{color:var(--cream)}
+.tbtab.on{color:var(--gold);border-bottom-color:var(--gold)}
+.tb-info{margin-left:auto;font-size:9px;color:var(--cream3);letter-spacing:.1em}
+.tb-info span{color:var(--gold)}
+/* Content */
+.scroll-area{flex:1;overflow-y:auto;padding:0}
+/* Doc section */
+.doc-section{display:none;padding:0}
+.doc-section.active{display:block}
+.ds-inner{display:grid;grid-template-columns:380px 1fr;height:calc(100vh - 48px);overflow:hidden}
+.ds-left{border-right:1px solid var(--border);overflow-y:auto;padding:28px 24px 60px;background:var(--dark)}
+.ds-right{display:flex;flex-direction:column;overflow:hidden;background:var(--bg)}
+/* Doc elements */
+.doc-label{font-size:7.5px;letter-spacing:.45em;text-transform:uppercase;color:var(--gold);font-weight:200;margin-bottom:9px;display:flex;align-items:center;gap:9px}
+.doc-label::before{content:'';width:18px;height:1px;background:var(--gold);flex-shrink:0}
+.ctitle{font-family:'Cormorant Garamond',serif;font-size:28px;font-weight:300;color:#faf6f0;line-height:1.1;margin-bottom:8px}
+.cdesc{font-size:12px;color:var(--cream2);line-height:1.85;font-weight:200;margin-bottom:4px}
+.info-note{padding:11px 14px;border-left:3px solid rgba(122,179,204,.5);background:rgba(122,179,204,.06);margin:12px 0;font-size:11.5px;line-height:1.8;color:#aaccdd;font-weight:200}
+/* Variant grid */
+.vgrid{display:grid;grid-template-columns:1fr 1fr;gap:7px;margin-bottom:4px}
+.vb{padding:10px 9px;border:1px solid var(--border);background:none;color:var(--cream2);cursor:pointer;transition:all .22s;text-align:left;position:relative;overflow:hidden}
+.vb::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:var(--gold);transform:scaleX(0);transform-origin:left;transition:transform .3s ease}
+.vb:hover{border-color:rgba(201,169,110,.28);color:var(--cream)}
+.vb:hover::before{transform:scaleX(.5)}
+.vb.selected{border-color:var(--gold);color:var(--gold);background:rgba(201,169,110,.06)}
+.vb.selected::before{transform:scaleX(1)}
+.vn{font-family:'Cormorant Garamond',serif;font-size:20px;font-weight:300;color:rgba(201,169,110,.2);display:block;line-height:1;margin-bottom:3px}
+.vb.selected .vn{color:rgba(201,169,110,.45)}
+.vname{font-size:10px;font-weight:300;display:block;line-height:1.3;color:inherit}
+.vtag{font-size:7.5px;letter-spacing:.15em;text-transform:uppercase;color:rgba(201,169,110,.4);display:block;margin-top:2px}
+/* Code block */
+.cb{background:#0c0a08;border:1px solid var(--border);margin:12px 0}
+.cb-h{display:flex;align-items:center;justify-content:space-between;padding:7px 13px;border-bottom:1px solid var(--border);background:rgba(201,169,110,.04)}
+.cb-l{font-size:8px;letter-spacing:.3em;text-transform:uppercase;color:var(--gold);font-family:'JetBrains Mono';font-weight:400}
+.cp{font-size:7.5px;letter-spacing:.2em;text-transform:uppercase;color:var(--cream3);cursor:pointer;transition:color .2s;background:none;border:none;font-family:'Jost'}
+.cp:hover{color:var(--gold)}
+.cp.ok{color:#7fc49a}
+pre{padding:14px;overflow-x:auto;font-family:'JetBrains Mono',monospace;font-size:10.5px;line-height:1.7;color:var(--cream)}
+/* Preview */
+.pv-toolbar{padding:9px 18px;border-bottom:1px solid var(--border);display:flex;align-items:center;gap:10px;background:var(--dark);flex-shrink:0}
+.pv-label{font-size:8px;letter-spacing:.35em;text-transform:uppercase;color:var(--cream3);font-weight:200}
+.pv-badge{font-size:7.5px;letter-spacing:.15em;text-transform:uppercase;padding:2px 7px;border:1px solid rgba(127,196,154,.35);color:#7fc49a;background:rgba(127,196,154,.06)}
+.pv-copy{margin-left:auto;font-size:8.5px;letter-spacing:.18em;text-transform:uppercase;padding:5px 13px;border:1px solid var(--border);background:none;color:var(--cream3);cursor:pointer;font-family:'Jost';transition:all .22s}
+.pv-copy:hover{border-color:var(--gold);color:var(--gold)}
+.pv-area{flex:1;overflow-y:auto;padding:0}
+.pv{display:none}
+/* Page list section */
+.pages-section{padding:40px 48px 80px;max-width:1000px}
+.pages-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:14px;margin-top:20px}
+.page-card{background:var(--dark2);border:1px solid var(--border);padding:24px;transition:border-color .3s;position:relative;overflow:hidden}
+.page-card::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:var(--gold);transform:scaleX(0);transform-origin:left;transition:transform .5s}
+.page-card:hover{border-color:rgba(201,169,110,.3)}
+.page-card:hover::before{transform:scaleX(1)}
+.page-card h4{font-family:'Cormorant Garamond',serif;font-size:20px;font-weight:300;color:#faf6f0;margin-bottom:6px}
+.page-card p{font-size:11.5px;color:var(--cream3);line-height:1.7;margin-bottom:12px;font-weight:200}
+.page-card a{font-size:8.5px;letter-spacing:.2em;text-transform:uppercase;color:var(--gold);text-decoration:none;font-weight:200}
+@keyframes slowZoom{from{transform:scale(1)}to{transform:scale(1.06)}}
+</style>
+</head>
+<body>
+<aside class="sidebar">
+  <div class="sb-logo">
+    <h1>Hotel Halm</h1>
+    <p>Mega Dokumentation</p>
+    <span class="sb-badge">10–12 Designs pro Typ</span>
+  </div>
+  <nav>
+    <div class="sb-sec">
+      <span class="sb-sec-lbl">Neue Seiten (10)</span>
+      <div class="sb-item" onclick="showDS('pages')" id="sbi-pages"><span class="sb-ic">◈</span>Alle neuen Seiten<span class="sb-cnt">10</span></div>
+    </div>
+    <div class="sb-sec">
+      <span class="sb-sec-lbl">Komponenten</span>
+      <div class="sb-item" onclick="showDS('hero')" id="sbi-hero"><span class="sb-ic">◈</span>Hero-Bereiche<span class="sb-cnt">12</span></div>
+<div class="sb-item" onclick="showDS('section')" id="sbi-section"><span class="sb-ic">◈</span>Inhaltssektionen<span class="sb-cnt">11</span></div>
+<div class="sb-item" onclick="showDS('gallery')" id="sbi-gallery"><span class="sb-ic">◈</span>Fotogalerien<span class="sb-cnt">11</span></div>
+<div class="sb-item" onclick="showDS('cards')" id="sbi-cards"><span class="sb-ic">◈</span>Karten & Cards<span class="sb-cnt">11</span></div>
+
+    </div>
+  </nav>
+</aside>
+
+<div class="main">
+  <div class="topbar">
+    <span class="tbtab on" style="cursor:default">Design Bibliothek</span>
+    <div class="tb-info" style="margin-left:auto">Hotel Halm · <span>45 Designs</span> verfügbar</div>
+  </div>
+
+  <div class="scroll-area">
+
+    <!-- PAGES OVERVIEW -->
+    <div class="doc-section active" id="ds-pages">
+      <div style="padding:40px 48px 80px;max-width:1000px">
+        <div class="doc-label">Neue Seiten</div>
+        <h2 class="ctitle" style="font-size:36px">10 neue Hotel-Seiten</h2>
+        <p class="cdesc" style="margin-bottom:32px">Alle neuen Seiten sind bereits mit vollständigem Inhalt, Navigation, Hero-Bereich, Sektionen und Footer generiert. Klicken Sie auf einen Link zum Öffnen.</p>
+        <div class="pages-grid">
+          <div class="page-card"><h4>🧖 Spa & Wellness</h4><p>800m² Wellnessbereich · Sauna · Dampfbad · 3 Massageanwendungen · Preise & Buchung</p><a href="hotel-halm-spa-wellness.html" target="_blank">Seite öffnen ↗</a></div>
+          <div class="page-card"><h4>📷 Fotogalerie</h4><p>Masonry-Galerie · 4 Filterkategorien (Zimmer / Restaurant / Spa / Außen) · Hover-Effekte</p><a href="hotel-halm-galerie.html" target="_blank">Seite öffnen ↗</a></div>
+          <div class="page-card"><h4>💍 Hochzeiten & Events</h4><p>3 Hochzeitspakete (Essenz / Romantique / Prestige) · Koordination · Kapazitäten</p><a href="hotel-halm-hochzeit.html" target="_blank">Seite öffnen ↗</a></div>
+          <div class="page-card"><h4>☕ Frühstück</h4><p>Tägliches Buffet · Öffnungszeiten · 4 Highlight-Bilder · Preise für externe Gäste</p><a href="hotel-halm-fruehstueck.html" target="_blank">Seite öffnen ↗</a></div>
+          <div class="page-card"><h4>🍸 Bar & Lounge</h4><p>Abendbar mit Seeblick · Getränkekarte · Öffnungszeiten · Atmosphäre</p><a href="hotel-halm-bar.html" target="_blank">Seite öffnen ↗</a></div>
+          <div class="page-card"><h4>🚴 Aktivitäten & Ausflüge</h4><p>5 Ausflugsziele · Wassersport · Concierge-Service · Bodensee-Highlights</p><a href="hotel-halm-aktivitaeten.html" target="_blank">Seite öffnen ↗</a></div>
+          <div class="page-card"><h4>🚘 Transfer & Shuttle</h4><p>Ab Flughafen Zürich / Stuttgart / FDH · Private Transfers · Chauffeur-Service · Preise</p><a href="hotel-halm-transfer.html" target="_blank">Seite öffnen ↗</a></div>
+          <div class="page-card"><h4>👨‍👩‍👧 Familienfreundlich</h4><p>Familiensuiten · Kinderbett kostenlos · Spielecke · Babysitting · Kindermenü</p><a href="hotel-halm-kinderfreundlich.html" target="_blank">Seite öffnen ↗</a></div>
+          <div class="page-card"><h4>🎁 Geschenkgutscheine</h4><p>Wertgutscheine · Erlebnispakete · Sofort per E-Mail · Individueller Betrag</p><a href="hotel-halm-gutscheine.html" target="_blank">Seite öffnen ↗</a></div>
+          <div class="page-card"><h4>⚖️ Datenschutz</h4><p>DSGVO-konforme Datenschutzerklärung · Kontakt Datenschutzbeauftragter · Impressum-Infos</p><a href="hotel-halm-datenschutz.html" target="_blank">Seite öffnen ↗</a></div>
+        </div>
+        <div style="margin-top:32px;padding:20px 24px;background:rgba(201,169,110,.06);border:1px solid var(--border)">
+          <p style="font-size:8px;letter-spacing:.35em;text-transform:uppercase;color:var(--gold);font-weight:200;margin-bottom:8px">Tipp — Navigation</p>
+          <p style="font-size:12.5px;color:var(--cream2);line-height:1.9;font-weight:200">Um die neuen Seiten in die Navigation aller .html-Dateien einzutragen: Öffnen Sie jede Datei in VS Code und fügen Sie <code style="background:rgba(201,169,110,.1);padding:1px 5px;font-family:'JetBrains Mono';font-size:11px">&lt;li&gt;&lt;a href="hotel-halm-spa-wellness.html"&gt;Spa &amp; Wellness&lt;/a&gt;&lt;/li&gt;</code> in die <code style="background:rgba(201,169,110,.1);padding:1px 5px;font-family:'JetBrains Mono';font-size:11px">&lt;ul class="nav-links"&gt;</code>-Liste ein.</p>
+        </div>
+      </div>
+    </div>
+
+    
+<div class="doc-section" id="ds-hero">
+  <div class="ds-inner">
+    <div class="ds-left">
+      <div class="doc-label">Komponente</div>
+      <h2 class="ctitle">Hero-Bereiche</h2>
+      <p class="cdesc">Wählen Sie eine Variante — die Live-Vorschau aktualisiert sich sofort. Klicken Sie "Code kopieren" für den vollständigen HTML-Code.</p>
+      <div class="info-note">Fügen Sie den Hero direkt <strong>nach der Navigation</strong> und <strong>vor dem ersten Inhaltsblock</strong> ein. Ersetzen Sie <code>BILD-URL</code> mit Ihrem Foto-Link.</div>
+      <div class="doc-label" style="margin-top:20px">Design wählen</div>
+      <div class="vgrid"><button class="vb selected" onclick="selV(this,'hero-v1')" data-section="hero"><span class="vn">01</span><span class="vname">Vollbild Links</span><span class="vtag">Standard · Aktuelle Website</span></button>
+<button class="vb " onclick="selV(this,'hero-v2')" data-section="hero"><span class="vn">02</span><span class="vname">Split Screen</span><span class="vtag">Bild links · Text rechts</span></button>
+<button class="vb " onclick="selV(this,'hero-v3')" data-section="hero"><span class="vn">03</span><span class="vname">Zentriert Editorial</span><span class="vtag">Text mittig · Keine Buttons</span></button>
+<button class="vb " onclick="selV(this,'hero-v4')" data-section="hero"><span class="vn">04</span><span class="vname">Minimal Typografisch</span><span class="vtag">Nur Text · Kein Bild</span></button>
+<button class="vb " onclick="selV(this,'hero-v5')" data-section="hero"><span class="vn">05</span><span class="vname">Vollbild Rechts</span><span class="vtag">Text rechts unten</span></button>
+<button class="vb " onclick="selV(this,'hero-v6')" data-section="hero"><span class="vn">06</span><span class="vname">Dark Minimal mit Linie</span><span class="vtag">Vertikale Linie · Zweispaltig</span></button>
+<button class="vb " onclick="selV(this,'hero-v7')" data-section="hero"><span class="vn">07</span><span class="vname">Übergroßes Bild</span><span class="vtag">Bild füllt fast alles</span></button>
+<button class="vb " onclick="selV(this,'hero-v8')" data-section="hero"><span class="vn">08</span><span class="vname">Diagonale Teilung</span><span class="vtag">Schräger Bildschnitt</span></button>
+<button class="vb " onclick="selV(this,'hero-v9')" data-section="hero"><span class="vn">09</span><span class="vname">Video Placeholder</span><span class="vtag">Mit Wiedergabe-Button</span></button>
+<button class="vb " onclick="selV(this,'hero-v10')" data-section="hero"><span class="vn">10</span><span class="vname">Multi-Slide Andeutung</span><span class="vtag">Sliderindikator unten</span></button>
+<button class="vb " onclick="selV(this,'hero-v11')" data-section="hero"><span class="vn">11</span><span class="vname">Asymmetrisch Überlappend</span><span class="vtag">Text überlappt Bild</span></button>
+<button class="vb " onclick="selV(this,'hero-v12')" data-section="hero"><span class="vn">12</span><span class="vname">Dunkle Kacheln</span><span class="vtag">3 Mini-Bilder als Hero</span></button>
+</div>
+      <div class="doc-label" style="margin-top:20px">Code</div>
+      <div class="cb" id="cb-hero">
+        <div class="cb-h"><span class="cb-l">HTML — Live</span><button class="cp" onclick="cpCurrent('hero')">Kopieren</button></div>
+        <pre id="code-hero"><span style="color:rgba(200,185,168,.3);font-style:italic">← Wählen Sie oben eine Variante</span></pre>
+      </div>
+    </div>
+    <div class="ds-right">
+      <div class="pv-toolbar">
+        <span class="pv-label">Live-Vorschau</span>
+        <span class="pv-badge">● Interaktiv</span>
+        <button class="pv-copy" onclick="cpCurrent('hero')">Code kopieren ↗</button>
+      </div>
+      <div class="pv-area" id="pva-hero">
+        <div class="pv" id="hero-v1" style="display:block"><div style="position:relative;height:340px;overflow:hidden;background:#0a0906">
+  <div style="position:absolute;inset:0;background:url('https://images.unsplash.com/photo-1566073771259-6a8506099945?w=1200&q=75') center/cover;filter:brightness(.42);animation:slowZoom 22s ease-in-out infinite alternate"></div>
+  <div style="position:absolute;inset:0;background:linear-gradient(to top,#0a0906 0%,rgba(10,9,6,.45) 55%,transparent 100%)"></div>
+  <div style="position:absolute;bottom:48px;left:48px">
+    <p style="font-size:8px;letter-spacing:.45em;text-transform:uppercase;color:#c9a96e;font-family:'Jost';font-weight:200;margin-bottom:14px;display:flex;align-items:center;gap:10px"><span style="display:block;width:20px;height:1px;background:#c9a96e"></span>Willkommen</p>
+    <h2 style="font-family:'Cormorant Garamond',serif;font-size:72px;font-weight:300;line-height:.9;color:#faf6f0">Wo Eleganz<br><em style="font-style:italic;color:#c4b9a8">residiert</em></h2>
+    <div style="display:flex;gap:16px;margin-top:24px">
+      <a href="#" style="font-size:9px;letter-spacing:.22em;text-transform:uppercase;color:#0a0906;background:#c9a96e;padding:13px 28px;text-decoration:none;font-family:'Jost';font-weight:300">Zimmer buchen</a>
+      <a href="#" style="font-size:9px;letter-spacing:.22em;text-transform:uppercase;color:#c9a96e;border:1px solid #c9a96e;padding:11px 24px;text-decoration:none;font-family:'Jost';font-weight:300">Entdecken</a>
+    </div>
+  </div>
+</div></div>
+<div class="pv" id="hero-v2" style="display:none"><div style="display:grid;grid-template-columns:1.4fr 1fr;height:320px;background:#0a0906">
+  <div style="position:relative;overflow:hidden">
+    <img src="https://images.unsplash.com/photo-1542314831-068cd1dbfeeb?w=800&q=75" style="width:100%;height:100%;object-fit:cover;filter:brightness(.5);display:block">
+    <div style="position:absolute;inset:0;background:linear-gradient(to right,rgba(10,9,6,.5),transparent)"></div>
+  </div>
+  <div style="display:flex;flex-direction:column;justify-content:center;padding:44px 40px;background:#111009">
+    <p style="font-size:8px;letter-spacing:.5em;text-transform:uppercase;color:#c9a96e;font-family:'Jost';font-weight:200;margin-bottom:16px">Hotel Halm Konstanz</p>
+    <h2 style="font-family:'Cormorant Garamond',serif;font-size:44px;font-weight:300;color:#faf6f0;line-height:1.05;margin-bottom:16px">Erleben Sie<br><em style="font-style:italic;color:#c4b9a8">Vollkommenheit</em></h2>
+    <p style="font-size:12px;color:#c4b9a8;line-height:1.9;font-family:'Jost';font-weight:200;margin-bottom:24px">Ihr Luxushotel direkt am Bodensee — seit 1892.</p>
+    <a href="#" style="font-size:9px;letter-spacing:.22em;text-transform:uppercase;color:#0a0906;background:#c9a96e;padding:12px 24px;text-decoration:none;font-family:'Jost';display:inline-block">Mehr erfahren</a>
+  </div>
+</div></div>
+<div class="pv" id="hero-v3" style="display:none"><div style="position:relative;height:340px;display:flex;align-items:center;justify-content:center;overflow:hidden">
+  <div style="position:absolute;inset:0;background:url('https://images.unsplash.com/photo-1571896349842-33c89424de2d?w=1200&q=75') center/cover;filter:brightness(.3) saturate(.6);animation:slowZoom 24s ease-in-out infinite alternate"></div>
+  <div style="position:relative;z-index:2;text-align:center;padding:40px">
+    <p style="font-size:8px;letter-spacing:.55em;text-transform:uppercase;color:#c9a96e;font-family:'Jost';font-weight:200;margin-bottom:20px">Hotel Halm · Konstanz</p>
+    <h2 style="font-family:'Cormorant Garamond',serif;font-size:84px;font-weight:300;line-height:.88;color:#faf6f0;margin-bottom:24px">Hotel<br><em style="font-style:italic;color:#c9a96e">Halm</em></h2>
+    <div style="width:48px;height:1px;background:#c9a96e;margin:0 auto 20px"></div>
+    <p style="font-size:11px;letter-spacing:.3em;color:#c4b9a8;font-family:'Jost';font-weight:200">Konstanz am Bodensee seit 1892</p>
+  </div>
+</div></div>
+<div class="pv" id="hero-v4" style="display:none"><div style="background:#0a0906;padding:80px 56px;border-bottom:1px solid rgba(201,169,110,.08)">
+  <p style="font-size:8px;letter-spacing:.5em;text-transform:uppercase;color:#c9a96e;font-family:'Jost';font-weight:200;margin-bottom:20px;display:flex;align-items:center;gap:12px"><span style="display:block;width:24px;height:1px;background:#c9a96e"></span>Hotel Halm Konstanz</p>
+  <h2 style="font-family:'Cormorant Garamond',serif;font-size:96px;font-weight:300;line-height:.88;color:#faf6f0">Wo Eleganz<br><em style="font-style:italic;color:#c4b9a8">residiert</em></h2>
+  <div style="display:flex;gap:48px;margin-top:40px;padding-top:40px;border-top:1px solid rgba(201,169,110,.1)">
+    <div><p style="font-family:'Cormorant Garamond',serif;font-size:36px;color:#c9a96e;font-weight:300;line-height:1">65</p><p style="font-size:8px;letter-spacing:.3em;text-transform:uppercase;color:#8a7f72;font-family:'Jost';font-weight:200;margin-top:4px">Zimmer & Suiten</p></div>
+    <div><p style="font-family:'Cormorant Garamond',serif;font-size:36px;color:#c9a96e;font-weight:300;line-height:1">1892</p><p style="font-size:8px;letter-spacing:.3em;text-transform:uppercase;color:#8a7f72;font-family:'Jost';font-weight:200;margin-top:4px">Gegründet</p></div>
+    <div><p style="font-family:'Cormorant Garamond',serif;font-size:36px;color:#c9a96e;font-weight:300;line-height:1">★4.8</p><p style="font-size:8px;letter-spacing:.3em;text-transform:uppercase;color:#8a7f72;font-family:'Jost';font-weight:200;margin-top:4px">Google Bewertung</p></div>
+    <div><p style="font-family:'Cormorant Garamond',serif;font-size:36px;color:#c9a96e;font-weight:300;line-height:1">800m²</p><p style="font-size:8px;letter-spacing:.3em;text-transform:uppercase;color:#8a7f72;font-family:'Jost';font-weight:200;margin-top:4px">Wellnessbereich</p></div>
+  </div>
+</div></div>
+<div class="pv" id="hero-v5" style="display:none"><div style="position:relative;height:340px;overflow:hidden;background:#0a0906">
+  <div style="position:absolute;inset:0;background:url('https://images.unsplash.com/photo-1631049307264-da0ec9d70304?w=1200&q=75') center/cover;filter:brightness(.45)"></div>
+  <div style="position:absolute;inset:0;background:linear-gradient(to left,#0a0906 0%,rgba(10,9,6,.3) 60%,transparent 100%)"></div>
+  <div style="position:absolute;bottom:48px;right:48px;text-align:right">
+    <p style="font-size:8px;letter-spacing:.45em;text-transform:uppercase;color:#c9a96e;font-family:'Jost';font-weight:200;margin-bottom:14px">Luxus pur</p>
+    <h2 style="font-family:'Cormorant Garamond',serif;font-size:72px;font-weight:300;line-height:.9;color:#faf6f0">Unsere<br><em style="font-style:italic;color:#c4b9a8">Suiten</em></h2>
+    <a href="#" style="font-size:9px;letter-spacing:.22em;text-transform:uppercase;color:#0a0906;background:#c9a96e;padding:13px 28px;text-decoration:none;font-family:'Jost';display:inline-block;margin-top:24px">Zimmer ansehen</a>
+  </div>
+</div></div>
+<div class="pv" id="hero-v6" style="display:none"><div style="background:#0a0906;padding:72px 56px;display:grid;grid-template-columns:1fr 2px 1.2fr;gap:48px;align-items:center">
+  <div>
+    <p style="font-family:'Cormorant Garamond',serif;font-size:11px;letter-spacing:.4em;text-transform:uppercase;color:#c9a96e;font-weight:300;margin-bottom:20px">Est. 1892</p>
+    <h2 style="font-family:'Cormorant Garamond',serif;font-size:64px;font-weight:300;line-height:.88;color:#faf6f0">Hotel<br><em style="font-style:italic;color:#c4b9a8">Halm</em></h2>
+  </div>
+  <div style="background:linear-gradient(to bottom,transparent,#c9a96e,transparent);height:160px"></div>
+  <div>
+    <p style="font-size:14px;color:#c4b9a8;line-height:2.1;font-family:'Jost';font-weight:200;margin-bottom:24px">Ihr exklusives Refugium am Bodensee — wo jedes Detail Ihrer Erholung gewidmet ist.</p>
+    <a href="#" style="font-size:9px;letter-spacing:.22em;text-transform:uppercase;color:#c9a96e;border:1px solid rgba(201,169,110,.4);padding:12px 24px;text-decoration:none;font-family:'Jost';display:inline-block">Entdecken →</a>
+  </div>
+</div></div>
+<div class="pv" id="hero-v7" style="display:none"><div style="position:relative;height:440px;overflow:hidden;background:#0a0906">
+  <div style="position:absolute;inset:0;background:url('https://images.unsplash.com/photo-1471506480208-91b3a4cc78be?w=1400&q=75') center/cover;filter:brightness(.4) saturate(.7)"></div>
+  <div style="position:absolute;inset:0;background:rgba(10,9,6,.4)"></div>
+  <div style="position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);text-align:center;white-space:nowrap">
+    <h2 style="font-family:'Cormorant Garamond',serif;font-size:110px;font-weight:300;line-height:.85;color:rgba(250,246,240,.85);letter-spacing:-.02em">Hotel Halm</h2>
+    <p style="font-size:9px;letter-spacing:.65em;text-transform:uppercase;color:#c9a96e;font-family:'Jost';font-weight:200;margin-top:20px">Konstanz am Bodensee · Seit 1892</p>
+  </div>
+  <div style="position:absolute;bottom:32px;left:50%;transform:translateX(-50%);display:flex;gap:20px">
+    <a href="#" style="font-size:9px;letter-spacing:.22em;text-transform:uppercase;color:#0a0906;background:#c9a96e;padding:12px 28px;text-decoration:none;font-family:'Jost'">Zimmer buchen</a>
+    <a href="#" style="font-size:9px;letter-spacing:.22em;text-transform:uppercase;color:#c9a96e;border:1px solid rgba(201,169,110,.6);padding:10px 24px;text-decoration:none;font-family:'Jost'">Angebote</a>
+  </div>
+</div></div>
+<div class="pv" id="hero-v8" style="display:none"><div style="position:relative;height:320px;overflow:hidden;background:#0a0906">
+  <div style="position:absolute;inset:0;background:url('https://images.unsplash.com/photo-1414235077428-338989a2e8c0?w=1200&q=75') center/cover;filter:brightness(.45);clip-path:polygon(0 0,75% 0,55% 100%,0 100%)"></div>
+  <div style="position:absolute;top:0;left:0;width:56%;height:100%;background:linear-gradient(to right,rgba(10,9,6,.6),transparent)"></div>
+  <div style="position:absolute;top:48px;left:48px">
+    <p style="font-size:8px;letter-spacing:.45em;text-transform:uppercase;color:#c9a96e;font-family:'Jost';font-weight:200;margin-bottom:16px">Gastronomie</p>
+    <h2 style="font-family:'Cormorant Garamond',serif;font-size:60px;font-weight:300;line-height:.9;color:#faf6f0">Restaurant<br><em style="font-style:italic;color:#c4b9a8">am See</em></h2>
+    <a href="#" style="font-size:9px;letter-spacing:.22em;text-transform:uppercase;color:#c9a96e;text-decoration:none;font-family:'Jost';display:inline-flex;align-items:center;gap:8px;margin-top:20px">Speisekarte →</a>
+  </div>
+  <div style="position:absolute;right:40px;top:50%;transform:translateY(-50%)">
+    <p style="font-family:'Cormorant Garamond',serif;font-size:120px;font-weight:300;color:rgba(201,169,110,.07);line-height:1">1892</p>
+  </div>
+</div></div>
+<div class="pv" id="hero-v9" style="display:none"><div style="position:relative;height:340px;overflow:hidden;background:#0a0906;cursor:pointer" onclick="this.querySelector('.play').style.transform='scale(1.1)'">
+  <div style="position:absolute;inset:0;background:url('https://images.unsplash.com/photo-1555881400-74d7acaacd8b?w=1200&q=75') center/cover;filter:brightness(.4)"></div>
+  <div style="position:absolute;inset:0;background:rgba(10,9,6,.4)"></div>
+  <div style="position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);text-align:center">
+    <div class="play" style="width:72px;height:72px;border:2px solid rgba(201,169,110,.6);border-radius:50%;display:flex;align-items:center;justify-content:center;margin:0 auto 20px;transition:transform .3s">
+      <span style="color:#c9a96e;font-size:24px;margin-left:4px">▶</span>
+    </div>
+    <h2 style="font-family:'Cormorant Garamond',serif;font-size:52px;font-weight:300;color:#faf6f0">Unser Hotel<br><em style="font-style:italic;color:#c4b9a8">im Film</em></h2>
+    <p style="font-size:9px;letter-spacing:.3em;text-transform:uppercase;color:#c9a96e;font-family:'Jost';font-weight:200;margin-top:12px">2 Minuten · HD</p>
+  </div>
+</div></div>
+<div class="pv" id="hero-v10" style="display:none"><div style="position:relative;height:340px;overflow:hidden;background:#0a0906">
+  <div style="position:absolute;inset:0;background:url('https://images.unsplash.com/photo-1566073771259-6a8506099945?w=1200&q=75') center/cover;filter:brightness(.42)"></div>
+  <div style="position:absolute;inset:0;background:linear-gradient(to top,#0a0906 0%,transparent 60%)"></div>
+  <div style="position:absolute;bottom:56px;left:48px">
+    <p style="font-size:8px;letter-spacing:.45em;text-transform:uppercase;color:#c9a96e;font-family:'Jost';font-weight:200;margin-bottom:12px">01 / 04</p>
+    <h2 style="font-family:'Cormorant Garamond',serif;font-size:64px;font-weight:300;line-height:.9;color:#faf6f0">Aussenansicht<br><em style="font-style:italic;color:#c4b9a8">im Sommer</em></h2>
+  </div>
+  <div style="position:absolute;bottom:28px;right:48px;display:flex;gap:8px">
+    <span style="width:32px;height:2px;background:#c9a96e;display:block"></span>
+    <span style="width:8px;height:2px;background:rgba(201,169,110,.3);display:block"></span>
+    <span style="width:8px;height:2px;background:rgba(201,169,110,.3);display:block"></span>
+    <span style="width:8px;height:2px;background:rgba(201,169,110,.3);display:block"></span>
+  </div>
+</div></div>
+<div class="pv" id="hero-v11" style="display:none"><div style="background:#0a0906;padding:0;position:relative;overflow:hidden;height:360px">
+  <div style="position:absolute;right:0;top:0;width:65%;height:100%;background:url('https://images.unsplash.com/photo-1631049307264-da0ec9d70304?w=900&q=75') center/cover;filter:brightness(.55)"></div>
+  <div style="position:absolute;right:0;top:0;width:65%;height:100%;background:linear-gradient(to right,#0a0906 0%,transparent 30%)"></div>
+  <div style="position:absolute;left:40px;top:50%;transform:translateY(-50%)">
+    <p style="font-size:8px;letter-spacing:.45em;text-transform:uppercase;color:#c9a96e;font-family:'Jost';font-weight:200;margin-bottom:16px">Suite & Zimmer</p>
+    <h2 style="font-family:'Cormorant Garamond',serif;font-size:68px;font-weight:300;line-height:.9;color:#faf6f0;max-width:340px">Unsere<br><em style="font-style:italic;color:#c4b9a8">Zimmer</em></h2>
+    <a href="#" style="font-size:9px;letter-spacing:.22em;text-transform:uppercase;color:#0a0906;background:#c9a96e;padding:13px 28px;text-decoration:none;font-family:'Jost';display:inline-block;margin-top:24px">Jetzt buchen</a>
+  </div>
+</div></div>
+<div class="pv" id="hero-v12" style="display:none"><div style="display:grid;grid-template-columns:1.6fr 1fr 1fr;gap:2px;height:340px;background:#0a0906">
+  <div style="position:relative;overflow:hidden"><img src="https://images.unsplash.com/photo-1566073771259-6a8506099945?w=800&q=75" style="width:100%;height:100%;object-fit:cover;filter:brightness(.45);display:block"><div style="position:absolute;inset:0;background:linear-gradient(to top,rgba(10,9,6,.9),transparent 50%)"><div style="position:absolute;bottom:32px;left:32px"><p style="font-size:8px;letter-spacing:.45em;text-transform:uppercase;color:#c9a96e;font-family:'Jost';font-weight:200;margin-bottom:12px">Hotel Halm</p><h2 style="font-family:'Cormorant Garamond',serif;font-size:56px;font-weight:300;color:#faf6f0;line-height:.9">Am<br><em style="font-style:italic;color:#c4b9a8">Bodensee</em></h2></div></div></div>
+  <div style="position:relative;overflow:hidden"><img src="https://images.unsplash.com/photo-1631049307264-da0ec9d70304?w=500&q=75" style="width:100%;height:100%;object-fit:cover;filter:brightness(.45);display:block;transition:filter .5s" onmouseover="this.style.filter='brightness(.7)'" onmouseout="this.style.filter='brightness(.45)'"><div style="position:absolute;bottom:20px;left:20px"><p style="font-family:'Cormorant Garamond',serif;font-size:18px;color:#faf6f0;font-weight:300">Zimmer</p></div></div>
+  <div style="position:relative;overflow:hidden"><img src="https://images.unsplash.com/photo-1414235077428-338989a2e8c0?w=500&q=75" style="width:100%;height:100%;object-fit:cover;filter:brightness(.45);display:block;transition:filter .5s" onmouseover="this.style.filter='brightness(.7)'" onmouseout="this.style.filter='brightness(.45)'"><div style="position:absolute;bottom:20px;left:20px"><p style="font-family:'Cormorant Garamond',serif;font-size:18px;color:#faf6f0;font-weight:300">Restaurant</p></div></div>
+</div></div>
+
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="doc-section" id="ds-section">
+  <div class="ds-inner">
+    <div class="ds-left">
+      <div class="doc-label">Komponente</div>
+      <h2 class="ctitle">Inhaltssektionen</h2>
+      <p class="cdesc">Wählen Sie eine Variante — die Live-Vorschau aktualisiert sich sofort. Klicken Sie "Code kopieren" für den vollständigen HTML-Code.</p>
+      <div class="info-note">Sektionen werden <strong>zwischen Hero und Footer</strong> gestapelt. Wechseln Sie Hintergrundfarben: <code>var(--dark)</code> → <code>var(--black)</code> → <code>var(--dark2)</code> für Rhythmus.</div>
+      <div class="doc-label" style="margin-top:20px">Design wählen</div>
+      <div class="vgrid"><button class="vb selected" onclick="selV(this,'section-v1')" data-section="section"><span class="vn">01</span><span class="vname">Bild Links · Text Rechts</span><span class="vtag">Klassisch 2-spaltig</span></button>
+<button class="vb " onclick="selV(this,'section-v2')" data-section="section"><span class="vn">02</span><span class="vname">Text Links · Bild Rechts</span><span class="vtag">Gespiegelt</span></button>
+<button class="vb " onclick="selV(this,'section-v3')" data-section="section"><span class="vn">03</span><span class="vname">Zentriert + Bild darunter</span><span class="vtag">Titel oben · 3 Bilder unten</span></button>
+<button class="vb " onclick="selV(this,'section-v4')" data-section="section"><span class="vn">04</span><span class="vname">Vollbild Hintergrund</span><span class="vtag">Text über Bild</span></button>
+<button class="vb " onclick="selV(this,'section-v5')" data-section="section"><span class="vn">05</span><span class="vname">4-Spalten Icon Grid</span><span class="vtag">Mit Symbolen</span></button>
+<button class="vb " onclick="selV(this,'section-v6')" data-section="section"><span class="vn">06</span><span class="vname">Zeitstrahl</span><span class="vtag">Horizontal mit Jahren</span></button>
+<button class="vb " onclick="selV(this,'section-v7')" data-section="section"><span class="vn">07</span><span class="vname">Zahlen & Statistiken</span><span class="vtag">Impact Numbers</span></button>
+<button class="vb " onclick="selV(this,'section-v8')" data-section="section"><span class="vn">08</span><span class="vname">Liste mit Bild</span><span class="vtag">Features Aufzählung</span></button>
+<button class="vb " onclick="selV(this,'section-v9')" data-section="section"><span class="vn">09</span><span class="vname">Gold CTA Mitte</span><span class="vtag">Kontrastsektion</span></button>
+<button class="vb " onclick="selV(this,'section-v10')" data-section="section"><span class="vn">10</span><span class="vname">Alternierend Links/Rechts</span><span class="vtag">2 Sektionen gestapelt</span></button>
+<button class="vb " onclick="selV(this,'section-v11')" data-section="section"><span class="vn">11</span><span class="vname">Zitat Pullout</span><span class="vtag">Großes Zitat in der Mitte</span></button>
+</div>
+      <div class="doc-label" style="margin-top:20px">Code</div>
+      <div class="cb" id="cb-section">
+        <div class="cb-h"><span class="cb-l">HTML — Live</span><button class="cp" onclick="cpCurrent('section')">Kopieren</button></div>
+        <pre id="code-section"><span style="color:rgba(200,185,168,.3);font-style:italic">← Wählen Sie oben eine Variante</span></pre>
+      </div>
+    </div>
+    <div class="ds-right">
+      <div class="pv-toolbar">
+        <span class="pv-label">Live-Vorschau</span>
+        <span class="pv-badge">● Interaktiv</span>
+        <button class="pv-copy" onclick="cpCurrent('section')">Code kopieren ↗</button>
+      </div>
+      <div class="pv-area" id="pva-section">
+        <div class="pv" id="section-v1" style="display:block"><div style="padding:56px;background:#111009;display:grid;grid-template-columns:1fr 1fr;gap:64px;align-items:center">
+  <img src="https://images.unsplash.com/photo-1571896349842-33c89424de2d?w=700&q=75" style="width:100%;height:340px;object-fit:cover;filter:brightness(.65);display:block">
+  <div>
+    <p style="font-size:8px;letter-spacing:.45em;text-transform:uppercase;color:#c9a96e;font-family:'Jost';font-weight:200;margin-bottom:14px;display:flex;align-items:center;gap:10px"><span style="display:block;width:20px;height:1px;background:#c9a96e"></span>Wellness</p>
+    <h2 style="font-family:'Cormorant Garamond',serif;font-size:48px;font-weight:300;color:#faf6f0;line-height:1.05;margin-bottom:20px">Entspannung<br><em style="font-style:italic;color:#c4b9a8">pur genießen</em></h2>
+    <p style="font-size:13px;color:#c4b9a8;line-height:2.1;font-weight:200;font-family:'Jost';margin-bottom:24px">Unser Spa-Bereich lädt zu vollständiger Erholung ein. Finnische Sauna, Dampfbad und professionelle Massagen.</p>
+    <a href="#" style="font-size:9px;letter-spacing:.22em;text-transform:uppercase;color:#0a0906;background:#c9a96e;padding:13px 28px;text-decoration:none;font-family:'Jost'">Spa buchen</a>
+  </div>
+</div></div>
+<div class="pv" id="section-v2" style="display:none"><div style="padding:56px;background:#0a0906;display:grid;grid-template-columns:1fr 1fr;gap:64px;align-items:center">
+  <div>
+    <p style="font-size:8px;letter-spacing:.45em;text-transform:uppercase;color:#c9a96e;font-family:'Jost';font-weight:200;margin-bottom:14px;display:flex;align-items:center;gap:10px"><span style="display:block;width:20px;height:1px;background:#c9a96e"></span>Gastronomie</p>
+    <h2 style="font-family:'Cormorant Garamond',serif;font-size:48px;font-weight:300;color:#faf6f0;line-height:1.05;margin-bottom:20px">Küche mit<br><em style="font-style:italic;color:#c4b9a8">Leidenschaft</em></h2>
+    <p style="font-size:13px;color:#c4b9a8;line-height:2.1;font-weight:200;font-family:'Jost';margin-bottom:24px">Regionale Produkte, kreative Rezepte und eine Weinkarte mit über 120 Positionen.</p>
+    <a href="#" style="font-size:9px;letter-spacing:.22em;text-transform:uppercase;color:#c9a96e;border:1px solid #c9a96e;padding:11px 24px;text-decoration:none;font-family:'Jost';display:inline-block">Speisekarte ansehen</a>
+  </div>
+  <img src="https://images.unsplash.com/photo-1414235077428-338989a2e8c0?w=700&q=75" style="width:100%;height:340px;object-fit:cover;filter:brightness(.65);display:block">
+</div></div>
+<div class="pv" id="section-v3" style="display:none"><div style="padding:56px 56px 0;background:#111009;text-align:center">
+  <p style="font-size:8px;letter-spacing:.45em;text-transform:uppercase;color:#c9a96e;font-family:'Jost';font-weight:200;margin-bottom:14px;display:flex;align-items:center;justify-content:center;gap:10px"><span style="display:block;width:20px;height:1px;background:#c9a96e"></span>Galerie<span style="display:block;width:20px;height:1px;background:#c9a96e"></span></p>
+  <h2 style="font-family:'Cormorant Garamond',serif;font-size:52px;font-weight:300;color:#faf6f0;margin-bottom:16px">Impressionen<br><em style="font-style:italic;color:#c4b9a8">des Hauses</em></h2>
+  <p style="font-size:13px;color:#c4b9a8;line-height:2;font-weight:200;font-family:'Jost';max-width:520px;margin:0 auto 36px">Entdecken Sie die Schönheit des Hotel Halm in Bildern.</p>
+  <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:2px">
+    <img src="https://images.unsplash.com/photo-1566073771259-6a8506099945?w=500&q=75" style="width:100%;height:200px;object-fit:cover;filter:brightness(.6);display:block;transition:filter .5s" onmouseover="this.style.filter='brightness(.85)'" onmouseout="this.style.filter='brightness(.6)'">
+    <img src="https://images.unsplash.com/photo-1631049307264-da0ec9d70304?w=500&q=75" style="width:100%;height:200px;object-fit:cover;filter:brightness(.6);display:block;transition:filter .5s" onmouseover="this.style.filter='brightness(.85)'" onmouseout="this.style.filter='brightness(.6)'">
+    <img src="https://images.unsplash.com/photo-1414235077428-338989a2e8c0?w=500&q=75" style="width:100%;height:200px;object-fit:cover;filter:brightness(.6);display:block;transition:filter .5s" onmouseover="this.style.filter='brightness(.85)'" onmouseout="this.style.filter='brightness(.6)'">
+  </div>
+</div></div>
+<div class="pv" id="section-v4" style="display:none"><div style="position:relative;padding:80px 56px;overflow:hidden;min-height:280px;display:flex;align-items:center">
+  <div style="position:absolute;inset:0;background:url('https://images.unsplash.com/photo-1471506480208-91b3a4cc78be?w=1200&q=75') center/cover;filter:brightness(.3) saturate(.7)"></div>
+  <div style="position:absolute;inset:0;background:rgba(10,9,6,.55)"></div>
+  <div style="position:relative;z-index:2;max-width:600px">
+    <p style="font-size:8px;letter-spacing:.45em;text-transform:uppercase;color:#c9a96e;font-family:'Jost';font-weight:200;margin-bottom:14px;display:flex;align-items:center;gap:10px"><span style="display:block;width:20px;height:1px;background:#c9a96e"></span>Konstanz</p>
+    <h2 style="font-family:'Cormorant Garamond',serif;font-size:52px;font-weight:300;color:#faf6f0;line-height:1;margin-bottom:20px">Die schönste<br><em style="font-style:italic;color:#c4b9a8">Stadt am See</em></h2>
+    <p style="font-size:13px;color:#c4b9a8;line-height:2;font-weight:200;font-family:'Jost';margin-bottom:24px">Konstanz bietet Geschichte, Kultur und Natur in einzigartiger Verbindung.</p>
+    <a href="#" style="font-size:9px;letter-spacing:.22em;text-transform:uppercase;color:#0a0906;background:#c9a96e;padding:13px 28px;text-decoration:none;font-family:'Jost'">Mehr entdecken</a>
+  </div>
+</div></div>
+<div class="pv" id="section-v5" style="display:none"><div style="padding:56px;background:#1a1814">
+  <p style="font-size:8px;letter-spacing:.45em;text-transform:uppercase;color:#c9a96e;font-family:'Jost';font-weight:200;margin-bottom:14px;display:flex;align-items:center;gap:10px"><span style="display:block;width:20px;height:1px;background:#c9a96e"></span>Ausstattung</p>
+  <h2 style="font-family:'Cormorant Garamond',serif;font-size:44px;font-weight:300;color:#faf6f0;margin-bottom:40px">Was uns<br><em style="font-style:italic;color:#c4b9a8">auszeichnet</em></h2>
+  <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:2px">
+    <div style="padding:32px 20px;border:1px solid rgba(201,169,110,.08);text-align:center;transition:border-color .4s" onmouseover="this.style.borderColor='rgba(201,169,110,.3)'" onmouseout="this.style.borderColor='rgba(201,169,110,.08)'"><span style="font-size:28px;display:block;margin-bottom:14px">☕</span><h4 style="font-family:'Cormorant Garamond',serif;font-size:18px;font-weight:300;color:#faf6f0;margin-bottom:6px">Kaffeemaschine</h4><p style="font-size:11px;color:#8a7f72;font-weight:200;font-family:'Jost'">Espresso & Filterkaffee</p></div>
+    <div style="padding:32px 20px;border:1px solid rgba(201,169,110,.08);text-align:center;transition:border-color .4s" onmouseover="this.style.borderColor='rgba(201,169,110,.3)'" onmouseout="this.style.borderColor='rgba(201,169,110,.08)'"><span style="font-size:28px;display:block;margin-bottom:14px">📶</span><h4 style="font-family:'Cormorant Garamond',serif;font-size:18px;font-weight:300;color:#faf6f0;margin-bottom:6px">Highspeed WLAN</h4><p style="font-size:11px;color:#8a7f72;font-weight:200;font-family:'Jost'">Kostenlos · 1 Gbit/s</p></div>
+    <div style="padding:32px 20px;border:1px solid rgba(201,169,110,.08);text-align:center;transition:border-color .4s" onmouseover="this.style.borderColor='rgba(201,169,110,.3)'" onmouseout="this.style.borderColor='rgba(201,169,110,.08)'"><span style="font-size:28px;display:block;margin-bottom:14px">🛁</span><h4 style="font-family:'Cormorant Garamond',serif;font-size:18px;font-weight:300;color:#faf6f0;margin-bottom:6px">Luxusbad</h4><p style="font-size:11px;color:#8a7f72;font-weight:200;font-family:'Jost'">Bathrobe & Slippers</p></div>
+    <div style="padding:32px 20px;border:1px solid rgba(201,169,110,.08);text-align:center;transition:border-color .4s" onmouseover="this.style.borderColor='rgba(201,169,110,.3)'" onmouseout="this.style.borderColor='rgba(201,169,110,.08)'"><span style="font-size:28px;display:block;margin-bottom:14px">🌅</span><h4 style="font-family:'Cormorant Garamond',serif;font-size:18px;font-weight:300;color:#faf6f0;margin-bottom:6px">Frühstück</h4><p style="font-size:11px;color:#8a7f72;font-weight:200;font-family:'Jost'">Täglich ab 7 Uhr</p></div>
+  </div>
+</div></div>
+<div class="pv" id="section-v6" style="display:none"><div style="padding:72px 56px;background:#0a0906">
+  <p style="font-size:8px;letter-spacing:.45em;text-transform:uppercase;color:#c9a96e;font-family:'Jost';font-weight:200;margin-bottom:14px;display:flex;align-items:center;gap:10px"><span style="display:block;width:20px;height:1px;background:#c9a96e"></span>Geschichte</p>
+  <h2 style="font-family:'Cormorant Garamond',serif;font-size:48px;font-weight:300;color:#faf6f0;margin-bottom:48px">Unsere<br><em style="font-style:italic;color:#c4b9a8">Geschichte</em></h2>
+  <div style="position:relative">
+    <div style="position:absolute;top:20px;left:0;right:0;height:1px;background:linear-gradient(to right,#c9a96e,rgba(201,169,110,.15))"></div>
+    <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:32px">
+      <div><p style="font-family:'Cormorant Garamond',serif;font-size:32px;color:#c9a96e;font-weight:300;margin-bottom:16px;position:relative"><span style="display:block;width:12px;height:12px;border:2px solid #c9a96e;border-radius:50%;background:#0a0906;margin-bottom:14px"></span>1892</p><h4 style="font-family:'Cormorant Garamond',serif;font-size:18px;font-weight:300;color:#faf6f0;margin-bottom:8px">Gründung</h4><p style="font-size:12px;color:#8a7f72;font-weight:200;font-family:'Jost';line-height:1.7">Hotel Halm öffnet seine Türen als erstes Haus am See.</p></div>
+      <div><p style="font-family:'Cormorant Garamond',serif;font-size:32px;color:#c9a96e;font-weight:300;margin-bottom:16px;position:relative"><span style="display:block;width:12px;height:12px;border:2px solid #c9a96e;border-radius:50%;background:#0a0906;margin-bottom:14px"></span>1954</p><h4 style="font-family:'Cormorant Garamond',serif;font-size:18px;font-weight:300;color:#faf6f0;margin-bottom:8px">Erweiterung</h4><p style="font-size:12px;color:#8a7f72;font-weight:200;font-family:'Jost';line-height:1.7">Neuer Westflügel mit 25 zusätzlichen Zimmern.</p></div>
+      <div><p style="font-family:'Cormorant Garamond',serif;font-size:32px;color:#c9a96e;font-weight:300;margin-bottom:16px;position:relative"><span style="display:block;width:12px;height:12px;border:2px solid #c9a96e;border-radius:50%;background:#0a0906;margin-bottom:14px"></span>2008</p><h4 style="font-family:'Cormorant Garamond',serif;font-size:18px;font-weight:300;color:#faf6f0;margin-bottom:8px">Spa & Wellness</h4><p style="font-size:12px;color:#8a7f72;font-weight:200;font-family:'Jost';line-height:1.7">Eröffnung des 800 m² großen Wellnessbereichs.</p></div>
+      <div><p style="font-family:'Cormorant Garamond',serif;font-size:32px;color:#c9a96e;font-weight:300;margin-bottom:16px;position:relative"><span style="display:block;width:12px;height:12px;border:2px solid rgba(201,169,110,.4);border-radius:50%;background:#0a0906;margin-bottom:14px"></span>Heute</p><h4 style="font-family:'Cormorant Garamond',serif;font-size:18px;font-weight:300;color:#faf6f0;margin-bottom:8px">Moderne Eleganz</h4><p style="font-size:12px;color:#8a7f72;font-weight:200;font-family:'Jost';line-height:1.7">65 Zimmer, Restaurant, Spa — Ihr Luxuszuhause.</p></div>
+    </div>
+  </div>
+</div></div>
+<div class="pv" id="section-v7" style="display:none"><div style="padding:72px 56px;background:#111009">
+  <p style="font-size:8px;letter-spacing:.45em;text-transform:uppercase;color:#c9a96e;font-family:'Jost';font-weight:200;margin-bottom:14px;display:flex;align-items:center;gap:10px"><span style="display:block;width:20px;height:1px;background:#c9a96e"></span>In Zahlen</p>
+  <div style="display:grid;grid-template-columns:repeat(2,1fr);gap:2px;margin-top:8px">
+    <div style="padding:40px;border:1px solid rgba(201,169,110,.1)"><p style="font-family:'Cormorant Garamond',serif;font-size:72px;color:#c9a96e;font-weight:300;line-height:1">65</p><p style="font-size:9px;letter-spacing:.3em;text-transform:uppercase;color:#8a7f72;font-family:'Jost';font-weight:200;margin-top:6px">Zimmer & Suiten</p></div>
+    <div style="padding:40px;border:1px solid rgba(201,169,110,.1)"><p style="font-family:'Cormorant Garamond',serif;font-size:72px;color:#c9a96e;font-weight:300;line-height:1">800m²</p><p style="font-size:9px;letter-spacing:.3em;text-transform:uppercase;color:#8a7f72;font-family:'Jost';font-weight:200;margin-top:6px">Spa & Wellness</p></div>
+    <div style="padding:40px;border:1px solid rgba(201,169,110,.1)"><p style="font-family:'Cormorant Garamond',serif;font-size:72px;color:#c9a96e;font-weight:300;line-height:1">130</p><p style="font-size:9px;letter-spacing:.3em;text-transform:uppercase;color:#8a7f72;font-family:'Jost';font-weight:200;margin-top:6px">Jahre Geschichte</p></div>
+    <div style="padding:40px;border:1px solid rgba(201,169,110,.1)"><p style="font-family:'Cormorant Garamond',serif;font-size:72px;color:#c9a96e;font-weight:300;line-height:1">★4.8</p><p style="font-size:9px;letter-spacing:.3em;text-transform:uppercase;color:#8a7f72;font-family:'Jost';font-weight:200;margin-top:6px">Gäste-Bewertung</p></div>
+  </div>
+</div></div>
+<div class="pv" id="section-v8" style="display:none"><div style="padding:56px;background:#0a0906;display:grid;grid-template-columns:1.2fr 1fr;gap:64px;align-items:start">
+  <div>
+    <p style="font-size:8px;letter-spacing:.45em;text-transform:uppercase;color:#c9a96e;font-family:'Jost';font-weight:200;margin-bottom:14px;display:flex;align-items:center;gap:10px"><span style="display:block;width:20px;height:1px;background:#c9a96e"></span>Inklusive</p>
+    <h2 style="font-family:'Cormorant Garamond',serif;font-size:44px;font-weight:300;color:#faf6f0;margin-bottom:32px">Was bei uns<br><em style="font-style:italic;color:#c4b9a8">inklusive ist</em></h2>
+    <ul style="list-style:none">
+      <li style="padding:14px 0;border-bottom:1px solid rgba(201,169,110,.08);font-size:13px;color:#c4b9a8;font-weight:200;font-family:'Jost';display:flex;align-items:center;gap:12px"><span style="color:#c9a96e;font-size:10px">—</span>Frühstücksbuffet täglich</li>
+      <li style="padding:14px 0;border-bottom:1px solid rgba(201,169,110,.08);font-size:13px;color:#c4b9a8;font-weight:200;font-family:'Jost';display:flex;align-items:center;gap:12px"><span style="color:#c9a96e;font-size:10px">—</span>Sauna & Dampfbad</li>
+      <li style="padding:14px 0;border-bottom:1px solid rgba(201,169,110,.08);font-size:13px;color:#c4b9a8;font-weight:200;font-family:'Jost';display:flex;align-items:center;gap:12px"><span style="color:#c9a96e;font-size:10px">—</span>WLAN im ganzen Haus</li>
+      <li style="padding:14px 0;border-bottom:1px solid rgba(201,169,110,.08);font-size:13px;color:#c4b9a8;font-weight:200;font-family:'Jost';display:flex;align-items:center;gap:12px"><span style="color:#c9a96e;font-size:10px">—</span>Parkplatz auf Anfrage</li>
+      <li style="padding:14px 0;font-size:13px;color:#c4b9a8;font-weight:200;font-family:'Jost';display:flex;align-items:center;gap:12px"><span style="color:#c9a96e;font-size:10px">—</span>Concierge 24/7</li>
+    </ul>
+  </div>
+  <img src="https://images.unsplash.com/photo-1542314831-068cd1dbfeeb?w=600&q=75" style="width:100%;height:400px;object-fit:cover;filter:brightness(.65);display:block;margin-top:52px">
+</div></div>
+<div class="pv" id="section-v9" style="display:none"><div style="background:#c9a96e;padding:72px 56px;text-align:center">
+  <p style="font-size:8px;letter-spacing:.55em;text-transform:uppercase;color:rgba(10,9,6,.5);font-family:'Jost';font-weight:200;margin-bottom:16px">Jetzt anfragen</p>
+  <h2 style="font-family:'Cormorant Garamond',serif;font-size:56px;font-weight:300;color:#0a0906;margin-bottom:16px">Bereit für Ihren<br>Urlaub am See?</h2>
+  <p style="font-size:13px;color:rgba(10,9,6,.65);font-weight:200;font-family:'Jost';max-width:480px;margin:0 auto 36px;line-height:1.9">Buchen Sie jetzt Ihr Zimmer oder lassen Sie sich von uns persönlich beraten.</p>
+  <div style="display:flex;gap:16px;justify-content:center;flex-wrap:wrap">
+    <a href="#" style="font-size:9px;letter-spacing:.22em;text-transform:uppercase;color:#0a0906;border:1px solid #0a0906;padding:13px 32px;text-decoration:none;font-family:'Jost'">Jetzt buchen</a>
+    <a href="#" style="font-size:9px;letter-spacing:.22em;text-transform:uppercase;color:rgba(10,9,6,.7);background:rgba(10,9,6,.1);padding:13px 28px;text-decoration:none;font-family:'Jost'">+49 7531 1234-0</a>
+  </div>
+</div></div>
+<div class="pv" id="section-v10" style="display:none"><div style="background:#0a0906">
+  <div style="padding:56px;display:grid;grid-template-columns:1fr 1fr;gap:64px;align-items:center;border-bottom:1px solid rgba(201,169,110,.06)">
+    <div><p style="font-size:8px;letter-spacing:.45em;text-transform:uppercase;color:#c9a96e;font-family:'Jost';font-weight:200;margin-bottom:12px">Zimmer</p><h3 style="font-family:'Cormorant Garamond',serif;font-size:40px;font-weight:300;color:#faf6f0;margin-bottom:16px">Suiten & Zimmer<br><em style="font-style:italic;color:#c4b9a8">von 99 bis 249€</em></h3><p style="font-size:12px;color:#c4b9a8;line-height:2;font-weight:200;font-family:'Jost'">65 Zimmer und Suiten — vom gemütlichen Einzelzimmer bis zur Panorama-Suite.</p></div>
+    <img src="https://images.unsplash.com/photo-1631049307264-da0ec9d70304?w=600&q=75" style="width:100%;height:240px;object-fit:cover;filter:brightness(.65);display:block">
+  </div>
+  <div style="padding:56px;display:grid;grid-template-columns:1fr 1fr;gap:64px;align-items:center">
+    <img src="https://images.unsplash.com/photo-1414235077428-338989a2e8c0?w=600&q=75" style="width:100%;height:240px;object-fit:cover;filter:brightness(.65);display:block">
+    <div><p style="font-size:8px;letter-spacing:.45em;text-transform:uppercase;color:#c9a96e;font-family:'Jost';font-weight:200;margin-bottom:12px">Restaurant</p><h3 style="font-family:'Cormorant Garamond',serif;font-size:40px;font-weight:300;color:#faf6f0;margin-bottom:16px">Küche mit<br><em style="font-style:italic;color:#c4b9a8">Seele</em></h3><p style="font-size:12px;color:#c4b9a8;line-height:2;font-weight:200;font-family:'Jost'">Regionale Zutaten, kreative Gerichte und eine Auswahl erlesener Weine.</p></div>
+  </div>
+</div></div>
+<div class="pv" id="section-v11" style="display:none"><div style="padding:80px 56px;background:#1a1814;text-align:center">
+  <p style="font-family:'Cormorant Garamond',serif;font-size:22px;color:rgba(201,169,110,.3);margin-bottom:20px">"</p>
+  <blockquote style="font-family:'Cormorant Garamond',serif;font-size:40px;font-style:italic;font-weight:300;color:#faf6f0;max-width:720px;margin:0 auto 24px;line-height:1.4">Wo die Zeit langsamer wird und Schönheit überall begegnet.</blockquote>
+  <div style="width:40px;height:1px;background:#c9a96e;margin:0 auto 16px"></div>
+  <p style="font-size:9px;letter-spacing:.35em;text-transform:uppercase;color:#c9a96e;font-family:'Jost';font-weight:200">Hotel Halm, Konstanz</p>
+</div></div>
+
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="doc-section" id="ds-gallery">
+  <div class="ds-inner">
+    <div class="ds-left">
+      <div class="doc-label">Komponente</div>
+      <h2 class="ctitle">Fotogalerien</h2>
+      <p class="cdesc">Wählen Sie eine Variante — die Live-Vorschau aktualisiert sich sofort. Klicken Sie "Code kopieren" für den vollständigen HTML-Code.</p>
+      <div class="info-note">Alle Bilder stammen von Unsplash. Ersetzen Sie <code>photo-ID</code> in der URL mit einer beliebigen Unsplash-Foto-ID für eigene Bilder.</div>
+      <div class="doc-label" style="margin-top:20px">Design wählen</div>
+      <div class="vgrid"><button class="vb selected" onclick="selV(this,'gallery-v1')" data-section="gallery"><span class="vn">01</span><span class="vname">5er Horizontalstreifen</span><span class="vtag">Gleiche Breite</span></button>
+<button class="vb " onclick="selV(this,'gallery-v2')" data-section="gallery"><span class="vn">02</span><span class="vname">Asymmetrisch 2+4</span><span class="vtag">Großes Bild + 4 kleine</span></button>
+<button class="vb " onclick="selV(this,'gallery-v3')" data-section="gallery"><span class="vn">03</span><span class="vname">Accordion Expand</span><span class="vtag">Expandiert bei Hover</span></button>
+<button class="vb " onclick="selV(this,'gallery-v4')" data-section="gallery"><span class="vn">04</span><span class="vname">Masonry Spalten</span><span class="vtag">Verschiedene Höhen</span></button>
+<button class="vb " onclick="selV(this,'gallery-v5')" data-section="gallery"><span class="vn">05</span><span class="vname">4er Gleiches Grid</span><span class="vtag">Quadratisch</span></button>
+<button class="vb " onclick="selV(this,'gallery-v6')" data-section="gallery"><span class="vn">06</span><span class="vname">Mit Beschriftungen</span><span class="vtag">Label über Bild</span></button>
+<button class="vb " onclick="selV(this,'gallery-v7')" data-section="gallery"><span class="vn">07</span><span class="vname">Großbild + Miniaturen</span><span class="vtag">1 Hauptbild + Thumbnails</span></button>
+<button class="vb " onclick="selV(this,'gallery-v8')" data-section="gallery"><span class="vn">08</span><span class="vname">Polaroid Stil</span><span class="vtag">Mit weissem Rand</span></button>
+<button class="vb " onclick="selV(this,'gallery-v9')" data-section="gallery"><span class="vn">09</span><span class="vname">Vollbreit mit Titel</span><span class="vtag">Titel + 4 Bilder</span></button>
+<button class="vb " onclick="selV(this,'gallery-v10')" data-section="gallery"><span class="vn">10</span><span class="vname">Filmstreifen</span><span class="vtag">Horizontal scrollbar</span></button>
+<button class="vb " onclick="selV(this,'gallery-v11')" data-section="gallery"><span class="vn">11</span><span class="vname">S/W Hover Farbe</span><span class="vtag">Schwarzweiss → Farbe</span></button>
+</div>
+      <div class="doc-label" style="margin-top:20px">Code</div>
+      <div class="cb" id="cb-gallery">
+        <div class="cb-h"><span class="cb-l">HTML — Live</span><button class="cp" onclick="cpCurrent('gallery')">Kopieren</button></div>
+        <pre id="code-gallery"><span style="color:rgba(200,185,168,.3);font-style:italic">← Wählen Sie oben eine Variante</span></pre>
+      </div>
+    </div>
+    <div class="ds-right">
+      <div class="pv-toolbar">
+        <span class="pv-label">Live-Vorschau</span>
+        <span class="pv-badge">● Interaktiv</span>
+        <button class="pv-copy" onclick="cpCurrent('gallery')">Code kopieren ↗</button>
+      </div>
+      <div class="pv-area" id="pva-gallery">
+        <div class="pv" id="gallery-v1" style="display:block"><div style="display:grid;grid-template-columns:repeat(5,1fr);height:220px;gap:2px">
+  <img src="https://images.unsplash.com/photo-1566073771259-6a8506099945?w=400&q=70" style="width:100%;height:100%;object-fit:cover;filter:brightness(.58) saturate(.75);display:block;transition:all .5s" onmouseover="this.style.filter='brightness(.88) saturate(1)'" onmouseout="this.style.filter='brightness(.58) saturate(.75)'">
+  <img src="https://images.unsplash.com/photo-1631049307264-da0ec9d70304?w=400&q=70" style="width:100%;height:100%;object-fit:cover;filter:brightness(.58) saturate(.75);display:block;transition:all .5s" onmouseover="this.style.filter='brightness(.88) saturate(1)'" onmouseout="this.style.filter='brightness(.58) saturate(.75)'">
+  <img src="https://images.unsplash.com/photo-1471506480208-91b3a4cc78be?w=400&q=70" style="width:100%;height:100%;object-fit:cover;filter:brightness(.58) saturate(.75);display:block;transition:all .5s" onmouseover="this.style.filter='brightness(.88) saturate(1)'" onmouseout="this.style.filter='brightness(.58) saturate(.75)'">
+  <img src="https://images.unsplash.com/photo-1414235077428-338989a2e8c0?w=400&q=70" style="width:100%;height:100%;object-fit:cover;filter:brightness(.58) saturate(.75);display:block;transition:all .5s" onmouseover="this.style.filter='brightness(.88) saturate(1)'" onmouseout="this.style.filter='brightness(.58) saturate(.75)'">
+  <img src="https://images.unsplash.com/photo-1542314831-068cd1dbfeeb?w=400&q=70" style="width:100%;height:100%;object-fit:cover;filter:brightness(.58) saturate(.75);display:block;transition:all .5s" onmouseover="this.style.filter='brightness(.88) saturate(1)'" onmouseout="this.style.filter='brightness(.58) saturate(.75)'">
+</div></div>
+<div class="pv" id="gallery-v2" style="display:none"><div style="display:grid;grid-template-columns:2fr 1fr 1fr;grid-template-rows:1fr 1fr;height:340px;gap:2px">
+  <img src="https://images.unsplash.com/photo-1566073771259-6a8506099945?w=800&q=70" style="grid-row:span 2;width:100%;height:100%;object-fit:cover;filter:brightness(.55);display:block;transition:filter .6s" onmouseover="this.style.filter='brightness(.78)'" onmouseout="this.style.filter='brightness(.55)'">
+  <img src="https://images.unsplash.com/photo-1631049307264-da0ec9d70304?w=400&q=70" style="width:100%;height:100%;object-fit:cover;filter:brightness(.55);display:block;transition:filter .6s" onmouseover="this.style.filter='brightness(.78)'" onmouseout="this.style.filter='brightness(.55)'">
+  <img src="https://images.unsplash.com/photo-1471506480208-91b3a4cc78be?w=400&q=70" style="width:100%;height:100%;object-fit:cover;filter:brightness(.55);display:block;transition:filter .6s" onmouseover="this.style.filter='brightness(.78)'" onmouseout="this.style.filter='brightness(.55)'">
+  <img src="https://images.unsplash.com/photo-1414235077428-338989a2e8c0?w=400&q=70" style="width:100%;height:100%;object-fit:cover;filter:brightness(.55);display:block;transition:filter .6s" onmouseover="this.style.filter='brightness(.78)'" onmouseout="this.style.filter='brightness(.55)'">
+  <img src="https://images.unsplash.com/photo-1542314831-068cd1dbfeeb?w=400&q=70" style="width:100%;height:100%;object-fit:cover;filter:brightness(.55);display:block;transition:filter .6s" onmouseover="this.style.filter='brightness(.78)'" onmouseout="this.style.filter='brightness(.55)'">
+</div></div>
+<div class="pv" id="gallery-v3" style="display:none"><div style="display:flex;gap:2px;height:260px">
+  <div style="flex:1;position:relative;overflow:hidden;transition:flex .5s ease;cursor:pointer" onmouseover="this.style.flex='2.8'" onmouseout="this.style.flex='1'"><img src="https://images.unsplash.com/photo-1566073771259-6a8506099945?w=500&q=70" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;filter:brightness(.5);transition:filter .5s"><div style="position:absolute;bottom:0;left:0;right:0;padding:16px;background:linear-gradient(to top,rgba(10,9,6,.9),transparent);opacity:0;transition:opacity .4s" onmouseover="this.style.opacity=1" onmouseout="this.style.opacity=0"><p style="font-family:'Cormorant Garamond',serif;font-size:16px;color:#faf6f0;font-weight:300">Außenansicht</p></div></div>
+  <div style="flex:1;position:relative;overflow:hidden;transition:flex .5s ease;cursor:pointer" onmouseover="this.style.flex='2.8'" onmouseout="this.style.flex='1'"><img src="https://images.unsplash.com/photo-1631049307264-da0ec9d70304?w=500&q=70" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;filter:brightness(.5);transition:filter .5s"><div style="position:absolute;bottom:0;left:0;right:0;padding:16px;background:linear-gradient(to top,rgba(10,9,6,.9),transparent);opacity:0;transition:opacity .4s" onmouseover="this.style.opacity=1" onmouseout="this.style.opacity=0"><p style="font-family:'Cormorant Garamond',serif;font-size:16px;color:#faf6f0;font-weight:300">Deluxe Suite</p></div></div>
+  <div style="flex:1;position:relative;overflow:hidden;transition:flex .5s ease;cursor:pointer" onmouseover="this.style.flex='2.8'" onmouseout="this.style.flex='1'"><img src="https://images.unsplash.com/photo-1414235077428-338989a2e8c0?w=500&q=70" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;filter:brightness(.5);transition:filter .5s"><div style="position:absolute;bottom:0;left:0;right:0;padding:16px;background:linear-gradient(to top,rgba(10,9,6,.9),transparent);opacity:0;transition:opacity .4s" onmouseover="this.style.opacity=1" onmouseout="this.style.opacity=0"><p style="font-family:'Cormorant Garamond',serif;font-size:16px;color:#faf6f0;font-weight:300">Restaurant</p></div></div>
+  <div style="flex:1;position:relative;overflow:hidden;transition:flex .5s ease;cursor:pointer" onmouseover="this.style.flex='2.8'" onmouseout="this.style.flex='1'"><img src="https://images.unsplash.com/photo-1471506480208-91b3a4cc78be?w=500&q=70" style="position:absolute;inset:0;width:100%;height:100%;object-fit:cover;filter:brightness(.5);transition:filter .5s"><div style="position:absolute;bottom:0;left:0;right:0;padding:16px;background:linear-gradient(to top,rgba(10,9,6,.9),transparent);opacity:0;transition:opacity .4s" onmouseover="this.style.opacity=1" onmouseout="this.style.opacity=0"><p style="font-family:'Cormorant Garamond',serif;font-size:16px;color:#faf6f0;font-weight:300">Bodensee</p></div></div>
+</div></div>
+<div class="pv" id="gallery-v4" style="display:none"><div style="columns:3;column-gap:3px;padding:0">
+  <div style="break-inside:avoid;margin-bottom:3px"><img src="https://images.unsplash.com/photo-1566073771259-6a8506099945?w=500&q=70" style="width:100%;display:block;filter:brightness(.6);transition:filter .5s" onmouseover="this.style.filter='brightness(.85)'" onmouseout="this.style.filter='brightness(.6)'"></div>
+  <div style="break-inside:avoid;margin-bottom:3px"><img src="https://images.unsplash.com/photo-1471506480208-91b3a4cc78be?w=500&q=70" style="width:100%;display:block;filter:brightness(.6);transition:filter .5s" onmouseover="this.style.filter='brightness(.85)'" onmouseout="this.style.filter='brightness(.6)'"></div>
+  <div style="break-inside:avoid;margin-bottom:3px"><img src="https://images.unsplash.com/photo-1631049307264-da0ec9d70304?w=500&q=70" style="width:100%;display:block;filter:brightness(.6);transition:filter .5s" onmouseover="this.style.filter='brightness(.85)'" onmouseout="this.style.filter='brightness(.6)'"></div>
+  <div style="break-inside:avoid;margin-bottom:3px"><img src="https://images.unsplash.com/photo-1414235077428-338989a2e8c0?w=500&q=70" style="width:100%;display:block;filter:brightness(.6);transition:filter .5s" onmouseover="this.style.filter='brightness(.85)'" onmouseout="this.style.filter='brightness(.6)'"></div>
+  <div style="break-inside:avoid;margin-bottom:3px"><img src="https://images.unsplash.com/photo-1542314831-068cd1dbfeeb?w=500&q=70" style="width:100%;display:block;filter:brightness(.6);transition:filter .5s" onmouseover="this.style.filter='brightness(.85)'" onmouseout="this.style.filter='brightness(.6)'"></div>
+  <div style="break-inside:avoid"><img src="https://images.unsplash.com/photo-1555881400-74d7acaacd8b?w=500&q=70" style="width:100%;display:block;filter:brightness(.6);transition:filter .5s" onmouseover="this.style.filter='brightness(.85)'" onmouseout="this.style.filter='brightness(.6)'"></div>
+</div></div>
+<div class="pv" id="gallery-v5" style="display:none"><div style="display:grid;grid-template-columns:repeat(4,1fr);gap:2px">
+  <img src="https://images.unsplash.com/photo-1566073771259-6a8506099945?w=400&q=70" style="width:100%;height:200px;object-fit:cover;filter:brightness(.58);display:block;transition:all .5s" onmouseover="this.style.filter='brightness(.82)'" onmouseout="this.style.filter='brightness(.58)'">
+  <img src="https://images.unsplash.com/photo-1631049307264-da0ec9d70304?w=400&q=70" style="width:100%;height:200px;object-fit:cover;filter:brightness(.58);display:block;transition:all .5s" onmouseover="this.style.filter='brightness(.82)'" onmouseout="this.style.filter='brightness(.58)'">
+  <img src="https://images.unsplash.com/photo-1471506480208-91b3a4cc78be?w=400&q=70" style="width:100%;height:200px;object-fit:cover;filter:brightness(.58);display:block;transition:all .5s" onmouseover="this.style.filter='brightness(.82)'" onmouseout="this.style.filter='brightness(.58)'">
+  <img src="https://images.unsplash.com/photo-1414235077428-338989a2e8c0?w=400&q=70" style="width:100%;height:200px;object-fit:cover;filter:brightness(.58);display:block;transition:all .5s" onmouseover="this.style.filter='brightness(.82)'" onmouseout="this.style.filter='brightness(.58)'">
+</div></div>
+<div class="pv" id="gallery-v6" style="display:none"><div style="padding:32px;background:#111009">
+  <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:16px">
+    <div style="position:relative;overflow:hidden"><img src="https://images.unsplash.com/photo-1631049307264-da0ec9d70304?w=500&q=70" style="width:100%;height:200px;object-fit:cover;filter:brightness(.55);display:block;transition:all .7s" onmouseover="this.parentElement.querySelector('.gl').style.opacity=1;this.style.filter='brightness(.75)'" onmouseout="this.parentElement.querySelector('.gl').style.opacity=0;this.style.filter='brightness(.55)'"><div class="gl" style="position:absolute;inset:0;display:flex;flex-direction:column;justify-content:flex-end;padding:16px;background:linear-gradient(to top,rgba(10,9,6,.9),transparent 60%);opacity:0;transition:opacity .4s"><p style="font-size:8px;letter-spacing:.3em;text-transform:uppercase;color:#c9a96e;font-family:'Jost';font-weight:200;margin-bottom:4px">Zimmer</p><p style="font-family:'Cormorant Garamond',serif;font-size:18px;color:#faf6f0;font-weight:300">Deluxe Suite — 189€</p></div></div>
+    <div style="position:relative;overflow:hidden"><img src="https://images.unsplash.com/photo-1414235077428-338989a2e8c0?w=500&q=70" style="width:100%;height:200px;object-fit:cover;filter:brightness(.55);display:block;transition:all .7s" onmouseover="this.parentElement.querySelector('.gl').style.opacity=1;this.style.filter='brightness(.75)'" onmouseout="this.parentElement.querySelector('.gl').style.opacity=0;this.style.filter='brightness(.55)'"><div class="gl" style="position:absolute;inset:0;display:flex;flex-direction:column;justify-content:flex-end;padding:16px;background:linear-gradient(to top,rgba(10,9,6,.9),transparent 60%);opacity:0;transition:opacity .4s"><p style="font-size:8px;letter-spacing:.3em;text-transform:uppercase;color:#c9a96e;font-family:'Jost';font-weight:200;margin-bottom:4px">Restaurant</p><p style="font-family:'Cormorant Garamond',serif;font-size:18px;color:#faf6f0;font-weight:300">Bodenseeküche</p></div></div>
+    <div style="position:relative;overflow:hidden"><img src="https://images.unsplash.com/photo-1544161515-4ab6ce6db874?w=500&q=70" style="width:100%;height:200px;object-fit:cover;filter:brightness(.55);display:block;transition:all .7s" onmouseover="this.parentElement.querySelector('.gl').style.opacity=1;this.style.filter='brightness(.75)'" onmouseout="this.parentElement.querySelector('.gl').style.opacity=0;this.style.filter='brightness(.55)'"><div class="gl" style="position:absolute;inset:0;display:flex;flex-direction:column;justify-content:flex-end;padding:16px;background:linear-gradient(to top,rgba(10,9,6,.9),transparent 60%);opacity:0;transition:opacity .4s"><p style="font-size:8px;letter-spacing:.3em;text-transform:uppercase;color:#c9a96e;font-family:'Jost';font-weight:200;margin-bottom:4px">Wellness</p><p style="font-family:'Cormorant Garamond',serif;font-size:18px;color:#faf6f0;font-weight:300">Spa & Massagen</p></div></div>
+  </div>
+</div></div>
+<div class="pv" id="gallery-v7" style="display:none"><div style="display:grid;grid-template-columns:3fr 1fr;gap:2px;height:320px">
+  <img src="https://images.unsplash.com/photo-1566073771259-6a8506099945?w=900&q=75" style="width:100%;height:100%;object-fit:cover;filter:brightness(.6);display:block;transition:filter .5s" onmouseover="this.style.filter='brightness(.8)'" onmouseout="this.style.filter='brightness(.6)'">
+  <div style="display:flex;flex-direction:column;gap:2px">
+    <img src="https://images.unsplash.com/photo-1631049307264-da0ec9d70304?w=300&q=70" style="flex:1;width:100%;object-fit:cover;filter:brightness(.55);display:block;transition:filter .5s" onmouseover="this.style.filter='brightness(.8)'" onmouseout="this.style.filter='brightness(.55)'">
+    <img src="https://images.unsplash.com/photo-1414235077428-338989a2e8c0?w=300&q=70" style="flex:1;width:100%;object-fit:cover;filter:brightness(.55);display:block;transition:filter .5s" onmouseover="this.style.filter='brightness(.8)'" onmouseout="this.style.filter='brightness(.55)'">
+    <img src="https://images.unsplash.com/photo-1471506480208-91b3a4cc78be?w=300&q=70" style="flex:1;width:100%;object-fit:cover;filter:brightness(.55);display:block;transition:filter .5s" onmouseover="this.style.filter='brightness(.8)'" onmouseout="this.style.filter='brightness(.55)'">
+  </div>
+</div></div>
+<div class="pv" id="gallery-v8" style="display:none"><div style="background:#111009;padding:40px 36px">
+  <div style="display:flex;gap:24px;flex-wrap:wrap;justify-content:center">
+    <div style="background:#f4ede0;padding:10px 10px 32px;transform:rotate(-2deg);box-shadow:0 8px 32px rgba(0,0,0,.4);transition:transform .3s" onmouseover="this.style.transform='rotate(0deg) scale(1.04)'" onmouseout="this.style.transform='rotate(-2deg)'"><img src="https://images.unsplash.com/photo-1566073771259-6a8506099945?w=280&q=70" style="width:160px;height:160px;object-fit:cover;display:block;filter:saturate(.8)"><p style="font-size:10px;color:#8a7f72;font-family:'Jost';text-align:center;margin-top:10px;letter-spacing:.05em">Bodensee</p></div>
+    <div style="background:#f4ede0;padding:10px 10px 32px;transform:rotate(1.5deg);box-shadow:0 8px 32px rgba(0,0,0,.4);transition:transform .3s" onmouseover="this.style.transform='rotate(0deg) scale(1.04)'" onmouseout="this.style.transform='rotate(1.5deg)'"><img src="https://images.unsplash.com/photo-1631049307264-da0ec9d70304?w=280&q=70" style="width:160px;height:160px;object-fit:cover;display:block;filter:saturate(.8)"><p style="font-size:10px;color:#8a7f72;font-family:'Jost';text-align:center;margin-top:10px;letter-spacing:.05em">Suite</p></div>
+    <div style="background:#f4ede0;padding:10px 10px 32px;transform:rotate(-1deg);box-shadow:0 8px 32px rgba(0,0,0,.4);transition:transform .3s" onmouseover="this.style.transform='rotate(0deg) scale(1.04)'" onmouseout="this.style.transform='rotate(-1deg)'"><img src="https://images.unsplash.com/photo-1414235077428-338989a2e8c0?w=280&q=70" style="width:160px;height:160px;object-fit:cover;display:block;filter:saturate(.8)"><p style="font-size:10px;color:#8a7f72;font-family:'Jost';text-align:center;margin-top:10px;letter-spacing:.05em">Restaurant</p></div>
+    <div style="background:#f4ede0;padding:10px 10px 32px;transform:rotate(2deg);box-shadow:0 8px 32px rgba(0,0,0,.4);transition:transform .3s" onmouseover="this.style.transform='rotate(0deg) scale(1.04)'" onmouseout="this.style.transform='rotate(2deg)'"><img src="https://images.unsplash.com/photo-1544161515-4ab6ce6db874?w=280&q=70" style="width:160px;height:160px;object-fit:cover;display:block;filter:saturate(.8)"><p style="font-size:10px;color:#8a7f72;font-family:'Jost';text-align:center;margin-top:10px;letter-spacing:.05em">Spa</p></div>
+  </div>
+</div></div>
+<div class="pv" id="gallery-v9" style="display:none"><div style="background:#111009;padding:40px 40px 0">
+  <div style="display:flex;justify-content:space-between;align-items:flex-end;margin-bottom:24px">
+    <h3 style="font-family:'Cormorant Garamond',serif;font-size:36px;font-weight:300;color:#faf6f0">Impressionen<br><em style="font-style:italic;color:#c4b9a8">des Hotels</em></h3>
+    <a href="#" style="font-size:9px;letter-spacing:.2em;text-transform:uppercase;color:#c9a96e;text-decoration:none;font-family:'Jost';font-weight:200">Alle ansehen →</a>
+  </div>
+  <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:2px">
+    <img src="https://images.unsplash.com/photo-1566073771259-6a8506099945?w=400&q=70" style="width:100%;height:160px;object-fit:cover;filter:brightness(.58);display:block;transition:filter .5s" onmouseover="this.style.filter='brightness(.82)'" onmouseout="this.style.filter='brightness(.58)'">
+    <img src="https://images.unsplash.com/photo-1631049307264-da0ec9d70304?w=400&q=70" style="width:100%;height:160px;object-fit:cover;filter:brightness(.58);display:block;transition:filter .5s" onmouseover="this.style.filter='brightness(.82)'" onmouseout="this.style.filter='brightness(.58)'">
+    <img src="https://images.unsplash.com/photo-1471506480208-91b3a4cc78be?w=400&q=70" style="width:100%;height:160px;object-fit:cover;filter:brightness(.58);display:block;transition:filter .5s" onmouseover="this.style.filter='brightness(.82)'" onmouseout="this.style.filter='brightness(.58)'">
+    <img src="https://images.unsplash.com/photo-1414235077428-338989a2e8c0?w=400&q=70" style="width:100%;height:160px;object-fit:cover;filter:brightness(.58);display:block;transition:filter .5s" onmouseover="this.style.filter='brightness(.82)'" onmouseout="this.style.filter='brightness(.58)'">
+  </div>
+</div></div>
+<div class="pv" id="gallery-v10" style="display:none"><div style="background:#0a0906;padding:32px 0 32px 40px;overflow:hidden">
+  <p style="font-size:8px;letter-spacing:.4em;text-transform:uppercase;color:#c9a96e;font-family:'Jost';font-weight:200;margin-bottom:16px;padding-right:40px">Bildergalerie</p>
+  <div style="display:flex;gap:4px;overflow-x:auto;padding-bottom:8px;scrollbar-width:thin;scrollbar-color:rgba(201,169,110,.25) transparent">
+    <img src="https://images.unsplash.com/photo-1566073771259-6a8506099945?w=400&q=70" style="height:180px;width:280px;flex-shrink:0;object-fit:cover;filter:brightness(.58);display:block;transition:filter .4s" onmouseover="this.style.filter='brightness(.82)'" onmouseout="this.style.filter='brightness(.58)'">
+    <img src="https://images.unsplash.com/photo-1631049307264-da0ec9d70304?w=400&q=70" style="height:180px;width:280px;flex-shrink:0;object-fit:cover;filter:brightness(.58);display:block;transition:filter .4s" onmouseover="this.style.filter='brightness(.82)'" onmouseout="this.style.filter='brightness(.58)'">
+    <img src="https://images.unsplash.com/photo-1471506480208-91b3a4cc78be?w=400&q=70" style="height:180px;width:280px;flex-shrink:0;object-fit:cover;filter:brightness(.58);display:block;transition:filter .4s" onmouseover="this.style.filter='brightness(.82)'" onmouseout="this.style.filter='brightness(.58)'">
+    <img src="https://images.unsplash.com/photo-1414235077428-338989a2e8c0?w=400&q=70" style="height:180px;width:280px;flex-shrink:0;object-fit:cover;filter:brightness(.58);display:block;transition:filter .4s" onmouseover="this.style.filter='brightness(.82)'" onmouseout="this.style.filter='brightness(.58)'">
+    <img src="https://images.unsplash.com/photo-1542314831-068cd1dbfeeb?w=400&q=70" style="height:180px;width:280px;flex-shrink:0;object-fit:cover;filter:brightness(.58);display:block;transition:filter .4s" onmouseover="this.style.filter='brightness(.82)'" onmouseout="this.style.filter='brightness(.58)'">
+    <img src="https://images.unsplash.com/photo-1555881400-74d7acaacd8b?w=400&q=70" style="height:180px;width:280px;flex-shrink:0;object-fit:cover;filter:brightness(.58);display:block;transition:filter .4s" onmouseover="this.style.filter='brightness(.82)'" onmouseout="this.style.filter='brightness(.58)'">
+  </div>
+</div></div>
+<div class="pv" id="gallery-v11" style="display:none"><div style="display:grid;grid-template-columns:repeat(3,1fr);gap:2px;background:#0a0906">
+  <div style="overflow:hidden"><img src="https://images.unsplash.com/photo-1566073771259-6a8506099945?w=500&q=70" style="width:100%;height:220px;object-fit:cover;filter:grayscale(1) brightness(.6);display:block;transition:all .7s" onmouseover="this.style.filter='grayscale(0) brightness(.85)'" onmouseout="this.style.filter='grayscale(1) brightness(.6)'"></div>
+  <div style="overflow:hidden"><img src="https://images.unsplash.com/photo-1631049307264-da0ec9d70304?w=500&q=70" style="width:100%;height:220px;object-fit:cover;filter:grayscale(1) brightness(.6);display:block;transition:all .7s" onmouseover="this.style.filter='grayscale(0) brightness(.85)'" onmouseout="this.style.filter='grayscale(1) brightness(.6)'"></div>
+  <div style="overflow:hidden"><img src="https://images.unsplash.com/photo-1414235077428-338989a2e8c0?w=500&q=70" style="width:100%;height:220px;object-fit:cover;filter:grayscale(1) brightness(.6);display:block;transition:all .7s" onmouseover="this.style.filter='grayscale(0) brightness(.85)'" onmouseout="this.style.filter='grayscale(1) brightness(.6)'"></div>
+</div></div>
+
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="doc-section" id="ds-cards">
+  <div class="ds-inner">
+    <div class="ds-left">
+      <div class="doc-label">Komponente</div>
+      <h2 class="ctitle">Karten & Cards</h2>
+      <p class="cdesc">Wählen Sie eine Variante — die Live-Vorschau aktualisiert sich sofort. Klicken Sie "Code kopieren" für den vollständigen HTML-Code.</p>
+      <div class="info-note">Karten können überall eingebaut werden. Umschließen Sie die Karten-Grid immer in einem <code>&lt;section&gt;</code>-Tag mit Padding.</div>
+      <div class="doc-label" style="margin-top:20px">Design wählen</div>
+      <div class="vgrid"><button class="vb selected" onclick="selV(this,'cards-v1')" data-section="cards"><span class="vn">01</span><span class="vname">Bild-Overlay 3er</span><span class="vtag">Klassisch</span></button>
+<button class="vb " onclick="selV(this,'cards-v2')" data-section="cards"><span class="vn">02</span><span class="vname">Gold-Top Border</span><span class="vtag">Linie erscheint bei Hover</span></button>
+<button class="vb " onclick="selV(this,'cards-v3')" data-section="cards"><span class="vn">03</span><span class="vname">Horizontal Liste</span><span class="vtag">Bild links + Text rechts</span></button>
+<button class="vb " onclick="selV(this,'cards-v4')" data-section="cards"><span class="vn">04</span><span class="vname">Preis-Karten</span><span class="vtag">Mit Preisspalte</span></button>
+<button class="vb " onclick="selV(this,'cards-v5')" data-section="cards"><span class="vn">05</span><span class="vname">Mitarbeiter-Team</span><span class="vtag">Portraits Grid</span></button>
+<button class="vb " onclick="selV(this,'cards-v6')" data-section="cards"><span class="vn">06</span><span class="vname">Event Räume</span><span class="vtag">Mit Kapazität</span></button>
+<button class="vb " onclick="selV(this,'cards-v7')" data-section="cards"><span class="vn">07</span><span class="vname">Featured + Grid</span><span class="vtag">1 groß + 4 klein</span></button>
+<button class="vb " onclick="selV(this,'cards-v8')" data-section="cards"><span class="vn">08</span><span class="vname">Testimonial Karten</span><span class="vtag">Bewertungen</span></button>
+<button class="vb " onclick="selV(this,'cards-v9')" data-section="cards"><span class="vn">09</span><span class="vname">News / Blog</span><span class="vtag">Artikel-Karten</span></button>
+<button class="vb " onclick="selV(this,'cards-v10')" data-section="cards"><span class="vn">10</span><span class="vname">Preisvergleich</span><span class="vtag">3 Tier Pricing</span></button>
+<button class="vb " onclick="selV(this,'cards-v11')" data-section="cards"><span class="vn">11</span><span class="vname">Akkordeon Karten</span><span class="vtag">Klappbare Details</span></button>
+</div>
+      <div class="doc-label" style="margin-top:20px">Code</div>
+      <div class="cb" id="cb-cards">
+        <div class="cb-h"><span class="cb-l">HTML — Live</span><button class="cp" onclick="cpCurrent('cards')">Kopieren</button></div>
+        <pre id="code-cards"><span style="color:rgba(200,185,168,.3);font-style:italic">← Wählen Sie oben eine Variante</span></pre>
+      </div>
+    </div>
+    <div class="ds-right">
+      <div class="pv-toolbar">
+        <span class="pv-label">Live-Vorschau</span>
+        <span class="pv-badge">● Interaktiv</span>
+        <button class="pv-copy" onclick="cpCurrent('cards')">Code kopieren ↗</button>
+      </div>
+      <div class="pv-area" id="pva-cards">
+        <div class="pv" id="cards-v1" style="display:block"><div style="display:grid;grid-template-columns:repeat(3,1fr);gap:2px;background:#0a0906">
+  <div style="position:relative;overflow:hidden"><img src="https://images.unsplash.com/photo-1631049307264-da0ec9d70304?w=500&q=70" style="width:100%;height:280px;object-fit:cover;filter:brightness(.55);display:block;transition:all .7s" onmouseover="this.style.filter='brightness(.78)';this.style.transform='scale(1.04)'" onmouseout="this.style.filter='brightness(.55)';this.style.transform='scale(1)'"><div style="position:absolute;inset:0;background:linear-gradient(to top,rgba(10,9,6,.93) 0%,transparent 55%);display:flex;flex-direction:column;justify-content:flex-end;padding:22px"><p style="font-size:8px;letter-spacing:.4em;text-transform:uppercase;color:#c9a96e;font-family:'Jost';font-weight:200;margin-bottom:6px">Suite</p><h4 style="font-family:'Cormorant Garamond',serif;font-size:22px;font-weight:300;color:#faf6f0;margin-bottom:6px">Deluxe Suite</h4><p style="font-size:11px;color:#c4b9a8;font-weight:200;font-family:'Jost';margin-bottom:8px">52 m² · Seeblick · King</p><p style="font-family:'Cormorant Garamond',serif;font-size:24px;color:#c9a96e;font-weight:300">ab 189€</p></div></div>
+  <div style="position:relative;overflow:hidden"><img src="https://images.unsplash.com/photo-1618773928121-c32242e63f39?w=500&q=70" style="width:100%;height:280px;object-fit:cover;filter:brightness(.55);display:block;transition:all .7s" onmouseover="this.style.filter='brightness(.78)';this.style.transform='scale(1.04)'" onmouseout="this.style.filter='brightness(.55)';this.style.transform='scale(1)'"><div style="position:absolute;inset:0;background:linear-gradient(to top,rgba(10,9,6,.93) 0%,transparent 55%);display:flex;flex-direction:column;justify-content:flex-end;padding:22px"><p style="font-size:8px;letter-spacing:.4em;text-transform:uppercase;color:#c9a96e;font-family:'Jost';font-weight:200;margin-bottom:6px">Superior</p><h4 style="font-family:'Cormorant Garamond',serif;font-size:22px;font-weight:300;color:#faf6f0;margin-bottom:6px">Doppelzimmer Superior</h4><p style="font-size:11px;color:#c4b9a8;font-weight:200;font-family:'Jost';margin-bottom:8px">32 m² · Queen</p><p style="font-family:'Cormorant Garamond',serif;font-size:24px;color:#c9a96e;font-weight:300">ab 149€</p></div></div>
+  <div style="position:relative;overflow:hidden"><img src="https://images.unsplash.com/photo-1540518614846-7eded433c457?w=500&q=70" style="width:100%;height:280px;object-fit:cover;filter:brightness(.55);display:block;transition:all .7s" onmouseover="this.style.filter='brightness(.78)';this.style.transform='scale(1.04)'" onmouseout="this.style.filter='brightness(.55)';this.style.transform='scale(1)'"><div style="position:absolute;inset:0;background:linear-gradient(to top,rgba(10,9,6,.93) 0%,transparent 55%);display:flex;flex-direction:column;justify-content:flex-end;padding:22px"><p style="font-size:8px;letter-spacing:.4em;text-transform:uppercase;color:#c9a96e;font-family:'Jost';font-weight:200;margin-bottom:6px">Komfort</p><h4 style="font-family:'Cormorant Garamond',serif;font-size:22px;font-weight:300;color:#faf6f0;margin-bottom:6px">Doppelzimmer</h4><p style="font-size:11px;color:#c4b9a8;font-weight:200;font-family:'Jost';margin-bottom:8px">28 m² · Doppelbett</p><p style="font-family:'Cormorant Garamond',serif;font-size:24px;color:#c9a96e;font-weight:300">ab 129€</p></div></div>
+</div></div>
+<div class="pv" id="cards-v2" style="display:none"><div style="display:grid;grid-template-columns:repeat(3,1fr);gap:16px;padding:32px;background:#111009">
+  <div style="background:#1a1814;border:1px solid rgba(201,169,110,.1);padding:28px;position:relative;overflow:hidden;transition:border-color .4s" onmouseover="this.style.borderColor='rgba(201,169,110,.35)';this.querySelector('div').style.transform='scaleX(1)'" onmouseout="this.style.borderColor='rgba(201,169,110,.1)';this.querySelector('div').style.transform='scaleX(0)'"><div style="position:absolute;top:0;left:0;right:0;height:2px;background:#c9a96e;transform:scaleX(0);transform-origin:left;transition:transform .5s"></div><p style="font-family:'Cormorant Garamond',serif;font-size:52px;font-weight:300;color:rgba(201,169,110,.12);line-height:1;margin-bottom:12px">01</p><h4 style="font-family:'Cormorant Garamond',serif;font-size:22px;font-weight:300;color:#faf6f0;margin-bottom:10px">Catering</h4><p style="font-size:12px;color:#8a7f72;font-weight:200;font-family:'Jost';line-height:1.9">Von Kaffeepause bis Gala-Diner — unsere Köche kreieren das Passende.</p></div>
+  <div style="background:#1a1814;border:1px solid rgba(201,169,110,.1);padding:28px;position:relative;overflow:hidden;transition:border-color .4s" onmouseover="this.style.borderColor='rgba(201,169,110,.35)';this.querySelector('div').style.transform='scaleX(1)'" onmouseout="this.style.borderColor='rgba(201,169,110,.1)';this.querySelector('div').style.transform='scaleX(0)'"><div style="position:absolute;top:0;left:0;right:0;height:2px;background:#c9a96e;transform:scaleX(0);transform-origin:left;transition:transform .5s"></div><p style="font-family:'Cormorant Garamond',serif;font-size:52px;font-weight:300;color:rgba(201,169,110,.12);line-height:1;margin-bottom:12px">02</p><h4 style="font-family:'Cormorant Garamond',serif;font-size:22px;font-weight:300;color:#faf6f0;margin-bottom:10px">Technik</h4><p style="font-size:12px;color:#8a7f72;font-weight:200;font-family:'Jost';line-height:1.9">Beamer, Screens und Highspeed-WLAN für Ihre Veranstaltung.</p></div>
+  <div style="background:#1a1814;border:1px solid rgba(201,169,110,.1);padding:28px;position:relative;overflow:hidden;transition:border-color .4s" onmouseover="this.style.borderColor='rgba(201,169,110,.35)';this.querySelector('div').style.transform='scaleX(1)'" onmouseout="this.style.borderColor='rgba(201,169,110,.1)';this.querySelector('div').style.transform='scaleX(0)'"><div style="position:absolute;top:0;left:0;right:0;height:2px;background:#c9a96e;transform:scaleX(0);transform-origin:left;transition:transform .5s"></div><p style="font-family:'Cormorant Garamond',serif;font-size:52px;font-weight:300;color:rgba(201,169,110,.12);line-height:1;margin-bottom:12px">03</p><h4 style="font-family:'Cormorant Garamond',serif;font-size:22px;font-weight:300;color:#faf6f0;margin-bottom:10px">Dekoration</h4><p style="font-size:12px;color:#8a7f72;font-weight:200;font-family:'Jost';line-height:1.9">Floristik und Raumgestaltung nach Ihrem Thema.</p></div>
+</div></div>
+<div class="pv" id="cards-v3" style="display:none"><div style="padding:32px;background:#0a0906">
+  <div style="border:1px solid rgba(201,169,110,.1);display:grid;grid-template-columns:180px 1fr;margin-bottom:3px;overflow:hidden;transition:border-color .4s" onmouseover="this.style.borderColor='rgba(201,169,110,.3)'" onmouseout="this.style.borderColor='rgba(201,169,110,.1)'"><img src="https://images.unsplash.com/photo-1542314831-068cd1dbfeeb?w=300&q=70" style="width:180px;height:120px;object-fit:cover;filter:brightness(.65);display:block"><div style="padding:18px 22px;display:flex;flex-direction:column;justify-content:center"><p style="font-size:8px;letter-spacing:.4em;text-transform:uppercase;color:#c9a96e;font-family:'Jost';font-weight:200;margin-bottom:6px">Wellness</p><h4 style="font-family:'Cormorant Garamond',serif;font-size:20px;font-weight:300;color:#faf6f0;margin-bottom:6px">Spa-Wochenende</h4><p style="font-size:11px;color:#8a7f72;font-weight:200;font-family:'Jost';line-height:1.7">2 Nächte inkl. Sauna, Massage & Frühstück</p></div></div>
+  <div style="border:1px solid rgba(201,169,110,.1);display:grid;grid-template-columns:180px 1fr;margin-bottom:3px;overflow:hidden;transition:border-color .4s" onmouseover="this.style.borderColor='rgba(201,169,110,.3)'" onmouseout="this.style.borderColor='rgba(201,169,110,.1)'"><img src="https://images.unsplash.com/photo-1414235077428-338989a2e8c0?w=300&q=70" style="width:180px;height:120px;object-fit:cover;filter:brightness(.65);display:block"><div style="padding:18px 22px;display:flex;flex-direction:column;justify-content:center"><p style="font-size:8px;letter-spacing:.4em;text-transform:uppercase;color:#c9a96e;font-family:'Jost';font-weight:200;margin-bottom:6px">Kulinarik</p><h4 style="font-family:'Cormorant Garamond',serif;font-size:20px;font-weight:300;color:#faf6f0;margin-bottom:6px">Gourmet-Wochenende</h4><p style="font-size:11px;color:#8a7f72;font-weight:200;font-family:'Jost';line-height:1.7">Candlelight Dinner & Weinprobe inklusive</p></div></div>
+  <div style="border:1px solid rgba(201,169,110,.1);display:grid;grid-template-columns:180px 1fr;overflow:hidden;transition:border-color .4s" onmouseover="this.style.borderColor='rgba(201,169,110,.3)'" onmouseout="this.style.borderColor='rgba(201,169,110,.1)'"><img src="https://images.unsplash.com/photo-1555881400-74d7acaacd8b?w=300&q=70" style="width:180px;height:120px;object-fit:cover;filter:brightness(.65);display:block"><div style="padding:18px 22px;display:flex;flex-direction:column;justify-content:center"><p style="font-size:8px;letter-spacing:.4em;text-transform:uppercase;color:#c9a96e;font-family:'Jost';font-weight:200;margin-bottom:6px">Entdecken</p><h4 style="font-family:'Cormorant Garamond',serif;font-size:20px;font-weight:300;color:#faf6f0;margin-bottom:6px">Bodensee Erlebnis</h4><p style="font-size:11px;color:#8a7f72;font-weight:200;font-family:'Jost';line-height:1.7">Schifffahrt, Insel Mainau & Fahrradtour</p></div></div>
+</div></div>
+<div class="pv" id="cards-v4" style="display:none"><div style="display:grid;grid-template-columns:repeat(2,1fr);gap:2px;padding:0;background:#111009">
+  <div style="background:#1a1814;padding:36px;display:flex;gap:24px;align-items:flex-start"><div style="flex:1"><p style="font-size:8px;letter-spacing:.4em;text-transform:uppercase;color:#c9a96e;font-family:'Jost';font-weight:200;margin-bottom:8px">Frühstücks-Paket</p><h4 style="font-family:'Cormorant Garamond',serif;font-size:22px;font-weight:300;color:#faf6f0;margin-bottom:8px">Suite + Frühstück</h4><p style="font-size:11px;color:#8a7f72;font-weight:200;font-family:'Jost';line-height:1.7">Deluxe Suite · 2 Personen · 1 Nacht</p></div><div style="text-align:right;flex-shrink:0"><p style="font-family:'Cormorant Garamond',serif;font-size:36px;color:#c9a96e;font-weight:300;line-height:1">219€</p><p style="font-size:9px;color:#8a7f72;font-weight:200;font-family:'Jost'">pro Nacht</p></div></div>
+  <div style="background:#1a1814;padding:36px;display:flex;gap:24px;align-items:flex-start"><div style="flex:1"><p style="font-size:8px;letter-spacing:.4em;text-transform:uppercase;color:#c9a96e;font-family:'Jost';font-weight:200;margin-bottom:8px">Romantik-Paket</p><h4 style="font-family:'Cormorant Garamond',serif;font-size:22px;font-weight:300;color:#faf6f0;margin-bottom:8px">Dinner für 2</h4><p style="font-size:11px;color:#8a7f72;font-weight:200;font-family:'Jost';line-height:1.7">Suite · Champagner · Candlelight</p></div><div style="text-align:right;flex-shrink:0"><p style="font-family:'Cormorant Garamond',serif;font-size:36px;color:#c9a96e;font-weight:300;line-height:1">399€</p><p style="font-size:9px;color:#8a7f72;font-weight:200;font-family:'Jost'">2 Nächte</p></div></div>
+</div></div>
+<div class="pv" id="cards-v5" style="display:none"><div style="padding:32px;background:#111009">
+  <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:2px">
+    <div style="text-align:center;padding:20px 16px"><img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=300&q=70" style="width:90px;height:90px;border-radius:50%;object-fit:cover;filter:brightness(.7) saturate(.7);margin:0 auto 12px;display:block"><h4 style="font-family:'Cormorant Garamond',serif;font-size:16px;font-weight:300;color:#faf6f0;margin-bottom:4px">Thomas Müller</h4><p style="font-size:9px;letter-spacing:.2em;text-transform:uppercase;color:#c9a96e;font-family:'Jost';font-weight:200">Direktor</p></div>
+    <div style="text-align:center;padding:20px 16px"><img src="https://images.unsplash.com/photo-1494790108755-2616b612b786?w=300&q=70" style="width:90px;height:90px;border-radius:50%;object-fit:cover;filter:brightness(.7) saturate(.7);margin:0 auto 12px;display:block"><h4 style="font-family:'Cormorant Garamond',serif;font-size:16px;font-weight:300;color:#faf6f0;margin-bottom:4px">Anna Weber</h4><p style="font-size:9px;letter-spacing:.2em;text-transform:uppercase;color:#c9a96e;font-family:'Jost';font-weight:200">Empfang</p></div>
+    <div style="text-align:center;padding:20px 16px"><img src="https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=300&q=70" style="width:90px;height:90px;border-radius:50%;object-fit:cover;filter:brightness(.7) saturate(.7);margin:0 auto 12px;display:block"><h4 style="font-family:'Cormorant Garamond',serif;font-size:16px;font-weight:300;color:#faf6f0;margin-bottom:4px">Klaus Schmidt</h4><p style="font-size:9px;letter-spacing:.2em;text-transform:uppercase;color:#c9a96e;font-family:'Jost';font-weight:200">Küchenchef</p></div>
+    <div style="text-align:center;padding:20px 16px"><img src="https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=300&q=70" style="width:90px;height:90px;border-radius:50%;object-fit:cover;filter:brightness(.7) saturate(.7);margin:0 auto 12px;display:block"><h4 style="font-family:'Cormorant Garamond',serif;font-size:16px;font-weight:300;color:#faf6f0;margin-bottom:4px">Sarah Fischer</h4><p style="font-size:9px;letter-spacing:.2em;text-transform:uppercase;color:#c9a96e;font-family:'Jost';font-weight:200">Spa-Leiterin</p></div>
+  </div>
+</div></div>
+<div class="pv" id="cards-v6" style="display:none"><div style="display:grid;grid-template-columns:1fr 1fr;gap:2px;background:#0a0906">
+  <div style="position:relative;overflow:hidden"><img src="https://images.unsplash.com/photo-1519167758481-83f550bb49b3?w=600&q=70" style="width:100%;height:220px;object-fit:cover;filter:brightness(.45);display:block;transition:all .6s" onmouseover="this.style.filter='brightness(.68)'" onmouseout="this.style.filter='brightness(.45)'"><div style="position:absolute;inset:0;display:flex;flex-direction:column;justify-content:flex-end;padding:22px"><p style="font-size:8px;letter-spacing:.35em;text-transform:uppercase;color:#c9a96e;font-family:'Jost';font-weight:200;margin-bottom:6px">Saal A</p><h4 style="font-family:'Cormorant Garamond',serif;font-size:22px;font-weight:300;color:#faf6f0;margin-bottom:4px">Bodensee-Saal</h4><p style="font-size:11px;color:#c4b9a8;font-weight:200;font-family:'Jost'">bis 200 Personen · 280 m²</p></div></div>
+  <div style="position:relative;overflow:hidden"><img src="https://images.unsplash.com/photo-1587825140708-dfaf72ae4b04?w=600&q=70" style="width:100%;height:220px;object-fit:cover;filter:brightness(.45);display:block;transition:all .6s" onmouseover="this.style.filter='brightness(.68)'" onmouseout="this.style.filter='brightness(.45)'"><div style="position:absolute;inset:0;display:flex;flex-direction:column;justify-content:flex-end;padding:22px"><p style="font-size:8px;letter-spacing:.35em;text-transform:uppercase;color:#c9a96e;font-family:'Jost';font-weight:200;margin-bottom:6px">Saal B</p><h4 style="font-family:'Cormorant Garamond',serif;font-size:22px;font-weight:300;color:#faf6f0;margin-bottom:4px">Konstanzer Raum</h4><p style="font-size:11px;color:#c4b9a8;font-weight:200;font-family:'Jost'">bis 80 Personen · 120 m²</p></div></div>
+</div></div>
+<div class="pv" id="cards-v7" style="display:none"><div style="background:#111009;padding:32px">
+  <div style="display:grid;grid-template-columns:1.6fr 1fr;gap:3px;margin-bottom:3px">
+    <div style="position:relative;overflow:hidden"><img src="https://images.unsplash.com/photo-1566073771259-6a8506099945?w=800&q=70" style="width:100%;height:280px;object-fit:cover;filter:brightness(.5);display:block"><div style="position:absolute;inset:0;background:linear-gradient(to top,rgba(10,9,6,.9),transparent 50%)"><div style="position:absolute;bottom:24px;left:24px"><p style="font-family:'Cormorant Garamond',serif;font-size:28px;font-weight:300;color:#faf6f0">Außenansicht<br><em style="font-style:italic;color:#c9a96e">am See</em></p></div></div></div>
+    <div style="display:grid;grid-template-rows:1fr 1fr;gap:3px">
+      <div style="position:relative;overflow:hidden"><img src="https://images.unsplash.com/photo-1631049307264-da0ec9d70304?w=400&q=70" style="width:100%;height:100%;object-fit:cover;filter:brightness(.5);display:block"><div style="position:absolute;bottom:12px;left:12px"><p style="font-family:'Cormorant Garamond',serif;font-size:16px;color:#faf6f0">Suite</p></div></div>
+      <div style="position:relative;overflow:hidden"><img src="https://images.unsplash.com/photo-1414235077428-338989a2e8c0?w=400&q=70" style="width:100%;height:100%;object-fit:cover;filter:brightness(.5);display:block"><div style="position:absolute;bottom:12px;left:12px"><p style="font-family:'Cormorant Garamond',serif;font-size:16px;color:#faf6f0">Restaurant</p></div></div>
+    </div>
+  </div>
+</div></div>
+<div class="pv" id="cards-v8" style="display:none"><div style="background:#0a0906;padding:32px">
+  <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:16px">
+    <div style="background:#1a1814;border-left:2px solid rgba(201,169,110,.25);padding:24px"><p style="color:#c9a96e;font-size:11px;letter-spacing:2px;margin-bottom:12px">★★★★★</p><blockquote style="font-family:'Cormorant Garamond',serif;font-size:17px;font-style:italic;font-weight:300;color:#faf6f0;line-height:1.55;margin-bottom:12px">„Das schönste Hotel am Bodensee — wir kommen jedes Jahr wieder."</blockquote><cite style="font-size:8.5px;letter-spacing:.25em;text-transform:uppercase;color:#8a7f72;font-family:'Jost';font-style:normal">— Maria K., München</cite></div>
+    <div style="background:#1a1814;border-left:2px solid rgba(201,169,110,.25);padding:24px"><p style="color:#c9a96e;font-size:11px;letter-spacing:2px;margin-bottom:12px">★★★★★</p><blockquote style="font-family:'Cormorant Garamond',serif;font-size:17px;font-style:italic;font-weight:300;color:#faf6f0;line-height:1.55;margin-bottom:12px">„Perfekter Service, traumhaftes Frühstück und ein Spa der Extraklasse."</blockquote><cite style="font-size:8.5px;letter-spacing:.25em;text-transform:uppercase;color:#8a7f72;font-family:'Jost';font-style:normal">— Thomas B., Zürich</cite></div>
+    <div style="background:#1a1814;border-left:2px solid rgba(201,169,110,.25);padding:24px"><p style="color:#c9a96e;font-size:11px;letter-spacing:2px;margin-bottom:12px">★★★★★</p><blockquote style="font-family:'Cormorant Garamond',serif;font-size:17px;font-style:italic;font-weight:300;color:#faf6f0;line-height:1.55;margin-bottom:12px">„Unsere Hochzeit war ein Traum — das Team war unglaublich."</blockquote><cite style="font-size:8.5px;letter-spacing:.25em;text-transform:uppercase;color:#8a7f72;font-family:'Jost';font-style:normal">— Lisa & Michael, Stuttgart</cite></div>
+  </div>
+</div></div>
+<div class="pv" id="cards-v9" style="display:none"><div style="background:#111009;padding:32px">
+  <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:16px">
+    <div style="background:#1a1814"><img src="https://images.unsplash.com/photo-1471506480208-91b3a4cc78be?w=400&q=70" style="width:100%;height:140px;object-fit:cover;filter:brightness(.6);display:block"><div style="padding:20px"><p style="font-size:8px;letter-spacing:.3em;text-transform:uppercase;color:#c9a96e;font-family:'Jost';font-weight:200;margin-bottom:8px">15. Juni 2024</p><h4 style="font-family:'Cormorant Garamond',serif;font-size:18px;font-weight:300;color:#faf6f0;margin-bottom:8px;line-height:1.3">Neues Frühstücksmenü für den Sommer</h4><p style="font-size:11px;color:#8a7f72;font-weight:200;font-family:'Jost';line-height:1.7">Frische regionale Produkte vom Wochenmarkt...</p></div></div>
+    <div style="background:#1a1814"><img src="https://images.unsplash.com/photo-1544161515-4ab6ce6db874?w=400&q=70" style="width:100%;height:140px;object-fit:cover;filter:brightness(.6);display:block"><div style="padding:20px"><p style="font-size:8px;letter-spacing:.3em;text-transform:uppercase;color:#c9a96e;font-family:'Jost';font-weight:200;margin-bottom:8px">3. Mai 2024</p><h4 style="font-family:'Cormorant Garamond',serif;font-size:18px;font-weight:300;color:#faf6f0;margin-bottom:8px;line-height:1.3">Spa-Erweiterung: Neue Treatments</h4><p style="font-size:11px;color:#8a7f72;font-weight:200;font-family:'Jost';line-height:1.7">Vier neue Massageanwendungen ab sofort...</p></div></div>
+    <div style="background:#1a1814"><img src="https://images.unsplash.com/photo-1555881400-74d7acaacd8b?w=400&q=70" style="width:100%;height:140px;object-fit:cover;filter:brightness(.6);display:block"><div style="padding:20px"><p style="font-size:8px;letter-spacing:.3em;text-transform:uppercase;color:#c9a96e;font-family:'Jost';font-weight:200;margin-bottom:8px">18. April 2024</p><h4 style="font-family:'Cormorant Garamond',serif;font-size:18px;font-weight:300;color:#faf6f0;margin-bottom:8px;line-height:1.3">Ausflugstipps rund um den Bodensee</h4><p style="font-size:11px;color:#8a7f72;font-weight:200;font-family:'Jost';line-height:1.7">Unsere Top-5-Ausflugsziele für den Sommer...</p></div></div>
+  </div>
+</div></div>
+<div class="pv" id="cards-v10" style="display:none"><div style="background:#0a0906;padding:32px">
+  <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:2px">
+    <div style="background:#111009;padding:32px;text-align:center"><p style="font-size:8px;letter-spacing:.4em;text-transform:uppercase;color:#8a7f72;font-family:'Jost';font-weight:200;margin-bottom:12px">Standard</p><p style="font-family:'Cormorant Garamond',serif;font-size:48px;color:#c4b9a8;font-weight:300;margin-bottom:4px">99€</p><p style="font-size:9px;color:#8a7f72;font-family:'Jost';margin-bottom:20px">pro Nacht</p><ul style="list-style:none;font-size:11px;color:#8a7f72;line-height:2.2;font-weight:200;font-family:'Jost'"><li>Einzelzimmer · 18m²</li><li>Frühstück inklusive</li><li>WLAN</li><li style="color:rgba(138,127,114,.4)">—</li></ul></div>
+    <div style="background:#1a1814;padding:32px;text-align:center;border:1px solid rgba(201,169,110,.25)"><p style="font-size:8px;letter-spacing:.4em;text-transform:uppercase;color:#c9a96e;font-family:'Jost';font-weight:200;margin-bottom:12px">Superior ★</p><p style="font-family:'Cormorant Garamond',serif;font-size:48px;color:#c9a96e;font-weight:300;margin-bottom:4px">149€</p><p style="font-size:9px;color:#8a7f72;font-family:'Jost';margin-bottom:20px">pro Nacht</p><ul style="list-style:none;font-size:11px;color:#c4b9a8;line-height:2.2;font-weight:200;font-family:'Jost'"><li>Doppelzimmer · 32m²</li><li>Frühstück inklusive</li><li>WLAN + Sauna</li><li>Late Check-out</li></ul></div>
+    <div style="background:#111009;padding:32px;text-align:center"><p style="font-size:8px;letter-spacing:.4em;text-transform:uppercase;color:#8a7f72;font-family:'Jost';font-weight:200;margin-bottom:12px">Suite</p><p style="font-family:'Cormorant Garamond',serif;font-size:48px;color:#c4b9a8;font-weight:300;margin-bottom:4px">189€</p><p style="font-size:9px;color:#8a7f72;font-family:'Jost';margin-bottom:20px">pro Nacht</p><ul style="list-style:none;font-size:11px;color:#8a7f72;line-height:2.2;font-weight:200;font-family:'Jost'"><li>Suite · 52m² Seeblick</li><li>Frühstück inkl.</li><li>WLAN + Full Spa</li><li>Champagner-Begrüßung</li></ul></div>
+  </div>
+</div></div>
+<div class="pv" id="cards-v11" style="display:none"><div style="background:#111009;padding:32px">
+  <div style="border:1px solid rgba(201,169,110,.1);margin-bottom:2px">
+    <button onclick="var b=this.nextElementSibling;b.style.maxHeight=b.style.maxHeight?'':'200px';this.querySelector('span').textContent=b.style.maxHeight?'−':'+'" style="width:100%;background:none;border:none;padding:18px 20px;display:flex;justify-content:space-between;align-items:center;cursor:pointer;font-family:'Cormorant Garamond',serif;font-size:20px;font-weight:300;color:#faf6f0;text-align:left"><span>Deluxe Suite — 52 m²</span><span style="color:#c9a96e;font-size:18px;font-family:'Jost'">+</span></button>
+    <div style="max-height:0;overflow:hidden;transition:max-height .4s ease;background:#1a1814"><div style="padding:16px 20px;font-size:12px;color:#8a7f72;line-height:1.9;font-weight:200;font-family:'Jost'">Panoramablick auf den Bodensee, King-Size-Bett, Marmorbad mit freistehender Wanne, separater Wohnbereich. Ab 189€/Nacht inkl. Frühstück.</div></div>
+  </div>
+  <div style="border:1px solid rgba(201,169,110,.1);margin-bottom:2px">
+    <button onclick="var b=this.nextElementSibling;b.style.maxHeight=b.style.maxHeight?'':'200px';this.querySelector('span').textContent=b.style.maxHeight?'−':'+'" style="width:100%;background:none;border:none;padding:18px 20px;display:flex;justify-content:space-between;align-items:center;cursor:pointer;font-family:'Cormorant Garamond',serif;font-size:20px;font-weight:300;color:#faf6f0;text-align:left"><span>Doppelzimmer Superior — 32 m²</span><span style="color:#c9a96e;font-size:18px;font-family:'Jost'">+</span></button>
+    <div style="max-height:0;overflow:hidden;transition:max-height .4s ease;background:#1a1814"><div style="padding:16px 20px;font-size:12px;color:#8a7f72;line-height:1.9;font-weight:200;font-family:'Jost'">Queen-Bett, modernes Bad mit Dusche, Schreibtisch und Minibar. Ruhige Lage mit Gartenblick. Ab 149€/Nacht.</div></div>
+  </div>
+  <div style="border:1px solid rgba(201,169,110,.1)">
+    <button onclick="var b=this.nextElementSibling;b.style.maxHeight=b.style.maxHeight?'':'200px';this.querySelector('span').textContent=b.style.maxHeight?'−':'+'" style="width:100%;background:none;border:none;padding:18px 20px;display:flex;justify-content:space-between;align-items:center;cursor:pointer;font-family:'Cormorant Garamond',serif;font-size:20px;font-weight:300;color:#faf6f0;text-align:left"><span>Einzelzimmer Komfort — 18 m²</span><span style="color:#c9a96e;font-size:18px;font-family:'Jost'">+</span></button>
+    <div style="max-height:0;overflow:hidden;transition:max-height .4s ease;background:#1a1814"><div style="padding:16px 20px;font-size:12px;color:#8a7f72;line-height:1.9;font-weight:200;font-family:'Jost'">Gemütliches Einzelzimmer mit Dusche, Schreibtisch und WLAN. Ideal für Geschäftsreisende. Ab 99€/Nacht.</div></div>
+  </div>
+</div></div>
+
+      </div>
+    </div>
+  </div>
+</div>
+
+
+  </div>
+</div>
+
+<script>
+// The raw HTML for each preview (stripped of display wrappers)
+function getCurrentPreviewHTML(sectionId) {
+  const pva = document.getElementById('pva-' + sectionId);
+  if (!pva) return '';
+  const visible = pva.querySelector('.pv[style*="block"]');
+  if (!visible) return '';
+  return visible.innerHTML.trim();
+}
+
+function showDS(id) {
+  document.querySelectorAll('.doc-section').forEach(d => d.classList.remove('active'));
+  const ds = document.getElementById('ds-' + id);
+  if (ds) ds.classList.add('active');
+  document.querySelectorAll('.sb-item').forEach(i => i.classList.remove('active'));
+  const sbi = document.getElementById('sbi-' + id);
+  if (sbi) sbi.classList.add('active');
+  // init first code preview
+  updateCode(id);
+}
+
+function selV(btn, id) {
+  // Determine section
+  const sectionId = btn.dataset.section;
+  // Update buttons
+  btn.closest('.vgrid').querySelectorAll('.vb').forEach(b => b.classList.remove('selected'));
+  btn.classList.add('selected');
+  // Update preview
+  const pva = document.getElementById('pva-' + sectionId);
+  if (pva) {
+    pva.querySelectorAll('.pv').forEach(p => p.style.display = 'none');
+    const target = document.getElementById(id);
+    if (target) target.style.display = 'block';
+  }
+  updateCode(sectionId);
+}
+
+function updateCode(sectionId) {
+  const codeEl = document.getElementById('code-' + sectionId);
+  if (!codeEl) return;
+  const html = getCurrentPreviewHTML(sectionId);
+  if (!html) return;
+  // Clean and format for display
+  const clean = html.replace(/</g,'&lt;').replace(/>/g,'&gt;');
+  codeEl.innerHTML = clean;
+}
+
+function cpCurrent(sectionId) {
+  const html = getCurrentPreviewHTML(sectionId);
+  navigator.clipboard.writeText(html).then(() => {
+    const btn = document.querySelector('#cb-' + sectionId + ' .cp');
+    if (btn) { btn.textContent = '✓ Kopiert'; btn.classList.add('ok'); setTimeout(()=>{btn.textContent='Kopieren';btn.classList.remove('ok');}, 2000); }
+    const pvcopy = document.querySelector('#ds-' + sectionId + ' .pv-copy');
+    if (pvcopy) { pvcopy.textContent = '✓ Kopiert'; setTimeout(()=>pvcopy.textContent='Code kopieren ↗', 2000); }
+  });
+}
+
+function cpCode(btn) {
+  const pre = btn.closest('.cb').querySelector('pre');
+  navigator.clipboard.writeText(pre.innerText).then(() => {
+    btn.textContent = '✓'; btn.classList.add('ok');
+    setTimeout(()=>{btn.textContent='Kopieren';btn.classList.remove('ok');}, 2000);
+  });
+}
+
+// Init
+document.getElementById('sbi-pages').classList.add('active');
+// Pre-select first variant of each section
+['hero','section','gallery','cards'].forEach(sid => {
+  const firstBtn = document.querySelector('#ds-'+sid+' .vb');
+  if (firstBtn) firstBtn.dataset.section = sid;
+  document.querySelectorAll('#ds-'+sid+' .vb').forEach(b => b.dataset.section = sid);
+});
+</script>
+</body>
+</html>

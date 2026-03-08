@@ -1,0 +1,1604 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Hotel Halm — Developer Documentation</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300&family=Jost:wght@200;300;400&family=JetBrains+Mono:wght@300;400&display=swap" rel="stylesheet">
+<style>
+:root {
+  --black: #0a0906;
+  --dark: #111009;
+  --dark2: #1a1814;
+  --dark3: #242018;
+  --gold: #c9a96e;
+  --gold-light: #e2c99a;
+  --gold-dim: rgba(201,169,110,0.15);
+  --cream: #f4ede0;
+  --cream-dim: #c8bfb0;
+  --white: #faf7f2;
+  --sidebar-w: 280px;
+  --green: #6db88a;
+  --blue: #6da8c9;
+  --orange: #c9956d;
+  --purple: #9b8dc9;
+}
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; font-size: 15px; }
+
+body {
+  background: var(--black);
+  color: var(--cream);
+  font-family: 'Jost', sans-serif;
+  font-weight: 300;
+  display: flex;
+  min-height: 100vh;
+}
+
+/* ── SIDEBAR ────────────────────────────────── */
+.sidebar {
+  width: var(--sidebar-w);
+  min-width: var(--sidebar-w);
+  background: var(--dark);
+  border-right: 1px solid rgba(201,169,110,0.1);
+  position: fixed;
+  top: 0; left: 0; bottom: 0;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  z-index: 100;
+}
+
+.sidebar::-webkit-scrollbar { width: 4px; }
+.sidebar::-webkit-scrollbar-track { background: transparent; }
+.sidebar::-webkit-scrollbar-thumb { background: rgba(201,169,110,0.2); border-radius: 2px; }
+
+.sidebar-logo {
+  padding: 32px 28px 24px;
+  border-bottom: 1px solid rgba(201,169,110,0.08);
+}
+.sidebar-logo h1 {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 20px;
+  font-weight: 300;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--white);
+  line-height: 1;
+}
+.sidebar-logo p {
+  font-size: 9px;
+  letter-spacing: 0.38em;
+  text-transform: uppercase;
+  color: var(--gold);
+  font-weight: 200;
+  margin-top: 5px;
+}
+.sidebar-version {
+  display: inline-block;
+  font-size: 9px;
+  background: var(--gold-dim);
+  border: 1px solid rgba(201,169,110,0.25);
+  color: var(--gold);
+  padding: 2px 8px;
+  letter-spacing: 0.12em;
+  margin-top: 10px;
+  font-weight: 300;
+}
+
+.sidebar-nav { padding: 20px 0; flex: 1; }
+
+.nav-group { margin-bottom: 4px; }
+.nav-group-label {
+  font-size: 8.5px;
+  letter-spacing: 0.45em;
+  text-transform: uppercase;
+  color: rgba(201,169,110,0.5);
+  font-weight: 300;
+  padding: 12px 28px 6px;
+  display: block;
+}
+
+.nav-link {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 9px 28px;
+  font-size: 12px;
+  color: var(--cream-dim);
+  text-decoration: none;
+  font-weight: 200;
+  letter-spacing: 0.04em;
+  transition: all 0.25s ease;
+  border-left: 2px solid transparent;
+  position: relative;
+}
+.nav-link:hover { color: var(--cream); background: rgba(201,169,110,0.04); }
+.nav-link.active { color: var(--gold); border-left-color: var(--gold); background: rgba(201,169,110,0.06); }
+.nav-link .dot {
+  width: 5px; height: 5px;
+  border-radius: 50%;
+  background: rgba(201,169,110,0.3);
+  flex-shrink: 0;
+  transition: background 0.25s ease;
+}
+.nav-link:hover .dot, .nav-link.active .dot { background: var(--gold); }
+
+.sidebar-footer {
+  padding: 20px 28px;
+  border-top: 1px solid rgba(201,169,110,0.08);
+  font-size: 10px;
+  color: rgba(200,191,176,0.3);
+  letter-spacing: 0.05em;
+}
+
+/* ── MAIN CONTENT ────────────────────────────── */
+.main {
+  margin-left: var(--sidebar-w);
+  flex: 1;
+  min-width: 0;
+}
+
+/* ── TOP BAR ────────────────────────────────── */
+.topbar {
+  position: sticky;
+  top: 0;
+  z-index: 50;
+  background: rgba(10,9,6,0.95);
+  backdrop-filter: blur(12px);
+  border-bottom: 1px solid rgba(201,169,110,0.08);
+  padding: 14px 56px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.topbar-title {
+  font-size: 11px;
+  letter-spacing: 0.25em;
+  text-transform: uppercase;
+  color: var(--cream-dim);
+  font-weight: 200;
+}
+.topbar-links {
+  display: flex;
+  gap: 28px;
+}
+.topbar-links a {
+  font-size: 10px;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: rgba(200,191,176,0.4);
+  text-decoration: none;
+  transition: color 0.3s;
+}
+.topbar-links a:hover { color: var(--gold); }
+
+/* ── CONTENT SECTIONS ────────────────────────── */
+.content { padding: 64px 56px 120px; max-width: 900px; }
+
+.page-title {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: clamp(42px, 5vw, 68px);
+  font-weight: 300;
+  line-height: 1;
+  color: var(--white);
+  margin-bottom: 20px;
+}
+.page-title em { font-style: italic; color: var(--cream-dim); }
+
+.page-subtitle {
+  font-size: 15px;
+  color: var(--cream-dim);
+  font-weight: 200;
+  line-height: 1.9;
+  max-width: 620px;
+  margin-bottom: 48px;
+  border-left: 2px solid var(--gold);
+  padding-left: 20px;
+}
+
+.section {
+  margin-bottom: 72px;
+  scroll-margin-top: 80px;
+}
+
+.section-title {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 32px;
+  font-weight: 300;
+  color: var(--white);
+  margin-bottom: 6px;
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+.section-title::before {
+  content: '';
+  display: block;
+  width: 24px; height: 1px;
+  background: var(--gold);
+  flex-shrink: 0;
+}
+.section-title em { font-style: italic; color: var(--cream-dim); }
+
+.section-intro {
+  font-size: 13px;
+  color: var(--cream-dim);
+  line-height: 2;
+  font-weight: 200;
+  margin-bottom: 28px;
+  padding-left: 40px;
+}
+
+/* ── DIVIDER ────────────────────────────────── */
+.divider {
+  width: 100%;
+  height: 1px;
+  background: linear-gradient(to right, rgba(201,169,110,0.2), transparent);
+  margin: 56px 0;
+}
+
+/* ── CODE BLOCKS ────────────────────────────── */
+.code-block {
+  background: var(--dark2);
+  border: 1px solid rgba(201,169,110,0.12);
+  border-radius: 0;
+  margin: 20px 0;
+  position: relative;
+  overflow: hidden;
+}
+.code-block-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px 20px;
+  background: rgba(201,169,110,0.05);
+  border-bottom: 1px solid rgba(201,169,110,0.08);
+}
+.code-lang {
+  font-size: 9px;
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  color: var(--gold);
+  font-weight: 300;
+  font-family: 'JetBrains Mono', monospace;
+}
+.code-copy {
+  font-size: 9px;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: rgba(200,191,176,0.4);
+  cursor: pointer;
+  transition: color 0.3s;
+  font-weight: 300;
+  background: none;
+  border: none;
+  font-family: 'Jost', sans-serif;
+}
+.code-copy:hover { color: var(--gold); }
+.code-copy.copied { color: var(--green); }
+pre {
+  padding: 24px 24px;
+  overflow-x: auto;
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 12.5px;
+  line-height: 1.8;
+  color: var(--cream);
+  margin: 0;
+}
+pre::-webkit-scrollbar { height: 4px; }
+pre::-webkit-scrollbar-track { background: transparent; }
+pre::-webkit-scrollbar-thumb { background: rgba(201,169,110,0.2); }
+
+/* Syntax highlighting */
+.kw { color: var(--purple); font-weight: 400; }  /* keywords */
+.fn { color: var(--blue); }        /* functions/tags */
+.st { color: var(--green); }       /* strings */
+.cm { color: rgba(200,191,176,0.35); font-style: italic; } /* comments */
+.at { color: var(--orange); }      /* attributes */
+.nm { color: var(--gold); }        /* numbers/values */
+.cl { color: #e06c75; }            /* class names */
+.pu { color: var(--cream-dim); }   /* punctuation */
+
+/* ── COMPONENT CARDS ────────────────────────── */
+.component-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 16px;
+  margin: 24px 0;
+}
+.component-card {
+  background: var(--dark2);
+  border: 1px solid rgba(201,169,110,0.1);
+  padding: 24px;
+  transition: border-color 0.3s ease;
+  position: relative;
+  overflow: hidden;
+}
+.component-card::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 2px;
+  background: var(--gold);
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 0.4s ease;
+}
+.component-card:hover { border-color: rgba(201,169,110,0.3); }
+.component-card:hover::before { transform: scaleX(1); }
+.component-card h4 {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 18px;
+  font-weight: 300;
+  color: var(--white);
+  margin-bottom: 8px;
+}
+.component-card p {
+  font-size: 11.5px;
+  color: var(--cream-dim);
+  line-height: 1.8;
+  font-weight: 200;
+}
+.component-card .tag {
+  display: inline-block;
+  font-size: 8.5px;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--gold);
+  border: 1px solid rgba(201,169,110,0.25);
+  padding: 2px 8px;
+  margin-bottom: 10px;
+  font-weight: 300;
+}
+
+/* ── INFO BOXES ────────────────────────────── */
+.info-box {
+  padding: 20px 24px;
+  border-left: 3px solid;
+  margin: 20px 0;
+  font-size: 13px;
+  line-height: 1.8;
+  font-weight: 200;
+}
+.info-box.tip { border-color: var(--green); background: rgba(109,184,138,0.06); color: #a8d8bc; }
+.info-box.warning { border-color: var(--orange); background: rgba(201,149,109,0.06); color: #d8b8a0; }
+.info-box.info { border-color: var(--blue); background: rgba(109,168,201,0.06); color: #a0c8d8; }
+.info-box strong { font-weight: 400; display: block; margin-bottom: 4px; font-size: 10px; letter-spacing: 0.25em; text-transform: uppercase; }
+
+/* ── VARIABLE TABLE ────────────────────────── */
+.var-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 20px 0;
+  font-size: 12px;
+}
+.var-table th {
+  font-size: 8.5px;
+  letter-spacing: 0.35em;
+  text-transform: uppercase;
+  color: var(--gold);
+  font-weight: 300;
+  text-align: left;
+  padding: 12px 16px;
+  border-bottom: 1px solid rgba(201,169,110,0.18);
+  font-family: 'Jost', sans-serif;
+}
+.var-table td {
+  padding: 12px 16px;
+  border-bottom: 1px solid rgba(201,169,110,0.05);
+  color: var(--cream-dim);
+  font-weight: 200;
+  vertical-align: top;
+  line-height: 1.7;
+}
+.var-table tr:hover td { background: rgba(201,169,110,0.03); }
+.var-table td:first-child {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 11.5px;
+  color: var(--gold-light);
+  white-space: nowrap;
+}
+.var-table td:nth-child(2) {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 11px;
+}
+
+/* Color swatch */
+.swatch {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+}
+.swatch-dot {
+  width: 14px; height: 14px;
+  border-radius: 50%;
+  border: 1px solid rgba(255,255,255,0.1);
+  display: inline-block;
+  flex-shrink: 0;
+}
+
+/* ── STEP LIST ────────────────────────────── */
+.step-list { margin: 20px 0; }
+.step {
+  display: flex;
+  gap: 20px;
+  padding: 20px 0;
+  border-bottom: 1px solid rgba(201,169,110,0.06);
+}
+.step:last-child { border-bottom: none; }
+.step-num {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 28px;
+  font-weight: 300;
+  color: var(--gold);
+  line-height: 1;
+  flex-shrink: 0;
+  min-width: 32px;
+}
+.step-content h4 {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 18px;
+  font-weight: 300;
+  color: var(--white);
+  margin-bottom: 6px;
+}
+.step-content p {
+  font-size: 12.5px;
+  color: var(--cream-dim);
+  line-height: 1.9;
+  font-weight: 200;
+}
+
+/* ── INLINE CODE ────────────────────────────── */
+code {
+  font-family: 'JetBrains Mono', monospace;
+  font-size: 11.5px;
+  background: rgba(201,169,110,0.1);
+  border: 1px solid rgba(201,169,110,0.15);
+  padding: 1px 6px;
+  color: var(--gold-light);
+}
+
+/* ── PAGE FILES TABLE ────────────────────────── */
+.files-table { width: 100%; border-collapse: collapse; margin: 24px 0; }
+.files-table th {
+  font-size: 8.5px; letter-spacing: 0.35em; text-transform: uppercase;
+  color: var(--gold); font-weight: 300; text-align: left;
+  padding: 10px 16px; border-bottom: 1px solid rgba(201,169,110,0.18);
+}
+.files-table td {
+  padding: 13px 16px; border-bottom: 1px solid rgba(201,169,110,0.05);
+  font-size: 12px; color: var(--cream-dim); font-weight: 200; line-height: 1.6;
+}
+.files-table tr:hover td { background: rgba(201,169,110,0.03); }
+.files-table td:first-child { font-family: 'JetBrains Mono', monospace; font-size: 11px; color: var(--gold-light); }
+.files-table td:nth-child(2) a { color: var(--blue); text-decoration: none; font-size: 11px; }
+.file-badge {
+  font-size: 8px; letter-spacing: 0.15em; text-transform: uppercase;
+  padding: 2px 6px; border-radius: 0; font-weight: 300;
+  display: inline-block; margin-right: 4px;
+}
+.badge-page { background: rgba(109,168,201,0.12); border: 1px solid rgba(109,168,201,0.25); color: var(--blue); }
+.badge-form { background: rgba(109,184,138,0.12); border: 1px solid rgba(109,184,138,0.25); color: var(--green); }
+
+/* ── PREVIEW STRIP ────────────────────────────── */
+.preview-strip {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 2px;
+  margin: 28px 0;
+  border: 1px solid rgba(201,169,110,0.1);
+}
+.preview-item {
+  aspect-ratio: 4/3;
+  background: var(--dark2);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 16px;
+  border-right: 1px solid rgba(201,169,110,0.06);
+  font-size: 11px;
+  color: var(--cream-dim);
+  font-weight: 200;
+  transition: background 0.3s;
+}
+.preview-item:hover { background: rgba(201,169,110,0.04); }
+.preview-item span { font-size: 24px; margin-bottom: 8px; display: block; }
+.preview-item strong { font-weight: 300; color: var(--white); display: block; margin-bottom: 4px; font-size: 12px; }
+
+</style>
+</head>
+<body>
+
+<!-- ── SIDEBAR ──────────────────────────────── -->
+<aside class="sidebar">
+  <div class="sidebar-logo">
+    <h1>Hotel Halm</h1>
+    <p>Entwickler-Dokumentation</p>
+    <span class="sidebar-version">v1.0 · 2024</span>
+  </div>
+
+  <nav class="sidebar-nav">
+    <div class="nav-group">
+      <span class="nav-group-label">Einführung</span>
+      <a href="#overview" class="nav-link active"><span class="dot"></span>Übersicht & Architektur</a>
+      <a href="#pages" class="nav-link"><span class="dot"></span>Alle Seiten</a>
+      <a href="#variables" class="nav-link"><span class="dot"></span>CSS-Variablen</a>
+      <a href="#typography" class="nav-link"><span class="dot"></span>Typografie</a>
+    </div>
+
+    <div class="nav-group">
+      <span class="nav-group-label">Komponenten hinzufügen</span>
+      <a href="#hero" class="nav-link"><span class="dot"></span>Hero-Bereich</a>
+      <a href="#section" class="nav-link"><span class="dot"></span>Inhalts-Sektion</a>
+      <a href="#gallery" class="nav-link"><span class="dot"></span>Fotogalerie</a>
+      <a href="#cards" class="nav-link"><span class="dot"></span>Karten / Cards</a>
+      <a href="#buttons" class="nav-link"><span class="dot"></span>Buttons</a>
+      <a href="#popup" class="nav-link"><span class="dot"></span>Popup / Modal</a>
+      <a href="#scroll" class="nav-link"><span class="dot"></span>Scroll-Animationen</a>
+      <a href="#form" class="nav-link"><span class="dot"></span>Formulare</a>
+      <a href="#accordion" class="nav-link"><span class="dot"></span>Accordion / FAQ</a>
+      <a href="#tabs" class="nav-link"><span class="dot"></span>Tabs</a>
+      <a href="#banner" class="nav-link"><span class="dot"></span>Banner / CTA-Streifen</a>
+      <a href="#testimonial" class="nav-link"><span class="dot"></span>Testimonials</a>
+      <a href="#nav-extend" class="nav-link"><span class="dot"></span>Navigation erweitern</a>
+    </div>
+
+    <div class="nav-group">
+      <span class="nav-group-label">Seiten erstellen</span>
+      <a href="#new-page" class="nav-link"><span class="dot"></span>Neue Seite anlegen</a>
+      <a href="#structure" class="nav-link"><span class="dot"></span>Seitenstruktur</a>
+    </div>
+
+    <div class="nav-group">
+      <span class="nav-group-label">Referenz</span>
+      <a href="#animations" class="nav-link"><span class="dot"></span>Animationen</a>
+      <a href="#responsive" class="nav-link"><span class="dot"></span>Responsive</a>
+      <a href="#checklist" class="nav-link"><span class="dot"></span>Checkliste</a>
+    </div>
+  </nav>
+
+  <div class="sidebar-footer">
+    Hotel Halm Konstanz · HTML/CSS/JS
+  </div>
+</aside>
+
+<!-- ── MAIN ──────────────────────────────────── -->
+<main class="main">
+  <div class="topbar">
+    <span class="topbar-title">Hotel Halm · Entwickler-Dokumentation</span>
+    <div class="topbar-links">
+      <a href="hotel-halm-home.html" target="_blank">↗ Website öffnen</a>
+      <a href="#checklist">Checkliste</a>
+    </div>
+  </div>
+
+  <div class="content">
+
+    <!-- ══ OVERVIEW ══════════════════════════ -->
+    <div id="overview" class="section">
+      <h1 class="page-title">Hotel Halm<br><em>Dokumentation</em></h1>
+      <p class="page-subtitle">Vollständige Anleitung zur Hotel-Halm-Website. Hier finden Sie alles, was Sie brauchen, um neue Komponenten, Seiten und Elemente hinzuzufügen — inklusive kopierfertiger Code-Snippets.</p>
+
+      <div class="section-title">Architektur</div>
+      <p class="section-intro">Die Website besteht aus 11 eigenständigen HTML-Dateien, die alle gleich aufgebaut sind. Jede Seite enthält vollständiges CSS, Navigations-HTML, Seiten-Inhalt, Footer und JavaScript — alles in einer Datei.</p>
+
+      <div class="component-grid">
+        <div class="component-card">
+          <span class="tag">Stack</span>
+          <h4>Rein HTML / CSS / JS</h4>
+          <p>Kein Framework, kein Build-System. Jede Seite ist eine einzelne <code>.html</code>-Datei. Sofort im Browser öffnen, sofort editieren.</p>
+        </div>
+        <div class="component-card">
+          <span class="tag">Fonts</span>
+          <h4>Google Fonts (2 Familien)</h4>
+          <p><strong>Cormorant Garamond</strong> für Überschriften und Display-Text. <strong>Jost</strong> für Body-Text, Navigation und Labels.</p>
+        </div>
+        <div class="component-card">
+          <span class="tag">Bilder</span>
+          <h4>Unsplash CDN</h4>
+          <p>Alle Bilder kommen von <code>images.unsplash.com</code>. Einfach URL austauschen für eigene Fotos — selbes Format beibehalten.</p>
+        </div>
+        <div class="component-card">
+          <span class="tag">Stil</span>
+          <h4>Dark Luxury Aesthetic</h4>
+          <p>Dunkler Hintergrund, Gold-Akzente, großzügiger Weißraum, Serif-Typografie — inspiriert von Astris Residence / Vide Infra.</p>
+        </div>
+      </div>
+
+      <div class="info-box tip">
+        <strong>Tipp</strong>
+        Öffnen Sie jede <code>.html</code>-Datei im Browser mit <strong>Doppelklick</strong> oder per lokalem Webserver. Für Änderungen einfach im Texteditor (VS Code empfohlen) öffnen, speichern, Browser neu laden.
+      </div>
+    </div>
+
+    <div class="divider"></div>
+
+    <!-- ══ ALL PAGES ══════════════════════════ -->
+    <div id="pages" class="section">
+      <div class="section-title">Alle Seiten</div>
+      <p class="section-intro">Übersicht aller 11 HTML-Dateien mit ihren Navigations-Links und besonderen Features.</p>
+
+      <div class="preview-strip">
+        <div class="preview-item"><span>🏠</span><strong>Home</strong>hotel-halm-home.html</div>
+        <div class="preview-item"><span>🛏️</span><strong>Zimmer</strong>hotel-halm-zimmer.html</div>
+        <div class="preview-item"><span>📅</span><strong>Buchen</strong>hotel-halm-buchen.html</div>
+        <div class="preview-item"><span>🎉</span><strong>Tagen</strong>hotel-halm-tagen.html</div>
+        <div class="preview-item"><span>🎁</span><strong>Angebote</strong>hotel-halm-angebote.html</div>
+        <div class="preview-item"><span>🧖</span><strong>Sauna</strong>hotel-halm-sauna.html</div>
+        <div class="preview-item"><span>🍽️</span><strong>Gastro</strong>hotel-halm-gastronomie.html</div>
+        <div class="preview-item"><span>📖</span><strong>Über uns</strong>hotel-halm-ueber.html</div>
+      </div>
+
+      <table class="files-table">
+        <thead>
+          <tr><th>Dateiname</th><th>Seite</th><th>Typ</th><th>Besonderheiten</th></tr>
+        </thead>
+        <tbody>
+          <tr><td>hotel-halm-home.html</td><td><a href="hotel-halm-home.html" target="_blank">Home ↗</a></td><td><span class="file-badge badge-page">Seite</span></td><td>Hero mit Ken-Burns-Zoom, Gallery-Strip, 6 Sektionen</td></tr>
+          <tr><td>hotel-halm-zimmer.html</td><td><a href="hotel-halm-zimmer.html" target="_blank">Zimmer ↗</a></td><td><span class="file-badge badge-page">Seite</span></td><td>Full-bleed Zimmerkarten mit Hover-Reveal</td></tr>
+          <tr><td>hotel-halm-buchen.html</td><td><a href="hotel-halm-buchen.html" target="_blank">Buchen ↗</a></td><td><span class="file-badge badge-form">Formular</span></td><td>Split-Layout, Live-Preisberechnung, Date Picker</td></tr>
+          <tr><td>hotel-halm-tagen.html</td><td><a href="hotel-halm-tagen.html" target="_blank">Tagen ↗</a></td><td><span class="file-badge badge-page">Seite</span></td><td>Kapazitätstabelle, 4 Raumkarten, 6 Service-Cards</td></tr>
+          <tr><td>hotel-halm-angebote.html</td><td><a href="hotel-halm-angebote.html" target="_blank">Angebote ↗</a></td><td><span class="file-badge badge-page">Seite</span></td><td>Filter-Tabs, 6 Angebotskarten</td></tr>
+          <tr><td>hotel-halm-sauna.html</td><td><a href="hotel-halm-sauna.html" target="_blank">Sauna ↗</a></td><td><span class="file-badge badge-page">Seite</span></td><td>Dramatisches Split-Layout, Öffnungszeiten-Grid</td></tr>
+          <tr><td>hotel-halm-gastronomie.html</td><td><a href="hotel-halm-gastronomie.html" target="_blank">Gastro ↗</a></td><td><span class="file-badge badge-page">Seite</span></td><td>Speisekarte mit Tab-Wechsel, Bar-Infos</td></tr>
+          <tr><td>hotel-halm-ueber.html</td><td><a href="hotel-halm-ueber.html" target="_blank">Über uns ↗</a></td><td><span class="file-badge badge-page">Seite</span></td><td>Zeitstrahl, Team-Grid, Werte-Karten</td></tr>
+          <tr><td>hotel-halm-konstanz.html</td><td><a href="hotel-halm-konstanz.html" target="_blank">Konstanz ↗</a></td><td><span class="file-badge badge-page">Seite</span></td><td>6 Sehenswürdigkeiten, Jahreszeiten-Block</td></tr>
+          <tr><td>hotel-halm-parken.html</td><td><a href="hotel-halm-parken.html" target="_blank">Parken ↗</a></td><td><span class="file-badge badge-page">Seite</span></td><td>3 Parkkarten (gold hervorgehoben), E-Auto-Infos</td></tr>
+          <tr><td>hotel-halm-anfahrt.html</td><td><a href="hotel-halm-anfahrt.html" target="_blank">Anfahrt ↗</a></td><td><span class="file-badge badge-page">Seite</span></td><td>Karte, 3 Anreiserouten (Auto/Bahn/Flug)</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="divider"></div>
+
+    <!-- ══ CSS VARIABLES ══════════════════════ -->
+    <div id="variables" class="section">
+      <div class="section-title">CSS-Variablen</div>
+      <p class="section-intro">Alle Farben sind als CSS-Variablen definiert (oben in jeder Seite im <code>:root</code>-Block). Ändern Sie hier einen Wert — alle Seiten passen sich sofort an.</p>
+
+      <table class="var-table">
+        <thead><tr><th>Variable</th><th>Wert</th><th>Verwendung</th></tr></thead>
+        <tbody>
+          <tr><td>--black</td><td>#0a0906</td><td><span class="swatch"><span class="swatch-dot" style="background:#0a0906"></span>Haupt-Hintergrund, Footer-Bg</span></td></tr>
+          <tr><td>--dark</td><td>#111009</td><td><span class="swatch"><span class="swatch-dot" style="background:#111009"></span>Sekundärer Hintergrund, Intro-Sektionen</span></td></tr>
+          <tr><td>--dark2</td><td>#1a1814</td><td><span class="swatch"><span class="swatch-dot" style="background:#1a1814"></span>Tertiärer Hintergrund, Cards, Offers</span></td></tr>
+          <tr><td>--gold</td><td>#c9a96e</td><td><span class="swatch"><span class="swatch-dot" style="background:#c9a96e"></span>Primäre Akzentfarbe, Labels, Buttons</span></td></tr>
+          <tr><td>--gold-light</td><td>#e2c99a</td><td><span class="swatch"><span class="swatch-dot" style="background:#e2c99a"></span>Hover-Zustand für Gold-Elemente</span></td></tr>
+          <tr><td>--cream</td><td>#f4ede0</td><td><span class="swatch"><span class="swatch-dot" style="background:#f4ede0"></span>Haupt-Textfarbe, Überschriften</span></td></tr>
+          <tr><td>--cream-dim</td><td>#c8bfb0</td><td><span class="swatch"><span class="swatch-dot" style="background:#c8bfb0"></span>Sekundärer Text, Beschreibungen</span></td></tr>
+          <tr><td>--white</td><td>#faf7f2</td><td><span class="swatch"><span class="swatch-dot" style="background:#faf7f2"></span>Helle Überschriften auf dunklem Bild</span></td></tr>
+        </tbody>
+      </table>
+
+      <div class="code-block">
+        <div class="code-block-header"><span class="code-lang">CSS — Farbe ändern</span><button class="code-copy" onclick="copyCode(this)">Kopieren</button></div>
+        <pre><span class="cm">/* In jeder .html-Datei ganz oben im &lt;style&gt;-Block */</span>
+<span class="pu">:root {</span>
+  <span class="at">--gold</span><span class="pu">:</span> <span class="nm">#c9a96e</span><span class="pu">;</span>   <span class="cm">/* ← Hier Gold-Ton ändern für die ganze Seite */</span>
+  <span class="at">--black</span><span class="pu">:</span> <span class="nm">#0a0906</span><span class="pu">;</span>  <span class="cm">/* ← Hintergrundfarbe</span>
+<span class="cm">                       z.B. #0a0f1a für Blau-Ton */</span>
+<span class="pu">}</span></pre>
+      </div>
+    </div>
+
+    <div class="divider"></div>
+
+    <!-- ══ TYPOGRAPHY ══════════════════════════ -->
+    <div id="typography" class="section">
+      <div class="section-title">Typografie</div>
+      <p class="section-intro">Zwei Schriften, klare Rollen. Immer denselben Stil verwenden — das hält das Design konsistent.</p>
+
+      <table class="var-table">
+        <thead><tr><th>Element</th><th>CSS</th><th>Verwendung</th></tr></thead>
+        <tbody>
+          <tr><td>Große Überschrift</td><td>font-family:'Cormorant Garamond',serif; font-size:clamp(48px,7vw,96px); font-weight:300</td><td>Hero-Titel, Page-Title</td></tr>
+          <tr><td>Sektion-Titel</td><td>font-family:'Cormorant Garamond',serif; font-size:clamp(36px,4.5vw,60px); font-weight:300</td><td>Jeder Abschnittstitel</td></tr>
+          <tr><td>Kursiv / Akzent</td><td>font-style:italic; color:var(--cream-dim)</td><td>Zweite Zeile von Titeln</td></tr>
+          <tr><td>Label / Kategorie</td><td>font-size:9px; letter-spacing:0.45em; text-transform:uppercase; color:var(--gold); font-weight:200</td><td>Über jedem Titel</td></tr>
+          <tr><td>Body-Text</td><td>font-size:14px; font-weight:200; line-height:2.1; color:var(--cream-dim)</td><td>Fließtext, Beschreibungen</td></tr>
+          <tr><td>Navigation</td><td>font-size:9.5px; letter-spacing:0.2em; text-transform:uppercase; font-weight:300</td><td>Nav-Links</td></tr>
+        </tbody>
+      </table>
+
+      <div class="code-block">
+        <div class="code-block-header"><span class="code-lang">HTML — Standard-Titel-Pattern</span><button class="code-copy" onclick="copyCode(this)">Kopieren</button></div>
+        <pre><span class="cm">&lt;!-- So sieht jeder Abschnittstitel aus --&gt;</span>
+<span class="fn">&lt;p</span> <span class="at">class</span>=<span class="st">"section-label"</span><span class="fn">&gt;</span>Kategorie-Name<span class="fn">&lt;/p&gt;</span>
+<span class="fn">&lt;h2</span> <span class="at">class</span>=<span class="st">"section-title"</span><span class="fn">&gt;</span>
+  Erste Zeile der<span class="fn">&lt;br&gt;</span>
+  <span class="fn">&lt;em&gt;</span>Zweite kursive Zeile<span class="fn">&lt;/em&gt;</span>
+<span class="fn">&lt;/h2&gt;</span></pre>
+      </div>
+    </div>
+
+    <div class="divider"></div>
+
+    <!-- ══ HERO ══════════════════════════════ -->
+    <div id="hero" class="section">
+      <div class="section-title">Hero-Bereich hinzufügen</div>
+      <p class="section-intro">Jede Unterseite hat einen "Page-Hero" — einen schmalen Bild-Header unterhalb der Navigation. Der Haupt-Hero auf der Startseite ist größer (100vh) mit Ken-Burns-Animation.</p>
+
+      <div class="info-box info">
+        <strong>Wann verwenden?</strong>
+        Page-Hero (55vh): für alle Unterseiten. Haupt-Hero (100vh): nur für die Startseite.
+      </div>
+
+      <div class="code-block">
+        <div class="code-block-header"><span class="code-lang">HTML — Page Hero (Unterseiten)</span><button class="code-copy" onclick="copyCode(this)">Kopieren</button></div>
+        <pre><span class="fn">&lt;section</span> <span class="at">class</span>=<span class="st">"page-hero"</span><span class="fn">&gt;</span>
+  <span class="cm">&lt;!-- Hintergrundbild: URL einfach austauschen --&gt;</span>
+  <span class="fn">&lt;div</span> <span class="at">class</span>=<span class="st">"page-hero-bg"</span>
+       <span class="at">style</span>=<span class="st">"background-image: url('IHRE-BILD-URL')"</span><span class="fn">&gt;&lt;/div&gt;</span>
+  <span class="fn">&lt;div</span> <span class="at">class</span>=<span class="st">"page-hero-overlay"</span><span class="fn">&gt;&lt;/div&gt;</span>
+  <span class="fn">&lt;div</span> <span class="at">class</span>=<span class="st">"page-hero-content"</span><span class="fn">&gt;</span>
+    <span class="fn">&lt;p</span> <span class="at">class</span>=<span class="st">"page-hero-label"</span><span class="fn">&gt;</span>Label-Text<span class="fn">&lt;/p&gt;</span>
+    <span class="fn">&lt;h1</span> <span class="at">class</span>=<span class="st">"page-hero-title"</span><span class="fn">&gt;</span>
+      Erste Titelzeile<span class="fn">&lt;br&gt;</span>
+      <span class="fn">&lt;em&gt;</span>Zweite kursive Zeile<span class="fn">&lt;/em&gt;</span>
+    <span class="fn">&lt;/h1&gt;</span>
+  <span class="fn">&lt;/div&gt;</span>
+<span class="fn">&lt;/section&gt;</span></pre>
+      </div>
+
+      <div class="code-block">
+        <div class="code-block-header"><span class="code-lang">HTML — Full-Screen Hero (Startseite)</span><button class="code-copy" onclick="copyCode(this)">Kopieren</button></div>
+        <pre><span class="fn">&lt;section</span> <span class="at">class</span>=<span class="st">"hero"</span><span class="fn">&gt;</span>
+  <span class="fn">&lt;div</span> <span class="at">class</span>=<span class="st">"hero-bg"</span>
+       <span class="at">style</span>=<span class="st">"background-image: url('BILD-URL')"</span><span class="fn">&gt;&lt;/div&gt;</span>
+  <span class="fn">&lt;div</span> <span class="at">class</span>=<span class="st">"hero-gradient"</span><span class="fn">&gt;&lt;/div&gt;</span>
+  <span class="fn">&lt;div</span> <span class="at">class</span>=<span class="st">"hero-content"</span><span class="fn">&gt;</span>
+    <span class="fn">&lt;p</span> <span class="at">class</span>=<span class="st">"hero-label"</span><span class="fn">&gt;</span>Konstanz am Bodensee<span class="fn">&lt;/p&gt;</span>
+    <span class="fn">&lt;h1</span> <span class="at">class</span>=<span class="st">"hero-title"</span><span class="fn">&gt;</span>Großer Titel<span class="fn">&lt;br&gt;&lt;em&gt;</span>Kursiv<span class="fn">&lt;/em&gt;&lt;/h1&gt;</span>
+    <span class="fn">&lt;p</span> <span class="at">class</span>=<span class="st">"hero-sub"</span><span class="fn">&gt;</span>Untertitel / Beschreibung<span class="fn">&lt;/p&gt;</span>
+    <span class="fn">&lt;div</span> <span class="at">class</span>=<span class="st">"hero-actions"</span><span class="fn">&gt;</span>
+      <span class="fn">&lt;a</span> <span class="at">href</span>=<span class="st">"#"</span> <span class="at">class</span>=<span class="st">"btn-primary"</span><span class="fn">&gt;</span>Hauptaktion<span class="fn">&lt;/a&gt;</span>
+      <span class="fn">&lt;a</span> <span class="at">href</span>=<span class="st">"#"</span> <span class="at">class</span>=<span class="st">"btn-ghost"</span><span class="fn">&gt;</span>Sekundäraktion<span class="fn">&lt;/a&gt;</span>
+    <span class="fn">&lt;/div&gt;</span>
+  <span class="fn">&lt;/div&gt;</span>
+<span class="fn">&lt;/section&gt;</span></pre>
+      </div>
+
+      <div class="info-box tip">
+        <strong>Eigenes Bild einsetzen</strong>
+        Ersetzen Sie die Unsplash-URL durch Ihren eigenen Bild-Link oder relativen Pfad: <code>style="background-image: url('images/mein-foto.jpg')"</code>. Das Bild sollte mindestens 1800px breit sein.
+      </div>
+    </div>
+
+    <div class="divider"></div>
+
+    <!-- ══ SECTION ══════════════════════════════ -->
+    <div id="section" class="section">
+      <div class="section-title">Inhalts-Sektion hinzufügen</div>
+      <p class="section-intro">Eine Standard-Sektion mit Titel links, Text rechts — das am häufigsten verwendete Layout in der Website. Einfach kopieren und zwischen bestehende Sektionen einfügen.</p>
+
+      <div class="code-block">
+        <div class="code-block-header"><span class="code-lang">HTML — Zweispaltige Sektion</span><button class="code-copy" onclick="copyCode(this)">Kopieren</button></div>
+        <pre><span class="fn">&lt;section</span> <span class="at">style</span>=<span class="st">"padding: 80px 56px; background: var(--dark);"</span><span class="fn">&gt;</span>
+  <span class="fn">&lt;div</span> <span class="at">style</span>=<span class="st">"display:grid; grid-template-columns:1fr 1fr;
+              gap:80px; align-items:center;"</span><span class="fn">&gt;</span>
+
+    <span class="cm">&lt;!-- Linke Spalte: Text --&gt;</span>
+    <span class="fn">&lt;div</span> <span class="at">class</span>=<span class="st">"reveal"</span><span class="fn">&gt;</span>
+      <span class="fn">&lt;p</span> <span class="at">class</span>=<span class="st">"section-label"</span><span class="fn">&gt;</span>Kategorie<span class="fn">&lt;/p&gt;</span>
+      <span class="fn">&lt;h2</span> <span class="at">class</span>=<span class="st">"section-title"</span><span class="fn">&gt;</span>Titel<span class="fn">&lt;br&gt;&lt;em&gt;</span>Kursiv<span class="fn">&lt;/em&gt;&lt;/h2&gt;</span>
+      <span class="fn">&lt;p</span> <span class="at">class</span>=<span class="st">"body-text"</span> <span class="at">style</span>=<span class="st">"margin-top:24px"</span><span class="fn">&gt;</span>
+        Ihr Text hier...
+      <span class="fn">&lt;/p&gt;</span>
+      <span class="fn">&lt;a</span> <span class="at">href</span>=<span class="st">"#"</span> <span class="at">class</span>=<span class="st">"btn-primary"</span> <span class="at">style</span>=<span class="st">"margin-top:32px"</span><span class="fn">&gt;</span>
+        Button-Text
+      <span class="fn">&lt;/a&gt;</span>
+    <span class="fn">&lt;/div&gt;</span>
+
+    <span class="cm">&lt;!-- Rechte Spalte: Bild --&gt;</span>
+    <span class="fn">&lt;div</span> <span class="at">class</span>=<span class="st">"reveal"</span> <span class="at">style</span>=<span class="st">"transition-delay:0.2s"</span><span class="fn">&gt;</span>
+      <span class="fn">&lt;img</span> <span class="at">src</span>=<span class="st">"BILD-URL"</span>
+           <span class="at">style</span>=<span class="st">"width:100%; height:480px;
+                  object-fit:cover; filter:brightness(0.7)"</span>
+           <span class="at">alt</span>=<span class="st">"Beschreibung"</span><span class="fn">&gt;</span>
+    <span class="fn">&lt;/div&gt;</span>
+
+  <span class="fn">&lt;/div&gt;</span>
+<span class="fn">&lt;/section&gt;</span></pre>
+      </div>
+
+      <div class="code-block">
+        <div class="code-block-header"><span class="code-lang">HTML — Zentrierte Sektion (volle Breite)</span><button class="code-copy" onclick="copyCode(this)">Kopieren</button></div>
+        <pre><span class="fn">&lt;section</span> <span class="at">style</span>=<span class="st">"padding:80px 56px; background:var(--black); text-align:center"</span><span class="fn">&gt;</span>
+  <span class="fn">&lt;div</span> <span class="at">class</span>=<span class="st">"reveal"</span><span class="fn">&gt;</span>
+    <span class="fn">&lt;p</span> <span class="at">class</span>=<span class="st">"section-label"</span>
+       <span class="at">style</span>=<span class="st">"justify-content:center"</span><span class="fn">&gt;</span>Label<span class="fn">&lt;/p&gt;</span>
+    <span class="fn">&lt;h2</span> <span class="at">class</span>=<span class="st">"section-title"</span><span class="fn">&gt;</span>Titel<span class="fn">&lt;br&gt;&lt;em&gt;</span>Kursiv<span class="fn">&lt;/em&gt;&lt;/h2&gt;</span>
+    <span class="fn">&lt;p</span> <span class="at">class</span>=<span class="st">"body-text"</span>
+       <span class="at">style</span>=<span class="st">"margin:24px auto 0; max-width:600px; text-align:center"</span><span class="fn">&gt;</span>
+      Text...
+    <span class="fn">&lt;/p&gt;</span>
+  <span class="fn">&lt;/div&gt;</span>
+<span class="fn">&lt;/section&gt;</span></pre>
+      </div>
+    </div>
+
+    <div class="divider"></div>
+
+    <!-- ══ GALLERY ══════════════════════════════ -->
+    <div id="gallery" class="section">
+      <div class="section-title">Fotogalerie hinzufügen</div>
+      <p class="section-intro">Drei Gallery-Varianten — horizontaler Streifen, Grid-Galerie und Masonry-ähnlich.</p>
+
+      <div class="code-block">
+        <div class="code-block-header"><span class="code-lang">HTML — Horizontaler Foto-Streifen (wie auf Home)</span><button class="code-copy" onclick="copyCode(this)">Kopieren</button></div>
+        <pre><span class="cm">&lt;!-- Fügen Sie diesen Block direkt in den Body ein --&gt;</span>
+<span class="fn">&lt;div</span> <span class="at">style</span>=<span class="st">"display:grid; grid-template-columns:repeat(5,1fr);
+             height:320px; gap:2px;"</span><span class="fn">&gt;</span>
+  <span class="fn">&lt;img</span> <span class="at">src</span>=<span class="st">"BILD-1"</span> <span class="at">style</span>=<span class="st">"width:100%; height:100%;
+       object-fit:cover; filter:brightness(0.65) saturate(0.8);
+       transition:all 0.5s ease; display:block;"</span>
+       <span class="at">onmouseover</span>=<span class="st">"this.style.filter='brightness(0.9) saturate(1)'"</span>
+       <span class="at">onmouseout</span>=<span class="st">"this.style.filter='brightness(0.65) saturate(0.8)'"</span>
+       <span class="at">alt</span>=<span class="st">""</span><span class="fn">&gt;</span>
+  <span class="cm">&lt;!-- 4 weitere &lt;img&gt; Tags gleiches Schema --&gt;</span>
+<span class="fn">&lt;/div&gt;</span></pre>
+      </div>
+
+      <div class="code-block">
+        <div class="code-block-header"><span class="code-lang">HTML — Grid-Galerie mit Overlay-Text</span><button class="code-copy" onclick="copyCode(this)">Kopieren</button></div>
+        <pre><span class="fn">&lt;section</span> <span class="at">style</span>=<span class="st">"padding:80px 56px; background:var(--black)"</span><span class="fn">&gt;</span>
+  <span class="fn">&lt;p</span> <span class="at">class</span>=<span class="st">"section-label"</span><span class="fn">&gt;</span>Galerie<span class="fn">&lt;/p&gt;</span>
+  <span class="fn">&lt;h2</span> <span class="at">class</span>=<span class="st">"section-title"</span> <span class="at">style</span>=<span class="st">"margin-bottom:40px"</span><span class="fn">&gt;</span>Impressionen<span class="fn">&lt;/h2&gt;</span>
+
+  <span class="fn">&lt;div</span> <span class="at">style</span>=<span class="st">"display:grid; grid-template-columns:repeat(3,1fr); gap:4px;"</span><span class="fn">&gt;</span>
+
+    <span class="cm">&lt;!-- Großes Bild links (überspannt 2 Zeilen) --&gt;</span>
+    <span class="fn">&lt;div</span> <span class="at">style</span>=<span class="st">"position:relative; overflow:hidden; grid-row:span 2;"</span><span class="fn">&gt;</span>
+      <span class="fn">&lt;img</span> <span class="at">src</span>=<span class="st">"GROSSES-BILD"</span>
+           <span class="at">style</span>=<span class="st">"width:100%; height:100%; object-fit:cover;
+                  filter:brightness(0.65); transition:all 0.7s ease;"</span>
+           <span class="at">onmouseover</span>=<span class="st">"this.style.transform='scale(1.04)';
+                        this.style.filter='brightness(0.8)'"</span>
+           <span class="at">onmouseout</span>=<span class="st">"this.style.transform='scale(1)';
+                       this.style.filter='brightness(0.65)'"</span>
+           <span class="at">alt</span>=<span class="st">""</span><span class="fn">&gt;</span>
+    <span class="fn">&lt;/div&gt;</span>
+
+    <span class="cm">&lt;!-- 4 kleine Bilder rechts --&gt;</span>
+    <span class="fn">&lt;div</span> <span class="at">style</span>=<span class="st">"overflow:hidden"</span><span class="fn">&gt;</span>
+      <span class="fn">&lt;img</span> <span class="at">src</span>=<span class="st">"BILD-2"</span>
+           <span class="at">style</span>=<span class="st">"width:100%; height:280px; object-fit:cover;
+                  filter:brightness(0.65); transition:all 0.7s ease;"</span>
+           <span class="at">onmouseover</span>=<span class="st">"this.style.filter='brightness(0.85)'"</span>
+           <span class="at">onmouseout</span>=<span class="st">"this.style.filter='brightness(0.65)'"</span>
+           <span class="at">alt</span>=<span class="st">""</span><span class="fn">&gt;</span>
+    <span class="fn">&lt;/div&gt;</span>
+    <span class="cm">&lt;!-- Weitere Bilder gleich aufbauen --&gt;</span>
+  <span class="fn">&lt;/div&gt;</span>
+<span class="fn">&lt;/section&gt;</span></pre>
+      </div>
+
+      <div class="info-box tip">
+        <strong>Unsplash URL-Format</strong>
+        <code>https://images.unsplash.com/photo-FOTO-ID?w=800&amp;q=80</code> — <code>w=</code> ist die Breite in Pixel, <code>q=</code> die Qualität (70–90 empfohlen).
+      </div>
+    </div>
+
+    <div class="divider"></div>
+
+    <!-- ══ CARDS ══════════════════════════════ -->
+    <div id="cards" class="section">
+      <div class="section-title">Karten / Cards</div>
+      <p class="section-intro">Zwei Kartentypen: Bildkarten (wie Zimmer/Angebote) und Text-Info-Karten (wie Angebote/Services).</p>
+
+      <div class="code-block">
+        <div class="code-block-header"><span class="code-lang">HTML — Bildkarte mit Hover-Overlay</span><button class="code-copy" onclick="copyCode(this)">Kopieren</button></div>
+        <pre><span class="fn">&lt;div</span> <span class="at">style</span>=<span class="st">"position:relative; overflow:hidden; cursor:pointer;"</span><span class="fn">&gt;</span>
+
+  <span class="fn">&lt;img</span> <span class="at">src</span>=<span class="st">"BILD-URL"</span>
+       <span class="at">style</span>=<span class="st">"width:100%; height:420px; object-fit:cover;
+              filter:brightness(0.6);
+              transition:all 0.8s cubic-bezier(0.25,0.46,0.45,0.94);"</span>
+       <span class="at">class</span>=<span class="st">"card-img"</span> <span class="at">alt</span>=<span class="st">""</span><span class="fn">&gt;</span>
+
+  <span class="fn">&lt;div</span> <span class="at">style</span>=<span class="st">"position:absolute; inset:0;
+              background:linear-gradient(to top,
+                rgba(10,9,6,0.92) 0%, transparent 55%);
+              display:flex; flex-direction:column;
+              justify-content:flex-end; padding:32px 28px;"</span><span class="fn">&gt;</span>
+    <span class="fn">&lt;p</span> <span class="at">style</span>=<span class="st">"font-size:9px; letter-spacing:0.4em;
+            text-transform:uppercase; color:var(--gold);
+            font-weight:200; margin-bottom:8px;"</span><span class="fn">&gt;</span>
+      Kategorie
+    <span class="fn">&lt;/p&gt;</span>
+    <span class="fn">&lt;h3</span> <span class="at">style</span>=<span class="st">"font-family:'Cormorant Garamond',serif;
+             font-size:26px; font-weight:300;
+             color:var(--white); margin-bottom:10px;"</span><span class="fn">&gt;</span>
+      Kartentitel
+    <span class="fn">&lt;/h3&gt;</span>
+    <span class="fn">&lt;p</span> <span class="at">style</span>=<span class="st">"font-size:11px; color:var(--cream-dim);
+            font-weight:200; line-height:1.8;"</span><span class="fn">&gt;</span>
+      Kurze Beschreibung
+    <span class="fn">&lt;/p&gt;</span>
+  <span class="fn">&lt;/div&gt;</span>
+<span class="fn">&lt;/div&gt;</span>
+
+<span class="cm">&lt;!-- Hover-Effekt via CSS oder Script --&gt;</span>
+<span class="fn">&lt;style&gt;</span>
+<span class="cl">.card-img</span><span class="pu">:hover</span> <span class="pu">{</span>
+  <span class="at">transform</span><span class="pu">:</span> <span class="fn">scale</span><span class="pu">(</span><span class="nm">1.04</span><span class="pu">);</span>
+  <span class="at">filter</span><span class="pu">:</span> <span class="fn">brightness</span><span class="pu">(</span><span class="nm">0.8</span><span class="pu">);</span>
+<span class="pu">}</span>
+<span class="fn">&lt;/style&gt;</span></pre>
+      </div>
+
+      <div class="code-block">
+        <div class="code-block-header"><span class="code-lang">HTML — Info-Karte (Border + Gold-Top-Line)</span><button class="code-copy" onclick="copyCode(this)">Kopieren</button></div>
+        <pre><span class="fn">&lt;div</span> <span class="at">class</span>=<span class="st">"offer-card reveal"</span><span class="fn">&gt;</span>
+  <span class="cm">&lt;!-- Benötigt diese CSS-Klasse, bereits in allen Seiten vorhanden --&gt;</span>
+  <span class="fn">&lt;p</span> <span class="at">style</span>=<span class="st">"font-family:'Cormorant Garamond',serif;
+          font-size:48px; font-weight:300;
+          color:rgba(201,169,110,0.2); line-height:1;
+          margin-bottom:16px;"</span><span class="fn">&gt;</span>01<span class="fn">&lt;/p&gt;</span>
+  <span class="fn">&lt;h3</span> <span class="at">style</span>=<span class="st">"font-family:'Cormorant Garamond',serif;
+           font-size:24px; font-weight:300;
+           color:var(--white); margin-bottom:12px;"</span><span class="fn">&gt;</span>
+    Kartentitel
+  <span class="fn">&lt;/h3&gt;</span>
+  <span class="fn">&lt;p</span> <span class="at">style</span>=<span class="st">"font-size:12px; color:var(--cream-dim);
+          line-height:1.9; margin-bottom:24px; font-weight:200;"</span><span class="fn">&gt;</span>
+    Beschreibung...
+  <span class="fn">&lt;/p&gt;</span>
+  <span class="fn">&lt;a</span> <span class="at">href</span>=<span class="st">"#"</span> <span class="at">class</span>=<span class="st">"btn-outline"</span><span class="fn">&gt;</span>Mehr erfahren<span class="fn">&lt;/a&gt;</span>
+<span class="fn">&lt;/div&gt;</span></pre>
+      </div>
+    </div>
+
+    <div class="divider"></div>
+
+    <!-- ══ BUTTONS ══════════════════════════════ -->
+    <div id="buttons" class="section">
+      <div class="section-title">Buttons</div>
+      <p class="section-intro">Drei Button-Stile — alle bereits als CSS-Klassen definiert. Einfach Klasse verwenden.</p>
+
+      <table class="var-table">
+        <thead><tr><th>Klasse</th><th>Aussehen</th><th>Verwendung</th></tr></thead>
+        <tbody>
+          <tr><td>btn-primary</td><td>Gold-Hintergrund, schwarzer Text</td><td>Hauptaktion: "Jetzt buchen", "Anfrage senden"</td></tr>
+          <tr><td>btn-outline</td><td>Gold-Rahmen, füllt sich bei Hover</td><td>Sekundäraktion: "Mehr erfahren", "Alle ansehen"</td></tr>
+          <tr><td>btn-ghost</td><td>Nur Text + Pfeil, kein Rahmen</td><td>Tertiäraktion: "Details →", "Weiter →"</td></tr>
+        </tbody>
+      </table>
+
+      <div class="code-block">
+        <div class="code-block-header"><span class="code-lang">HTML — Alle Button-Typen</span><button class="code-copy" onclick="copyCode(this)">Kopieren</button></div>
+        <pre><span class="cm">&lt;!-- Primary: Gold-Hintergrund --&gt;</span>
+<span class="fn">&lt;a</span> <span class="at">href</span>=<span class="st">"hotel-halm-buchen.html"</span> <span class="at">class</span>=<span class="st">"btn-primary"</span><span class="fn">&gt;</span>
+  Jetzt buchen
+<span class="fn">&lt;/a&gt;</span>
+
+<span class="cm">&lt;!-- Outline: Goldrahmen, füllt sich bei Hover --&gt;</span>
+<span class="fn">&lt;a</span> <span class="at">href</span>=<span class="st">"#"</span> <span class="at">class</span>=<span class="st">"btn-outline"</span><span class="fn">&gt;</span>
+  Mehr erfahren
+<span class="fn">&lt;/a&gt;</span>
+
+<span class="cm">&lt;!-- Ghost: Nur Text + Pfeil --&gt;</span>
+<span class="fn">&lt;a</span> <span class="at">href</span>=<span class="st">"#"</span> <span class="at">class</span>=<span class="st">"btn-ghost"</span>
+   <span class="at">style</span>=<span class="st">"color:var(--gold)"</span><span class="fn">&gt;</span>
+  Details ansehen
+<span class="fn">&lt;/a&gt;</span>
+
+<span class="cm">&lt;!-- Zwei Buttons nebeneinander --&gt;</span>
+<span class="fn">&lt;div</span> <span class="at">style</span>=<span class="st">"display:flex; gap:20px; align-items:center;"</span><span class="fn">&gt;</span>
+  <span class="fn">&lt;a</span> <span class="at">href</span>=<span class="st">"#"</span> <span class="at">class</span>=<span class="st">"btn-primary"</span><span class="fn">&gt;</span>Primär<span class="fn">&lt;/a&gt;</span>
+  <span class="fn">&lt;a</span> <span class="at">href</span>=<span class="st">"#"</span> <span class="at">class</span>=<span class="st">"btn-ghost"</span> <span class="at">style</span>=<span class="st">"color:var(--gold)"</span><span class="fn">&gt;</span>Sekundär<span class="fn">&lt;/a&gt;</span>
+<span class="fn">&lt;/div&gt;</span></pre>
+      </div>
+    </div>
+
+    <div class="divider"></div>
+
+    <!-- ══ POPUP ══════════════════════════════ -->
+    <div id="popup" class="section">
+      <div class="section-title">Popup / Modal</div>
+      <p class="section-intro">Ein elegantes Modal-Popup im Hotel-Halm-Stil — öffnet sich beim Klick auf einen Button, schließt sich beim Klick auf X oder außerhalb. Einfach am Ende des <code>&lt;body&gt;</code> einfügen.</p>
+
+      <div class="code-block">
+        <div class="code-block-header"><span class="code-lang">HTML + CSS + JS — Vollständiges Modal</span><button class="code-copy" onclick="copyCode(this)">Kopieren</button></div>
+        <pre><span class="cm">&lt;!-- 1. Trigger-Button (irgendwo auf der Seite) --&gt;</span>
+<span class="fn">&lt;button</span> <span class="at">class</span>=<span class="st">"btn-primary"</span>
+        <span class="at">onclick</span>=<span class="st">"document.getElementById('meinPopup').style.display='flex'"</span><span class="fn">&gt;</span>
+  Popup öffnen
+<span class="fn">&lt;/button&gt;</span>
+
+<span class="cm">&lt;!-- 2. Das Modal selbst (ans Ende des body) --&gt;</span>
+<span class="fn">&lt;div</span> <span class="at">id</span>=<span class="st">"meinPopup"</span> <span class="at">style</span>=<span class="st">"
+  display:none; position:fixed; inset:0;
+  background:rgba(10,9,6,0.85); backdrop-filter:blur(8px);
+  z-index:2000; align-items:center; justify-content:center;
+  animation:fadeIn 0.3s ease;"</span>
+  <span class="at">onclick</span>=<span class="st">"if(event.target===this) this.style.display='none'"</span><span class="fn">&gt;</span>
+
+  <span class="fn">&lt;div</span> <span class="at">style</span>=<span class="st">"
+    background:var(--dark2);
+    border:1px solid rgba(201,169,110,0.2);
+    padding:56px; max-width:560px; width:90%;
+    position:relative; animation:fadeUp 0.4s ease;"</span><span class="fn">&gt;</span>
+
+    <span class="cm">&lt;!-- Schließen-Button --&gt;</span>
+    <span class="fn">&lt;button</span> <span class="at">onclick</span>=<span class="st">"document.getElementById('meinPopup').style.display='none'"</span>
+            <span class="at">style</span>=<span class="st">"position:absolute; top:20px; right:24px;
+                   background:none; border:none; color:var(--cream-dim);
+                   font-size:22px; cursor:pointer; line-height:1;"</span><span class="fn">&gt;</span>
+      ×
+    <span class="fn">&lt;/button&gt;</span>
+
+    <span class="cm">&lt;!-- Goldene Trennlinie oben --&gt;</span>
+    <span class="fn">&lt;div</span> <span class="at">style</span>=<span class="st">"height:2px; background:var(--gold);
+               width:40px; margin-bottom:28px;"</span><span class="fn">&gt;&lt;/div&gt;</span>
+
+    <span class="cm">&lt;!-- Inhalt --&gt;</span>
+    <span class="fn">&lt;p</span> <span class="at">style</span>=<span class="st">"font-size:9px; letter-spacing:0.4em;
+            text-transform:uppercase; color:var(--gold);
+            font-weight:200; margin-bottom:12px;"</span><span class="fn">&gt;</span>
+      Spezialangebot
+    <span class="fn">&lt;/p&gt;</span>
+    <span class="fn">&lt;h2</span> <span class="at">style</span>=<span class="st">"font-family:'Cormorant Garamond',serif;
+             font-size:36px; font-weight:300;
+             color:var(--white); margin-bottom:16px;"</span><span class="fn">&gt;</span>
+      Popup-Titel
+    <span class="fn">&lt;/h2&gt;</span>
+    <span class="fn">&lt;p</span> <span class="at">style</span>=<span class="st">"font-size:13px; color:var(--cream-dim);
+            line-height:2; font-weight:200; margin-bottom:32px;"</span><span class="fn">&gt;</span>
+      Popup-Beschreibung hier einfügen...
+    <span class="fn">&lt;/p&gt;</span>
+    <span class="fn">&lt;a</span> <span class="at">href</span>=<span class="st">"hotel-halm-buchen.html"</span>
+       <span class="at">class</span>=<span class="st">"btn-primary"</span><span class="fn">&gt;</span>Jetzt buchen<span class="fn">&lt;/a&gt;</span>
+  <span class="fn">&lt;/div&gt;</span>
+<span class="fn">&lt;/div&gt;</span></pre>
+      </div>
+
+      <div class="info-box tip">
+        <strong>Automatisches Popup (z.B. nach 5 Sekunden)</strong>
+        Fügen Sie diesen Code ins <code>&lt;script&gt;</code>-Block am Ende ein: <code>setTimeout(() =&gt; { document.getElementById('meinPopup').style.display='flex'; }, 5000);</code>
+      </div>
+    </div>
+
+    <div class="divider"></div>
+
+    <!-- ══ SCROLL ANIMATIONS ══════════════════ -->
+    <div id="scroll" class="section">
+      <div class="section-title">Scroll-Animationen</div>
+      <p class="section-intro">Elemente animieren sich beim Scrollen ins Sichtfeld — bereits vollständig implementiert. Einfach die Klasse <code>reveal</code> zu jedem Element hinzufügen.</p>
+
+      <div class="code-block">
+        <div class="code-block-header"><span class="code-lang">HTML — reveal-Klasse verwenden</span><button class="code-copy" onclick="copyCode(this)">Kopieren</button></div>
+        <pre><span class="cm">&lt;!-- Einfaches reveal (erscheint von unten) --&gt;</span>
+<span class="fn">&lt;div</span> <span class="at">class</span>=<span class="st">"reveal"</span><span class="fn">&gt;</span>
+  Ihr Inhalt...
+<span class="fn">&lt;/div&gt;</span>
+
+<span class="cm">&lt;!-- Mehrere Elemente nacheinander animieren --&gt;</span>
+<span class="fn">&lt;div</span> <span class="at">class</span>=<span class="st">"reveal"</span> <span class="at">style</span>=<span class="st">"transition-delay: 0s"</span><span class="fn">&gt;</span>Erstes<span class="fn">&lt;/div&gt;</span>
+<span class="fn">&lt;div</span> <span class="at">class</span>=<span class="st">"reveal"</span> <span class="at">style</span>=<span class="st">"transition-delay: 0.15s"</span><span class="fn">&gt;</span>Zweites<span class="fn">&lt;/div&gt;</span>
+<span class="fn">&lt;div</span> <span class="at">class</span>=<span class="st">"reveal"</span> <span class="at">style</span>=<span class="st">"transition-delay: 0.3s"</span><span class="fn">&gt;</span>Drittes<span class="fn">&lt;/div&gt;</span></pre>
+      </div>
+
+      <div class="code-block">
+        <div class="code-block-header"><span class="code-lang">CSS + JS — reveal-Mechanismus (bereits in jeder Seite)</span><button class="code-copy" onclick="copyCode(this)">Kopieren</button></div>
+        <pre><span class="cm">/* CSS (bereits vorhanden) */</span>
+<span class="cl">.reveal</span> <span class="pu">{</span>
+  <span class="at">opacity</span><span class="pu">:</span> <span class="nm">0</span><span class="pu">;</span>
+  <span class="at">transform</span><span class="pu">:</span> <span class="fn">translateY</span><span class="pu">(</span><span class="nm">36px</span><span class="pu">);</span>
+  <span class="at">transition</span><span class="pu">:</span> all <span class="nm">0.9s</span> <span class="fn">cubic-bezier</span><span class="pu">(</span><span class="nm">0.25</span><span class="pu">,</span><span class="nm">0.46</span><span class="pu">,</span><span class="nm">0.45</span><span class="pu">,</span><span class="nm">0.94</span><span class="pu">);</span>
+<span class="pu">}</span>
+<span class="cl">.reveal.visible</span> <span class="pu">{</span>
+  <span class="at">opacity</span><span class="pu">:</span> <span class="nm">1</span><span class="pu">;</span>
+  <span class="at">transform</span><span class="pu">:</span> <span class="fn">translateY</span><span class="pu">(</span><span class="nm">0</span><span class="pu">);</span>
+<span class="pu">}</span>
+
+<span class="cm">/* JS (bereits am Ende jeder Seite) */</span>
+<span class="kw">const</span> obs <span class="pu">=</span> <span class="kw">new</span> <span class="fn">IntersectionObserver</span><span class="pu">((</span>entries<span class="pu">) =&gt; {</span>
+  entries<span class="pu">.</span><span class="fn">forEach</span><span class="pu">(</span>e <span class="pu">=&gt; {</span>
+    <span class="kw">if</span> <span class="pu">(</span>e<span class="pu">.</span>isIntersecting<span class="pu">) {</span>
+      e<span class="pu">.</span>target<span class="pu">.</span>classList<span class="pu">.</span><span class="fn">add</span><span class="pu">(</span><span class="st">'visible'</span><span class="pu">);</span>
+      obs<span class="pu">.</span><span class="fn">unobserve</span><span class="pu">(</span>e<span class="pu">.</span>target<span class="pu">);</span>
+    <span class="pu">}</span>
+  <span class="pu">});</span>
+<span class="pu">}, {</span> threshold<span class="pu">:</span> <span class="nm">0.1</span> <span class="pu">});</span>
+document<span class="pu">.</span><span class="fn">querySelectorAll</span><span class="pu">(</span><span class="st">'.reveal'</span><span class="pu">).</span><span class="fn">forEach</span><span class="pu">(</span>el <span class="pu">=&gt;</span> obs<span class="pu">.</span><span class="fn">observe</span><span class="pu">(</span>el<span class="pu">));</span></pre>
+      </div>
+    </div>
+
+    <div class="divider"></div>
+
+    <!-- ══ FORM ══════════════════════════════ -->
+    <div id="form" class="section">
+      <div class="section-title">Formulare</div>
+      <p class="section-intro">Formular-Elemente im Hotel-Halm-Stil. Alle Input-Felder haben Gold-Fokus-Rahmen und transparenten dunklen Hintergrund.</p>
+
+      <div class="code-block">
+        <div class="code-block-header"><span class="code-lang">HTML + CSS — Kontaktformular</span><button class="code-copy" onclick="copyCode(this)">Kopieren</button></div>
+        <pre><span class="cm">&lt;!-- CSS zuerst in &lt;style&gt; einfügen --&gt;</span>
+<span class="fn">&lt;style&gt;</span>
+<span class="cl">.form-group</span> <span class="pu">{</span> <span class="at">margin-bottom</span><span class="pu">:</span> <span class="nm">24px</span><span class="pu">; }</span>
+<span class="cl">.form-label</span> <span class="pu">{</span>
+  <span class="at">font-size</span><span class="pu">:</span> <span class="nm">9px</span><span class="pu">;</span> <span class="at">letter-spacing</span><span class="pu">:</span> <span class="nm">0.4em</span><span class="pu">;</span>
+  <span class="at">text-transform</span><span class="pu">:</span> uppercase<span class="pu">;</span> <span class="at">color</span><span class="pu">:</span> <span class="fn">var</span><span class="pu">(</span>--gold<span class="pu">);</span>
+  <span class="at">font-weight</span><span class="pu">:</span> <span class="nm">200</span><span class="pu">;</span> <span class="at">display</span><span class="pu">:</span> block<span class="pu">;</span> <span class="at">margin-bottom</span><span class="pu">:</span> <span class="nm">10px</span><span class="pu">;</span>
+<span class="pu">}</span>
+<span class="cl">.form-input</span> <span class="pu">{</span>
+  <span class="at">width</span><span class="pu">:</span> <span class="nm">100%</span><span class="pu">;</span>
+  <span class="at">background</span><span class="pu">:</span> <span class="fn">rgba</span><span class="pu">(</span><span class="nm">255</span><span class="pu">,</span><span class="nm">255</span><span class="pu">,</span><span class="nm">255</span><span class="pu">,</span><span class="nm">0.04</span><span class="pu">);</span>
+  <span class="at">border</span><span class="pu">:</span> <span class="nm">1px</span> solid <span class="fn">rgba</span><span class="pu">(</span><span class="nm">201</span><span class="pu">,</span><span class="nm">169</span><span class="pu">,</span><span class="nm">110</span><span class="pu">,</span><span class="nm">0.2</span><span class="pu">);</span>
+  <span class="at">color</span><span class="pu">:</span> <span class="fn">var</span><span class="pu">(</span>--cream<span class="pu">);</span>
+  <span class="at">font-family</span><span class="pu">:</span> <span class="st">'Jost'</span><span class="pu">,</span> sans-serif<span class="pu">;</span>
+  <span class="at">font-size</span><span class="pu">:</span> <span class="nm">13px</span><span class="pu">;</span> <span class="at">font-weight</span><span class="pu">:</span> <span class="nm">200</span><span class="pu">;</span>
+  <span class="at">padding</span><span class="pu">:</span> <span class="nm">14px</span> <span class="nm">16px</span><span class="pu">;</span> <span class="at">outline</span><span class="pu">:</span> none<span class="pu">;</span>
+  <span class="at">transition</span><span class="pu">:</span> border-color <span class="nm">0.3s</span> ease<span class="pu">;</span>
+<span class="pu">}</span>
+<span class="cl">.form-input</span><span class="pu">:focus</span> <span class="pu">{</span> <span class="at">border-color</span><span class="pu">:</span> <span class="fn">var</span><span class="pu">(</span>--gold<span class="pu">); }</span>
+<span class="cl">.form-input</span><span class="pu">::placeholder</span> <span class="pu">{</span>
+  <span class="at">color</span><span class="pu">:</span> <span class="fn">rgba</span><span class="pu">(</span><span class="nm">200</span><span class="pu">,</span><span class="nm">191</span><span class="pu">,</span><span class="nm">176</span><span class="pu">,</span><span class="nm">0.4</span><span class="pu">);</span>
+<span class="pu">}</span>
+<span class="fn">&lt;/style&gt;</span>
+
+<span class="cm">&lt;!-- Das Formular --&gt;</span>
+<span class="fn">&lt;section</span> <span class="at">style</span>=<span class="st">"padding:80px 56px; background:var(--dark)"</span><span class="fn">&gt;</span>
+  <span class="fn">&lt;div</span> <span class="at">style</span>=<span class="st">"max-width:600px;"</span><span class="fn">&gt;</span>
+    <span class="fn">&lt;p</span> <span class="at">class</span>=<span class="st">"section-label"</span><span class="fn">&gt;</span>Kontakt<span class="fn">&lt;/p&gt;</span>
+    <span class="fn">&lt;h2</span> <span class="at">class</span>=<span class="st">"section-title"</span> <span class="at">style</span>=<span class="st">"margin-bottom:36px"</span><span class="fn">&gt;</span>Schreiben<br><span class="fn">&lt;em&gt;</span>Sie uns<span class="fn">&lt;/em&gt;&lt;/h2&gt;</span>
+
+    <span class="fn">&lt;div</span> <span class="at">style</span>=<span class="st">"display:grid; grid-template-columns:1fr 1fr; gap:16px;"</span><span class="fn">&gt;</span>
+      <span class="fn">&lt;div</span> <span class="at">class</span>=<span class="st">"form-group"</span><span class="fn">&gt;</span>
+        <span class="fn">&lt;label</span> <span class="at">class</span>=<span class="st">"form-label"</span><span class="fn">&gt;</span>Vorname<span class="fn">&lt;/label&gt;</span>
+        <span class="fn">&lt;input</span> <span class="at">type</span>=<span class="st">"text"</span> <span class="at">class</span>=<span class="st">"form-input"</span> <span class="at">placeholder</span>=<span class="st">"Max"</span><span class="fn">&gt;</span>
+      <span class="fn">&lt;/div&gt;</span>
+      <span class="fn">&lt;div</span> <span class="at">class</span>=<span class="st">"form-group"</span><span class="fn">&gt;</span>
+        <span class="fn">&lt;label</span> <span class="at">class</span>=<span class="st">"form-label"</span><span class="fn">&gt;</span>Nachname<span class="fn">&lt;/label&gt;</span>
+        <span class="fn">&lt;input</span> <span class="at">type</span>=<span class="st">"text"</span> <span class="at">class</span>=<span class="st">"form-input"</span> <span class="at">placeholder</span>=<span class="st">"Mustermann"</span><span class="fn">&gt;</span>
+      <span class="fn">&lt;/div&gt;</span>
+    <span class="fn">&lt;/div&gt;</span>
+    <span class="fn">&lt;div</span> <span class="at">class</span>=<span class="st">"form-group"</span><span class="fn">&gt;</span>
+      <span class="fn">&lt;label</span> <span class="at">class</span>=<span class="st">"form-label"</span><span class="fn">&gt;</span>E-Mail<span class="fn">&lt;/label&gt;</span>
+      <span class="fn">&lt;input</span> <span class="at">type</span>=<span class="st">"email"</span> <span class="at">class</span>=<span class="st">"form-input"</span> <span class="at">placeholder</span>=<span class="st">"max@beispiel.de"</span><span class="fn">&gt;</span>
+    <span class="fn">&lt;/div&gt;</span>
+    <span class="fn">&lt;div</span> <span class="at">class</span>=<span class="st">"form-group"</span><span class="fn">&gt;</span>
+      <span class="fn">&lt;label</span> <span class="at">class</span>=<span class="st">"form-label"</span><span class="fn">&gt;</span>Nachricht<span class="fn">&lt;/label&gt;</span>
+      <span class="fn">&lt;textarea</span> <span class="at">class</span>=<span class="st">"form-input"</span> <span class="at">rows</span>=<span class="st">"5"</span>
+                <span class="at">placeholder</span>=<span class="st">"Ihre Nachricht..."</span>
+                <span class="at">style</span>=<span class="st">"resize:vertical; font-family:'Jost',sans-serif"</span><span class="fn">&gt;&lt;/textarea&gt;</span>
+    <span class="fn">&lt;/div&gt;</span>
+    <span class="fn">&lt;button</span> <span class="at">class</span>=<span class="st">"btn-primary"</span>
+            <span class="at">style</span>=<span class="st">"border:none; cursor:pointer"</span><span class="fn">&gt;</span>
+      Nachricht senden
+    <span class="fn">&lt;/button&gt;</span>
+  <span class="fn">&lt;/div&gt;</span>
+<span class="fn">&lt;/section&gt;</span></pre>
+      </div>
+    </div>
+
+    <div class="divider"></div>
+
+    <!-- ══ ACCORDION ══════════════════════════ -->
+    <div id="accordion" class="section">
+      <div class="section-title">Accordion / FAQ</div>
+      <p class="section-intro">Klappbare FAQ-Elemente — ideal für häufige Fragen, Preistransparenz oder Buchungsinfos.</p>
+
+      <div class="code-block">
+        <div class="code-block-header"><span class="code-lang">HTML + CSS + JS — Accordion komplett</span><button class="code-copy" onclick="copyCode(this)">Kopieren</button></div>
+        <pre><span class="fn">&lt;style&gt;</span>
+<span class="cl">.accordion-item</span> <span class="pu">{</span>
+  <span class="at">border-bottom</span><span class="pu">:</span> <span class="nm">1px</span> solid <span class="fn">rgba</span><span class="pu">(</span><span class="nm">201</span><span class="pu">,</span><span class="nm">169</span><span class="pu">,</span><span class="nm">110</span><span class="pu">,</span><span class="nm">0.12</span><span class="pu">);</span>
+<span class="pu">}</span>
+<span class="cl">.accordion-trigger</span> <span class="pu">{</span>
+  <span class="at">width</span><span class="pu">:</span> <span class="nm">100%</span><span class="pu">;</span> <span class="at">background</span><span class="pu">:</span> none<span class="pu">;</span> <span class="at">border</span><span class="pu">:</span> none<span class="pu">;</span>
+  <span class="at">display</span><span class="pu">:</span> flex<span class="pu">;</span> <span class="at">justify-content</span><span class="pu">:</span> space-between<span class="pu">;</span>
+  <span class="at">align-items</span><span class="pu">:</span> center<span class="pu">;</span> <span class="at">padding</span><span class="pu">:</span> <span class="nm">22px</span> <span class="nm">0</span><span class="pu">;</span>
+  <span class="at">cursor</span><span class="pu">:</span> pointer<span class="pu">;</span> <span class="at">text-align</span><span class="pu">:</span> left<span class="pu">;</span>
+<span class="pu">}</span>
+<span class="cl">.accordion-trigger h4</span> <span class="pu">{</span>
+  <span class="at">font-family</span><span class="pu">:</span> <span class="st">'Cormorant Garamond'</span><span class="pu">,</span> serif<span class="pu">;</span>
+  <span class="at">font-size</span><span class="pu">:</span> <span class="nm">20px</span><span class="pu">;</span> <span class="at">font-weight</span><span class="pu">:</span> <span class="nm">300</span><span class="pu">;</span>
+  <span class="at">color</span><span class="pu">:</span> <span class="fn">var</span><span class="pu">(</span>--white<span class="pu">);</span>
+<span class="pu">}</span>
+<span class="cl">.accordion-icon</span> <span class="pu">{</span>
+  <span class="at">color</span><span class="pu">:</span> <span class="fn">var</span><span class="pu">(</span>--gold<span class="pu">);</span> <span class="at">font-size</span><span class="pu">:</span> <span class="nm">20px</span><span class="pu">;</span>
+  <span class="at">transition</span><span class="pu">:</span> transform <span class="nm">0.35s</span> ease<span class="pu">;</span> <span class="at">flex-shrink</span><span class="pu">:</span> <span class="nm">0</span><span class="pu">;</span>
+<span class="pu">}</span>
+<span class="cl">.accordion-body</span> <span class="pu">{</span>
+  <span class="at">max-height</span><span class="pu">:</span> <span class="nm">0</span><span class="pu">;</span> <span class="at">overflow</span><span class="pu">:</span> hidden<span class="pu">;</span>
+  <span class="at">transition</span><span class="pu">:</span> max-height <span class="nm">0.4s</span> ease<span class="pu">;</span>
+<span class="pu">}</span>
+<span class="cl">.accordion-body p</span> <span class="pu">{</span>
+  <span class="at">font-size</span><span class="pu">:</span> <span class="nm">13px</span><span class="pu">;</span> <span class="at">color</span><span class="pu">:</span> <span class="fn">var</span><span class="pu">(</span>--cream-dim<span class="pu">);</span>
+  <span class="at">line-height</span><span class="pu">:</span> <span class="nm">2</span><span class="pu">;</span> <span class="at">font-weight</span><span class="pu">:</span> <span class="nm">200</span><span class="pu">;</span>
+  <span class="at">padding-bottom</span><span class="pu">:</span> <span class="nm">20px</span><span class="pu">;</span>
+<span class="pu">}</span>
+<span class="fn">&lt;/style&gt;</span>
+
+<span class="fn">&lt;section</span> <span class="at">style</span>=<span class="st">"padding:80px 56px; background:var(--dark)"</span><span class="fn">&gt;</span>
+  <span class="fn">&lt;p</span> <span class="at">class</span>=<span class="st">"section-label"</span><span class="fn">&gt;</span>FAQ<span class="fn">&lt;/p&gt;</span>
+  <span class="fn">&lt;h2</span> <span class="at">class</span>=<span class="st">"section-title"</span> <span class="at">style</span>=<span class="st">"margin-bottom:40px"</span><span class="fn">&gt;</span>Häufige<br><span class="fn">&lt;em&gt;</span>Fragen<span class="fn">&lt;/em&gt;&lt;/h2&gt;</span>
+
+  <span class="fn">&lt;div</span> <span class="at">class</span>=<span class="st">"accordion-item"</span><span class="fn">&gt;</span>
+    <span class="fn">&lt;button</span> <span class="at">class</span>=<span class="st">"accordion-trigger"</span>
+            <span class="at">onclick</span>=<span class="st">"toggleAccordion(this)"</span><span class="fn">&gt;</span>
+      <span class="fn">&lt;h4&gt;</span>Wann ist Check-in und Check-out?<span class="fn">&lt;/h4&gt;</span>
+      <span class="fn">&lt;span</span> <span class="at">class</span>=<span class="st">"accordion-icon"</span><span class="fn">&gt;</span>+<span class="fn">&lt;/span&gt;</span>
+    <span class="fn">&lt;/button&gt;</span>
+    <span class="fn">&lt;div</span> <span class="at">class</span>=<span class="st">"accordion-body"</span><span class="fn">&gt;</span>
+      <span class="fn">&lt;p&gt;</span>Check-in ab 15:00 Uhr, Check-out bis 11:00 Uhr.
+         Früherer Check-in oder Late Check-out auf Anfrage möglich.<span class="fn">&lt;/p&gt;</span>
+    <span class="fn">&lt;/div&gt;</span>
+  <span class="fn">&lt;/div&gt;</span>
+
+  <span class="cm">&lt;!-- Weitere Fragen gleich aufbauen --&gt;</span>
+<span class="fn">&lt;/section&gt;</span>
+
+<span class="fn">&lt;script&gt;</span>
+<span class="kw">function</span> <span class="fn">toggleAccordion</span><span class="pu">(</span>btn<span class="pu">) {</span>
+  <span class="kw">const</span> body <span class="pu">=</span> btn<span class="pu">.</span>nextElementSibling<span class="pu">;</span>
+  <span class="kw">const</span> icon <span class="pu">=</span> btn<span class="pu">.</span><span class="fn">querySelector</span><span class="pu">(</span><span class="st">'.accordion-icon'</span><span class="pu">);</span>
+  <span class="kw">const</span> isOpen <span class="pu">=</span> body<span class="pu">.</span>style<span class="pu">.</span>maxHeight<span class="pu">;</span>
+  <span class="cm">// Alle schließen</span>
+  document<span class="pu">.</span><span class="fn">querySelectorAll</span><span class="pu">(</span><span class="st">'.accordion-body'</span><span class="pu">).</span><span class="fn">forEach</span><span class="pu">(</span>b <span class="pu">=&gt;</span>
+    b<span class="pu">.</span>style<span class="pu">.</span>maxHeight <span class="pu">=</span> <span class="st">''</span><span class="pu">);</span>
+  document<span class="pu">.</span><span class="fn">querySelectorAll</span><span class="pu">(</span><span class="st">'.accordion-icon'</span><span class="pu">).</span><span class="fn">forEach</span><span class="pu">(</span>i <span class="pu">=&gt;</span>
+    <span class="pu">{</span> i<span class="pu">.</span>textContent<span class="pu">=</span><span class="st">'+'</span><span class="pu">;</span> i<span class="pu">.</span>style<span class="pu">.</span>transform<span class="pu">=</span><span class="st">''</span><span class="pu">; });</span>
+  <span class="cm">// Aktuelles öffnen wenn es zu war</span>
+  <span class="kw">if</span> <span class="pu">(!</span>isOpen<span class="pu">) {</span>
+    body<span class="pu">.</span>style<span class="pu">.</span>maxHeight <span class="pu">=</span> body<span class="pu">.</span>scrollHeight <span class="pu">+</span> <span class="st">'px'</span><span class="pu">;</span>
+    icon<span class="pu">.</span>textContent <span class="pu">=</span> <span class="st">'×'</span><span class="pu">;</span>
+    icon<span class="pu">.</span>style<span class="pu">.</span>transform <span class="pu">=</span> <span class="st">'rotate(45deg)'</span><span class="pu">;</span>
+  <span class="pu">}</span>
+<span class="pu">}</span>
+<span class="fn">&lt;/script&gt;</span></pre>
+      </div>
+    </div>
+
+    <div class="divider"></div>
+
+    <!-- ══ TABS ══════════════════════════════ -->
+    <div id="tabs" class="section">
+      <div class="section-title">Tabs</div>
+      <p class="section-intro">Filter-Tabs sind bereits auf der Angebote- und Gastronomie-Seite vorhanden. So fügen Sie eigene hinzu.</p>
+
+      <div class="code-block">
+        <div class="code-block-header"><span class="code-lang">HTML + JS — Tab-Navigation</span><button class="code-copy" onclick="copyCode(this)">Kopieren</button></div>
+        <pre><span class="cm">&lt;!-- Tabs --&gt;</span>
+<span class="fn">&lt;div</span> <span class="at">style</span>=<span class="st">"display:flex; gap:0;
+             border-bottom:1px solid rgba(201,169,110,0.15);
+             margin-bottom:40px;"</span><span class="fn">&gt;</span>
+  <span class="fn">&lt;button</span> <span class="at">class</span>=<span class="st">"htab active"</span>
+          <span class="at">onclick</span>=<span class="st">"showTab('tab1', this)"</span><span class="fn">&gt;</span>Tab 1<span class="fn">&lt;/button&gt;</span>
+  <span class="fn">&lt;button</span> <span class="at">class</span>=<span class="st">"htab"</span>
+          <span class="at">onclick</span>=<span class="st">"showTab('tab2', this)"</span><span class="fn">&gt;</span>Tab 2<span class="fn">&lt;/button&gt;</span>
+  <span class="fn">&lt;button</span> <span class="at">class</span>=<span class="st">"htab"</span>
+          <span class="at">onclick</span>=<span class="st">"showTab('tab3', this)"</span><span class="fn">&gt;</span>Tab 3<span class="fn">&lt;/button&gt;</span>
+<span class="fn">&lt;/div&gt;</span>
+
+<span class="cm">&lt;!-- Tab-Inhalte --&gt;</span>
+<span class="fn">&lt;div</span> <span class="at">id</span>=<span class="st">"tab1"</span> <span class="at">class</span>=<span class="st">"htab-content"</span><span class="fn">&gt;</span>Inhalt Tab 1<span class="fn">&lt;/div&gt;</span>
+<span class="fn">&lt;div</span> <span class="at">id</span>=<span class="st">"tab2"</span> <span class="at">class</span>=<span class="st">"htab-content"</span>
+     <span class="at">style</span>=<span class="st">"display:none"</span><span class="fn">&gt;</span>Inhalt Tab 2<span class="fn">&lt;/div&gt;</span>
+<span class="fn">&lt;div</span> <span class="at">id</span>=<span class="st">"tab3"</span> <span class="at">class</span>=<span class="st">"htab-content"</span>
+     <span class="at">style</span>=<span class="st">"display:none"</span><span class="fn">&gt;</span>Inhalt Tab 3<span class="fn">&lt;/div&gt;</span>
+
+<span class="fn">&lt;style&gt;</span>
+<span class="cl">.htab</span> <span class="pu">{</span>
+  <span class="at">background</span><span class="pu">:</span> none<span class="pu">;</span> <span class="at">border</span><span class="pu">:</span> none<span class="pu">;</span>
+  <span class="at">font-size</span><span class="pu">:</span> <span class="nm">10px</span><span class="pu">;</span> <span class="at">letter-spacing</span><span class="pu">:</span> <span class="nm">0.25em</span><span class="pu">;</span>
+  <span class="at">text-transform</span><span class="pu">:</span> uppercase<span class="pu">;</span>
+  <span class="at">color</span><span class="pu">:</span> <span class="fn">var</span><span class="pu">(</span>--cream-dim<span class="pu">);</span>
+  <span class="at">font-family</span><span class="pu">:</span> <span class="st">'Jost'</span><span class="pu">,</span> sans-serif<span class="pu">;</span>
+  <span class="at">font-weight</span><span class="pu">:</span> <span class="nm">200</span><span class="pu">;</span>
+  <span class="at">padding</span><span class="pu">:</span> <span class="nm">14px</span> <span class="nm">24px</span><span class="pu">;</span>
+  <span class="at">cursor</span><span class="pu">:</span> pointer<span class="pu">;</span>
+  <span class="at">border-bottom</span><span class="pu">:</span> <span class="nm">2px</span> solid transparent<span class="pu">;</span>
+  <span class="at">margin-bottom</span><span class="pu">:</span> <span class="nm">-1px</span><span class="pu">;</span>
+  <span class="at">transition</span><span class="pu">:</span> all <span class="nm">0.3s</span> ease<span class="pu">;</span>
+<span class="pu">}</span>
+<span class="cl">.htab.active</span><span class="pu">,</span> <span class="cl">.htab</span><span class="pu">:hover</span> <span class="pu">{</span>
+  <span class="at">color</span><span class="pu">:</span> <span class="fn">var</span><span class="pu">(</span>--gold<span class="pu">);</span>
+  <span class="at">border-bottom-color</span><span class="pu">:</span> <span class="fn">var</span><span class="pu">(</span>--gold<span class="pu">);</span>
+<span class="pu">}</span>
+<span class="fn">&lt;/style&gt;</span>
+
+<span class="fn">&lt;script&gt;</span>
+<span class="kw">function</span> <span class="fn">showTab</span><span class="pu">(</span>id<span class="pu">,</span> btn<span class="pu">) {</span>
+  document<span class="pu">.</span><span class="fn">querySelectorAll</span><span class="pu">(</span><span class="st">'.htab-content'</span><span class="pu">).</span><span class="fn">forEach</span><span class="pu">(</span>
+    el <span class="pu">=&gt;</span> el<span class="pu">.</span>style<span class="pu">.</span>display <span class="pu">=</span> <span class="st">'none'</span><span class="pu">);</span>
+  document<span class="pu">.</span><span class="fn">querySelectorAll</span><span class="pu">(</span><span class="st">'.htab'</span><span class="pu">).</span><span class="fn">forEach</span><span class="pu">(</span>
+    t <span class="pu">=&gt;</span> t<span class="pu">.</span>classList<span class="pu">.</span><span class="fn">remove</span><span class="pu">(</span><span class="st">'active'</span><span class="pu">));</span>
+  document<span class="pu">.</span><span class="fn">getElementById</span><span class="pu">(</span>id<span class="pu">).</span>style<span class="pu">.</span>display <span class="pu">=</span> <span class="st">'block'</span><span class="pu">;</span>
+  btn<span class="pu">.</span>classList<span class="pu">.</span><span class="fn">add</span><span class="pu">(</span><span class="st">'active'</span><span class="pu">);</span>
+<span class="pu">}</span>
+<span class="fn">&lt;/script&gt;</span></pre>
+      </div>
+    </div>
+
+    <div class="divider"></div>
+
+    <!-- ══ BANNER ══════════════════════════════ -->
+    <div id="banner" class="section">
+      <div class="section-title">Banner / CTA-Streifen</div>
+      <p class="section-intro">Ein goldfarbener Vollbreiten-Streifen — ideal als Abschluss einer Seite oder zwischen Sektionen als Aufmerksamkeitsanker.</p>
+
+      <div class="code-block">
+        <div class="code-block-header"><span class="code-lang">HTML — Gold CTA-Banner</span><button class="code-copy" onclick="copyCode(this)">Kopieren</button></div>
+        <pre><span class="fn">&lt;div</span> <span class="at">style</span>=<span class="st">"background:var(--gold); padding:72px 56px; text-align:center;"</span><span class="fn">&gt;</span>
+  <span class="fn">&lt;p</span> <span class="at">style</span>=<span class="st">"font-size:9px; letter-spacing:0.4em;
+          text-transform:uppercase; color:rgba(10,9,6,0.6);
+          font-weight:200; margin-bottom:12px;"</span><span class="fn">&gt;</span>
+    Jetzt anfragen
+  <span class="fn">&lt;/p&gt;</span>
+  <span class="fn">&lt;h2</span> <span class="at">style</span>=<span class="st">"font-family:'Cormorant Garamond',serif;
+           font-size:clamp(28px,3.5vw,48px); font-weight:300;
+           color:var(--black); margin-bottom:16px;"</span><span class="fn">&gt;</span>
+    Ihr perfekter Urlaub wartet
+  <span class="fn">&lt;/h2&gt;</span>
+  <span class="fn">&lt;p</span> <span class="at">style</span>=<span class="st">"font-size:13px; color:rgba(10,9,6,0.7);
+          font-weight:200; margin-bottom:36px;
+          max-width:500px; margin-left:auto;
+          margin-right:auto; line-height:1.9;"</span><span class="fn">&gt;</span>
+    Untertitel-Text hier einfügen.
+  <span class="fn">&lt;/p&gt;</span>
+  <span class="fn">&lt;div</span> <span class="at">style</span>=<span class="st">"display:flex; gap:20px;
+              justify-content:center; flex-wrap:wrap;"</span><span class="fn">&gt;</span>
+    <span class="fn">&lt;a</span> <span class="at">href</span>=<span class="st">"hotel-halm-buchen.html"</span>
+       <span class="at">style</span>=<span class="st">"font-size:10px; letter-spacing:0.25em;
+              text-transform:uppercase; color:var(--black);
+              border:1px solid var(--black); padding:14px 32px;
+              text-decoration:none;"</span><span class="fn">&gt;</span>
+      Jetzt buchen
+    <span class="fn">&lt;/a&gt;</span>
+    <span class="fn">&lt;a</span> <span class="at">href</span>=<span class="st">"tel:+4975311234"</span>
+       <span class="at">style</span>=<span class="st">"font-size:10px; letter-spacing:0.25em;
+              text-transform:uppercase; color:var(--black);
+              background:rgba(10,9,6,0.1);
+              padding:14px 32px; text-decoration:none;"</span><span class="fn">&gt;</span>
+      Anrufen
+    <span class="fn">&lt;/a&gt;</span>
+  <span class="fn">&lt;/div&gt;</span>
+<span class="fn">&lt;/div&gt;</span></pre>
+      </div>
+    </div>
+
+    <div class="divider"></div>
+
+    <!-- ══ TESTIMONIAL ══════════════════════════ -->
+    <div id="testimonial" class="section">
+      <div class="section-title">Testimonials</div>
+      <p class="section-intro">Kundenbewertungen im eleganten Zitat-Stil — bereits auf der Startseite vorhanden, hier als Copy-Paste-Vorlage.</p>
+
+      <div class="code-block">
+        <div class="code-block-header"><span class="code-lang">HTML — Einzelnes Testimonial (zentriert)</span><button class="code-copy" onclick="copyCode(this)">Kopieren</button></div>
+        <pre><span class="fn">&lt;section</span> <span class="at">style</span>=<span class="st">"background:var(--dark2);
+               padding:100px 56px; text-align:center;"</span><span class="fn">&gt;</span>
+  <span class="fn">&lt;p</span> <span class="at">style</span>=<span class="st">"color:var(--gold); font-size:12px;
+          letter-spacing:4px; margin-bottom:28px;"</span><span class="fn">&gt;</span>
+    ★★★★★
+  <span class="fn">&lt;/p&gt;</span>
+  <span class="fn">&lt;blockquote</span> <span class="at">style</span>=<span class="st">"font-family:'Cormorant Garamond',serif;
+                font-size:clamp(22px,3vw,40px);
+                font-style:italic; font-weight:300;
+                color:var(--white); max-width:720px;
+                margin:0 auto 28px; line-height:1.5;"</span><span class="fn">&gt;</span>
+    „Das Hotel Halm ist einfach wunderschön — wir kommen gerne wieder."
+  <span class="fn">&lt;/blockquote&gt;</span>
+  <span class="fn">&lt;p</span> <span class="at">style</span>=<span class="st">"font-size:10px; letter-spacing:0.35em;
+          text-transform:uppercase; color:var(--gold);
+          font-weight:200;"</span><span class="fn">&gt;</span>
+    — Name, Herkunft · Google Bewertung
+  <span class="fn">&lt;/p&gt;</span>
+<span class="fn">&lt;/section&gt;</span></pre>
+      </div>
+    </div>
+
+    <div class="divider"></div>
+
+    <!-- ══ NAV EXTEND ══════════════════════════ -->
+    <div id="nav-extend" class="section">
+      <div class="section-title">Navigation erweitern</div>
+      <p class="section-intro">So fügen Sie einen neuen Link zur Navigation hinzu — muss in <strong>jeder</strong> der 11 HTML-Dateien geändert werden.</p>
+
+      <div class="info-box warning">
+        <strong>Achtung</strong>
+        Die Navigation ist in jeder der 11 Dateien einzeln vorhanden. Wenn Sie einen Link hinzufügen, müssen Sie diese Änderung in allen Dateien vornehmen.
+      </div>
+
+      <div class="code-block">
+        <div class="code-block-header"><span class="code-lang">HTML — Neuen Nav-Link einfügen</span><button class="code-copy" onclick="copyCode(this)">Kopieren</button></div>
+        <pre><span class="cm">&lt;!-- In der &lt;ul class="nav-links"&gt;-Liste in JEDER Datei --&gt;</span>
+<span class="fn">&lt;ul</span> <span class="at">class</span>=<span class="st">"nav-links"</span><span class="fn">&gt;</span>
+  <span class="cm">&lt;!-- Vorhandene Links... --&gt;</span>
+  <span class="fn">&lt;li&gt;&lt;a</span> <span class="at">href</span>=<span class="st">"hotel-halm-zimmer.html"</span><span class="fn">&gt;</span>Zimmer<span class="fn">&lt;/a&gt;&lt;/li&gt;</span>
+  <span class="cm">&lt;!-- ↓ Neuer Link hier einfügen ↓ --&gt;</span>
+  <span class="fn">&lt;li&gt;&lt;a</span> <span class="at">href</span>=<span class="st">"hotel-halm-neueseseite.html"</span><span class="fn">&gt;</span>Neue Seite<span class="fn">&lt;/a&gt;&lt;/li&gt;</span>
+<span class="fn">&lt;/ul&gt;</span></pre>
+      </div>
+    </div>
+
+    <div class="divider"></div>
+
+    <!-- ══ NEW PAGE ══════════════════════════ -->
+    <div id="new-page" class="section">
+      <div class="section-title">Neue Seite anlegen</div>
+      <p class="section-intro">Schritt-für-Schritt-Anleitung zum Erstellen einer neuen Seite im exakt gleichen Stil wie alle anderen.</p>
+
+      <div class="step-list">
+        <div class="step">
+          <span class="step-num">1</span>
+          <div class="step-content">
+            <h4>Vorhandene Seite als Vorlage kopieren</h4>
+            <p>Nehmen Sie z.B. <code>hotel-halm-konstanz.html</code> und speichern Sie sie als <code>hotel-halm-NEUERSEITE.html</code>. Diese Datei enthält bereits alle nötigen CSS-Variablen, Fonts, Navigation und Footer.</p>
+          </div>
+        </div>
+        <div class="step">
+          <span class="step-num">2</span>
+          <div class="step-content">
+            <h4>&lt;title&gt; anpassen</h4>
+            <p>Ändern Sie in der neuen Datei ganz oben: <code>&lt;title&gt;SEITENNAME — Hotel Halm Konstanz&lt;/title&gt;</code></p>
+          </div>
+        </div>
+        <div class="step">
+          <span class="step-num">3</span>
+          <div class="step-content">
+            <h4>Aktiven Nav-Link markieren</h4>
+            <p>Fügen Sie dem entsprechenden Nav-Link die Klasse <code>active</code> hinzu: <code>&lt;a href="..." class="active"&gt;Neue Seite&lt;/a&gt;</code> — das unterstreicht den Link gold.</p>
+          </div>
+        </div>
+        <div class="step">
+          <span class="step-num">4</span>
+          <div class="step-content">
+            <h4>Hero-Bild und -Titel ersetzen</h4>
+            <p>Passen Sie den <code>page-hero-bg</code> Hintergrund-URL, das <code>page-hero-label</code> und den <code>page-hero-title</code> an Ihre neue Seite an.</p>
+          </div>
+        </div>
+        <div class="step">
+          <span class="step-num">5</span>
+          <div class="step-content">
+            <h4>Alten Inhalt löschen, neuen einfügen</h4>
+            <p>Löschen Sie alles zwischen Hero-Section und Footer. Fügen Sie Ihre neuen Sektionen ein — verwenden Sie die Code-Snippets aus dieser Dokumentation.</p>
+          </div>
+        </div>
+        <div class="step">
+          <span class="step-num">6</span>
+          <div class="step-content">
+            <h4>Link in allen anderen Seiten ergänzen</h4>
+            <p>Öffnen Sie alle 11 HTML-Dateien und fügen Sie den Link zur neuen Seite in die <code>&lt;ul class="nav-links"&gt;</code>-Liste ein.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="divider"></div>
+
+    <!-- ══ ANIMATIONS ══════════════════════════ -->
+    <div id="animations" class="section">
+      <div class="section-title">Animationen</div>
+      <p class="section-intro">Alle Animationen sind bereits als <code>@keyframes</code> in jeder Datei definiert — einfach per <code>style="animation: NAME DAUER"</code> verwenden.</p>
+
+      <table class="var-table">
+        <thead><tr><th>Animation</th><th>CSS-Aufruf</th><th>Effekt</th></tr></thead>
+        <tbody>
+          <tr><td>fadeUp</td><td>animation: fadeUp 1s ease both</td><td>Element erscheint von unten (Seitenload)</td></tr>
+          <tr><td>fadeDown</td><td>animation: fadeDown 1s ease both</td><td>Element erscheint von oben (Nav)</td></tr>
+          <tr><td>fadeIn</td><td>animation: fadeIn 1.5s ease both</td><td>Element blendet einfach ein</td></tr>
+          <tr><td>slowZoom</td><td>animation: slowZoom 20s ease-in-out infinite alternate</td><td>Ken Burns — langsamer Zoom (Hero-Bilder)</td></tr>
+          <tr><td>reveal</td><td>class="reveal" (automatisch per JS)</td><td>Slide-up beim Scrollen</td></tr>
+        </tbody>
+      </table>
+
+      <div class="code-block">
+        <div class="code-block-header"><span class="code-lang">CSS — Animationsverzögerung (Stagger-Effekt)</span><button class="code-copy" onclick="copyCode(this)">Kopieren</button></div>
+        <pre><span class="cm">/* Elemente erscheinen nacheinander beim Scrollen */</span>
+<span class="fn">&lt;div</span> <span class="at">class</span>=<span class="st">"reveal"</span>                              <span class="fn">&gt;</span>Element 1<span class="fn">&lt;/div&gt;</span>
+<span class="fn">&lt;div</span> <span class="at">class</span>=<span class="st">"reveal"</span> <span class="at">style</span>=<span class="st">"transition-delay:0.1s"</span><span class="fn">&gt;</span>Element 2<span class="fn">&lt;/div&gt;</span>
+<span class="fn">&lt;div</span> <span class="at">class</span>=<span class="st">"reveal"</span> <span class="at">style</span>=<span class="st">"transition-delay:0.2s"</span><span class="fn">&gt;</span>Element 3<span class="fn">&lt;/div&gt;</span>
+<span class="fn">&lt;div</span> <span class="at">class</span>=<span class="st">"reveal"</span> <span class="at">style</span>=<span class="st">"transition-delay:0.3s"</span><span class="fn">&gt;</span>Element 4<span class="fn">&lt;/div&gt;</span></pre>
+      </div>
+    </div>
+
+    <div class="divider"></div>
+
+    <!-- ══ RESPONSIVE ══════════════════════════ -->
+    <div id="responsive" class="section">
+      <div class="section-title">Responsive Design</div>
+      <p class="section-intro">Alle Seiten haben bereits ein Basis-Responsive-Setup. So passen Sie eigene Sektionen für mobile Geräte an.</p>
+
+      <div class="code-block">
+        <div class="code-block-header"><span class="code-lang">CSS — Media Queries für eigene Sektionen</span><button class="code-copy" onclick="copyCode(this)">Kopieren</button></div>
+        <pre><span class="cm">/* Fügen Sie dies ans Ende des &lt;style&gt;-Blocks ein */</span>
+<span class="kw">@media</span> <span class="pu">(</span><span class="at">max-width</span><span class="pu">:</span> <span class="nm">1024px</span><span class="pu">) {</span>
+
+  <span class="cm">/* Zweispaltig → Einspaltig */</span>
+  <span class="cl">.meine-sektion</span> <span class="pu">{</span>
+    <span class="at">grid-template-columns</span><span class="pu">:</span> <span class="nm">1fr</span><span class="pu"> !</span>important<span class="pu">;</span>
+    <span class="at">padding</span><span class="pu">:</span> <span class="nm">56px</span> <span class="nm">32px</span><span class="pu"> !</span>important<span class="pu">;</span>
+  <span class="pu">}</span>
+
+  <span class="cm">/* 3-Spalten-Grid → 1 Spalte */</span>
+  <span class="cl">.dreispaltig</span> <span class="pu">{</span>
+    <span class="at">grid-template-columns</span><span class="pu">:</span> <span class="nm">1fr</span><span class="pu"> !</span>important<span class="pu">;</span>
+  <span class="pu">}</span>
+
+  <span class="cm">/* Nav ausblenden auf Mobil */</span>
+  <span class="cl">.nav-links</span> <span class="pu">{</span> <span class="at">display</span><span class="pu">:</span> none<span class="pu">; }</span>
+
+  <span class="cm">/* Seitenabstand reduzieren */</span>
+  <span class="cl">section</span> <span class="pu">{</span>
+    <span class="at">padding-left</span><span class="pu">:</span> <span class="nm">24px</span><span class="pu"> !</span>important<span class="pu">;</span>
+    <span class="at">padding-right</span><span class="pu">:</span> <span class="nm">24px</span><span class="pu"> !</span>important<span class="pu">;</span>
+  <span class="pu">}</span>
+<span class="pu">}</span></pre>
+      </div>
+    </div>
+
+    <div class="divider"></div>
+
+    <!-- ══ CHECKLIST ══════════════════════════ -->
+    <div id="checklist" class="section">
+      <div class="section-title">Checkliste</div>
+      <p class="section-intro">Schnell-Referenz: Was müssen Sie tun, wenn Sie etwas hinzufügen?</p>
+
+      <table class="var-table">
+        <thead><tr><th>Aufgabe</th><th>Dateien bearbeiten</th><th>Snippet</th></tr></thead>
+        <tbody>
+          <tr><td>Neue Seite erstellen</td><td>Neue + alle 11 Dateien (Nav-Link)</td><td><a href="#new-page" style="color:var(--blue)">→ Neue Seite</a></td></tr>
+          <tr><td>Hero hinzufügen</td><td>Nur die Zieldatei</td><td><a href="#hero" style="color:var(--blue)">→ Hero</a></td></tr>
+          <tr><td>Sektion hinzufügen</td><td>Nur die Zieldatei</td><td><a href="#section" style="color:var(--blue)">→ Sektion</a></td></tr>
+          <tr><td>Galerie hinzufügen</td><td>Nur die Zieldatei</td><td><a href="#gallery" style="color:var(--blue)">→ Galerie</a></td></tr>
+          <tr><td>Karte hinzufügen</td><td>Nur die Zieldatei</td><td><a href="#cards" style="color:var(--blue)">→ Cards</a></td></tr>
+          <tr><td>Popup hinzufügen</td><td>Nur die Zieldatei</td><td><a href="#popup" style="color:var(--blue)">→ Popup</a></td></tr>
+          <tr><td>Button hinzufügen</td><td>Nur die Zieldatei</td><td><a href="#buttons" style="color:var(--blue)">→ Buttons</a></td></tr>
+          <tr><td>Farbe ändern</td><td>Alle 11 Dateien (:root)</td><td><a href="#variables" style="color:var(--blue)">→ Variablen</a></td></tr>
+          <tr><td>Bild austauschen</td><td>Nur die Zieldatei</td><td>URL in src="" oder background-image ersetzen</td></tr>
+          <tr><td>Text ändern</td><td>Nur die Zieldatei</td><td>Text direkt im HTML ersetzen</td></tr>
+          <tr><td>Nav-Link hinzufügen</td><td>Alle 11 Dateien</td><td><a href="#nav-extend" style="color:var(--blue)">→ Navigation</a></td></tr>
+          <tr><td>Scroll-Animation</td><td>Nur die Zieldatei</td><td>class="reveal" hinzufügen</td></tr>
+        </tbody>
+      </table>
+
+      <div class="info-box info" style="margin-top:32px">
+        <strong>Empfohlener Editor</strong>
+        Visual Studio Code (kostenlos) — mit der Extension "Live Server" sehen Sie Änderungen sofort im Browser. Einfach <code>Rechtsklick → Open with Live Server</code>.
+      </div>
+    </div>
+
+  </div><!-- /content -->
+</main>
+
+<script>
+// Copy to clipboard
+function copyCode(btn) {
+  const pre = btn.closest('.code-block').querySelector('pre');
+  const text = pre.innerText;
+  navigator.clipboard.writeText(text).then(() => {
+    btn.textContent = '✓ Kopiert';
+    btn.classList.add('copied');
+    setTimeout(() => { btn.textContent = 'Kopieren'; btn.classList.remove('copied'); }, 2000);
+  });
+}
+
+// Active nav highlight on scroll
+const sections = document.querySelectorAll('.section[id]');
+const navLinks = document.querySelectorAll('.nav-link');
+
+const observer = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      navLinks.forEach(l => l.classList.remove('active'));
+      const active = document.querySelector(`.nav-link[href="#${entry.target.id}"]`);
+      if (active) active.classList.add('active');
+    }
+  });
+}, { threshold: 0.3, rootMargin: '-80px 0px -60% 0px' });
+
+sections.forEach(s => observer.observe(s));
+</script>
+</body>
+</html>

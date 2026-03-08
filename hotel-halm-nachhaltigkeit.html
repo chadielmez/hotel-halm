@@ -1,0 +1,317 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Nachhaltigkeit — Hotel Halm Konstanz</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300;1,400&family=Jost:wght@200;300;400&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#0a0906; --bg2:#111009; --bg3:#1a1814;
+  --gold:#c9a96e; --gold-l:#e2c99a;
+  --txt:#f4ede0; --dim:#c8bfb0; --faint:rgba(200,191,176,.35);
+  --w:#faf7f2; --nav-rgb:10,9,6;
+  --hero-overlay:rgba(10,9,6,.5);
+  --footer-bg:#111009; --footer-border:rgba(201,169,110,.09);
+  --card-border:rgba(201,169,110,.1); --divider:rgba(201,169,110,.18);
+}
+
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{background:var(--bg);color:var(--txt);font-family:'Jost',sans-serif;font-weight:300;overflow-x:hidden;cursor:none}
+body::before{content:'';position:fixed;inset:0;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");opacity:.03;pointer-events:none;z-index:9997}
+.cur{position:fixed;width:8px;height:8px;background:var(--gold);border-radius:50%;pointer-events:none;z-index:9999;transform:translate(-50%,-50%);transition:transform .1s}
+.cur-r{position:fixed;width:32px;height:32px;border:1px solid rgba(201,169,110,.5);border-radius:50%;pointer-events:none;z-index:9998;transform:translate(-50%,-50%);transition:all .15s}
+/* NAV */
+nav{position:fixed;top:0;left:0;right:0;z-index:1000;padding:20px 56px;display:flex;align-items:center;justify-content:space-between;background:rgba(var(--nav-rgb),.97);border-bottom:1px solid rgba(201,169,110,.09);backdrop-filter:blur(14px);animation:fD .9s ease both}
+.nav-logo{font-family:'Cormorant Garamond',serif;font-size:19px;font-weight:300;letter-spacing:.25em;text-transform:uppercase;color:var(--txt);text-decoration:none;line-height:1}
+.nav-logo span{display:block;font-size:8px;letter-spacing:.45em;color:var(--gold);margin-top:3px;font-family:'Jost';font-weight:200}
+.nav-links{display:flex;gap:28px;list-style:none}
+.nav-links a{font-size:9px;font-weight:300;letter-spacing:.2em;text-transform:uppercase;color:var(--dim);text-decoration:none;position:relative;transition:color .3s}
+.nav-links a::after{content:'';position:absolute;bottom:-3px;left:0;width:0;height:1px;background:var(--gold);transition:width .4s}
+.nav-links a:hover,.nav-links a.act{color:var(--gold)}
+.nav-links a:hover::after,.nav-links a.act::after{width:100%}
+.nav-cta{font-size:9px;font-weight:300;letter-spacing:.2em;text-transform:uppercase;color:var(--gold);text-decoration:none;border:1px solid var(--gold);padding:10px 22px;transition:all .4s;position:relative;overflow:hidden}
+.nav-cta::before{content:'';position:absolute;inset:0;background:var(--gold);transform:scaleX(0);transform-origin:left;transition:transform .4s;z-index:-1}
+.nav-cta:hover{color:var(--bg)}
+.nav-cta:hover::before{transform:scaleX(1)}
+/* HAMBURGER */
+.hamburger{display:none;flex-direction:column;gap:5px;cursor:pointer;padding:4px;background:none;border:none;z-index:2001}
+.hamburger span{display:block;width:24px;height:1.5px;background:var(--gold)}
+.mobile-menu{display:none;position:fixed;top:0;left:0;right:0;bottom:0;background:var(--bg);z-index:2000;flex-direction:column;align-items:center;justify-content:center;gap:28px}
+.mobile-menu.open{display:flex}
+.mobile-menu a{font-family:'Cormorant Garamond',serif;font-size:30px;font-weight:300;color:var(--txt);text-decoration:none;letter-spacing:.06em}
+.mobile-menu a:hover{color:var(--gold)}
+.mobile-menu-close{position:absolute;top:24px;right:24px;font-size:28px;color:var(--gold);background:none;border:none;cursor:pointer;font-family:'Jost'}
+.mobile-menu-sub{font-size:10px;letter-spacing:.3em;text-transform:uppercase;color:var(--faint);margin-top:8px}
+/* TYPOGRAPHY */
+.sl{font-size:9px;letter-spacing:.45em;text-transform:uppercase;color:var(--gold);font-weight:200;margin-bottom:14px;display:flex;align-items:center;gap:12px}
+.sl::before{content:'';width:28px;height:1px;background:var(--gold);flex-shrink:0}
+.st{font-family:'Cormorant Garamond',serif;font-size:clamp(36px,5vw,64px);font-weight:300;line-height:1.05;color:var(--txt)}
+.st em{font-style:italic;color:var(--dim)}
+.bt{font-size:14px;font-weight:200;line-height:2.1;color:var(--dim)}
+.bp{font-size:13px;font-weight:200;line-height:2;color:var(--dim)}
+/* BUTTONS */
+.btn-p{font-size:10px;letter-spacing:.27em;text-transform:uppercase;font-weight:300;color:var(--bg);background:var(--gold);padding:14px 32px;text-decoration:none;display:inline-block;transition:all .4s}
+.btn-p:hover{background:var(--gold-l);transform:translateY(-2px)}
+.btn-o{font-size:10px;letter-spacing:.27em;text-transform:uppercase;font-weight:300;color:var(--gold);border:1px solid var(--gold);padding:13px 30px;text-decoration:none;display:inline-block;transition:all .4s;position:relative;overflow:hidden}
+.btn-o::before{content:'';position:absolute;inset:0;background:var(--gold);transform:scaleX(0);transform-origin:left;transition:transform .4s;z-index:-1}
+.btn-o:hover{color:var(--bg)}
+.btn-o:hover::before{transform:scaleX(1)}
+.btn-g{font-size:10px;letter-spacing:.23em;text-transform:uppercase;font-weight:300;color:var(--dim);text-decoration:none;display:inline-flex;align-items:center;gap:10px;transition:color .3s}
+.btn-g::after{content:'→';font-size:14px;transition:transform .3s}
+.btn-g:hover{color:var(--gold)}
+.btn-g:hover::after{transform:translateX(5px)}
+/* LAYOUT */
+.divider{width:100%;height:1px;background:linear-gradient(to right,transparent,var(--divider),transparent)}
+.reveal{opacity:0;transform:translateY(32px);transition:all .9s cubic-bezier(.25,.46,.45,.94)}
+.reveal.vis{opacity:1;transform:translateY(0)}
+.d1{transition-delay:.1s}.d2{transition-delay:.22s}.d3{transition-delay:.34s}.d4{transition-delay:.46s}
+/* ANIMATIONS */
+@keyframes fU{from{opacity:0;transform:translateY(28px)}to{opacity:1;transform:translateY(0)}}
+@keyframes fD{from{opacity:0;transform:translateY(-14px)}to{opacity:1;transform:translateY(0)}}
+@keyframes sZ{from{transform:scale(1)}to{transform:scale(1.06)}}
+@keyframes fI{from{opacity:0}to{opacity:1}}
+/* FORM */
+.f-label{font-size:8.5px;letter-spacing:.3em;text-transform:uppercase;color:var(--gold);font-weight:200;display:block;margin-bottom:7px}
+.f-input{width:100%;background:var(--bg2);border:1px solid rgba(201,169,110,.14);color:var(--txt);padding:12px 16px;font-family:'Jost';font-size:12.5px;font-weight:200;outline:none;transition:border-color .3s;appearance:none}
+.f-input:focus{border-color:rgba(201,169,110,.5)}
+textarea.f-input{resize:vertical;min-height:120px}
+select.f-input{cursor:pointer}
+.f-row{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:16px}
+.f-full{grid-column:span 2;margin-bottom:16px}
+/* MOBILE */
+@media(max-width:900px){
+  nav{padding:14px 24px}
+  .nav-links{display:none!important}
+  .hamburger{display:flex!important}
+  section[style*="padding:80px 56px"],section[style*="padding:72px 56px"],section[style*="padding:64px 56px"]{padding:48px 24px!important}
+  div[style*="grid-template-columns"]{display:flex!important;flex-direction:column!important}
+  [style*="padding:0 56px"]{padding:0 24px 48px!important}
+}
+
+
+</style>
+</head>
+<body>
+<div class="cur" id="cur"></div>
+<div class="cur-r" id="curR"></div>
+<nav>
+  <a href="hotel-halm-home.html" class="nav-logo">Hotel Halm<span>Konstanz am Bodensee</span></a>
+  <ul class="nav-links"><li><a href="hotel-halm-zimmer.html">Zimmer</a></li>
+    <li><a href="hotel-halm-gastronomie.html">Gastronomie</a></li>
+    <li><a href="hotel-halm-sauna.html">Wellness</a></li>
+    <li><a href="hotel-halm-tagen.html">Tagen</a></li>
+    <li><a href="hotel-halm-angebote.html">Angebote</a></li>
+    <li><a href="hotel-halm-ueber.html" class="act">Über uns</a></li></ul>
+  <div style="display:flex;align-items:center;gap:14px">
+    <a href="hotel-halm-buchen.html" class="nav-cta">Zimmer buchen</a>
+    <button class="hamburger" onclick="document.getElementById('mm').classList.toggle('open')"><span></span><span></span><span></span></button>
+  </div>
+</nav>
+<div class="mobile-menu" id="mm">
+  <button class="mobile-menu-close" onclick="document.getElementById('mm').classList.remove('open')">✕</button>
+  <a href="hotel-halm-zimmer.html">Zimmer</a>
+  <a href="hotel-halm-gastronomie.html">Gastronomie</a>
+  <a href="hotel-halm-sauna.html">Wellness</a>
+  <a href="hotel-halm-tagen.html">Tagen</a>
+  <a href="hotel-halm-angebote.html">Angebote</a>
+  <a href="hotel-halm-ueber.html">Über uns</a>
+  <a href="hotel-halm-buchen.html" style="color:var(--gold);font-size:24px">Zimmer buchen →</a>
+  <p class="mobile-menu-sub">Hotel Halm · Konstanz · +49 7531 1234</p>
+</div>
+<section style="position:relative;height:58vh;min-height:420px;display:flex;align-items:flex-end;overflow:hidden;margin-top:66px">
+  <div style="position:absolute;inset:0;background:url('https://images.unsplash.com/photo-1466611653911-95081537e5b7?w=1800&q=80') center/cover;animation:sZ 20s ease-in-out infinite alternate;filter:brightness(.35) saturate(.85)"></div>
+  <div style="position:absolute;inset:0;background:linear-gradient(to top,var(--bg) 0%,rgba(10,9,6,.5) 45%,transparent 75%)"></div>
+  <div style="position:relative;z-index:2;padding:0 56px 64px;animation:fU 1.2s ease both;animation-delay:.35s">
+    <p class="sl">Verantwortung & Zukunft</p>
+    <h1 class="st" style="font-size:clamp(48px,8vw,100px);line-height:.92;color:#faf7f2">Nachhaltigkeit<br><em>& Umwelt</em></h1>
+    <p style='font-size:14px;font-weight:200;color:rgba(200,191,176,.75);max-width:460px;line-height:2;margin-top:18px'>Wir wirtschaften so, dass auch künftige Generationen den Bodensee in seiner Schönheit erleben können.</p>
+  </div>
+</section>
+<!-- LEITBILD -->
+<section style="padding:96px 56px;background:var(--bg2)">
+  <div style="display:grid;grid-template-columns:1fr 1fr;gap:80px;align-items:center">
+    <div class="reveal">
+      <p class="sl">Unser Leitbild</p>
+      <h2 class="st" style="margin-bottom:24px">Luxus und<br><em>Verantwortung</em></h2>
+      <p class="bt" style="margin-bottom:20px">Für uns ist Nachhaltigkeit kein Trend, sondern ein Versprechen. Seit 1892 sind wir Teil dieser Region — und wir fühlen uns ihr gegenüber verpflichtet.</p>
+      <p class="bt" style="margin-bottom:32px">Unser Ziel: Bis 2030 klimaneutral zu wirtschaften, ohne dabei auf das hohe Niveau unseres Services zu verzichten.</p>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:0">
+        <div style="padding:20px 0;border-bottom:1px solid rgba(201,169,110,.09)"><p style="font-family:'Cormorant Garamond',serif;font-size:40px;font-weight:300;color:var(--gold);line-height:1;margin-bottom:4px">-42%</p><p style="font-size:9px;letter-spacing:.25em;text-transform:uppercase;color:var(--dim);font-weight:200">CO₂ seit 2018</p></div><div style="padding:20px 0;border-bottom:1px solid rgba(201,169,110,.09)"><p style="font-family:'Cormorant Garamond',serif;font-size:40px;font-weight:300;color:var(--gold);line-height:1;margin-bottom:4px">100%</p><p style="font-size:9px;letter-spacing:.25em;text-transform:uppercase;color:var(--dim);font-weight:200">Ökostrom</p></div><div style="padding:20px 0;border-bottom:1px solid rgba(201,169,110,.09)"><p style="font-family:'Cormorant Garamond',serif;font-size:40px;font-weight:300;color:var(--gold);line-height:1;margin-bottom:4px">85%</p><p style="font-size:9px;letter-spacing:.25em;text-transform:uppercase;color:var(--dim);font-weight:200">Regionale Zutaten</p></div><div style="padding:20px 0;border-bottom:1px solid rgba(201,169,110,.09)"><p style="font-family:'Cormorant Garamond',serif;font-size:40px;font-weight:300;color:var(--gold);line-height:1;margin-bottom:4px">0</p><p style="font-size:9px;letter-spacing:.25em;text-transform:uppercase;color:var(--dim);font-weight:200">Einweg-Plastik</p></div>
+      </div>
+    </div>
+    <div class="reveal d2">
+      <img src="https://images.unsplash.com/photo-1500534314209-a25ddb2bd429?w=900&q=80" alt="Nachhaltigkeit" style="width:100%;aspect-ratio:4/3;object-fit:cover;filter:brightness(.7) saturate(.85);display:block">
+    </div>
+  </div>
+</section>
+
+<!-- MASSNAHMEN -->
+<section style="padding:80px 56px;background:var(--bg)">
+  <div class="reveal" style="text-align:center;margin-bottom:56px">
+    <p class="sl" style="justify-content:center">Unsere Maßnahmen</p>
+    <h2 class="st" style="text-align:center">Was wir konkret<br><em>tun</em></h2>
+  </div>
+  <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:2px">
+    <div class="reveal d0" style="background:var(--bg2);padding:44px 36px;border-top:2px solid var(--gold);transition:border-top-color .3s" onmouseover="this.style.borderTopColor='var(--gold)'" onmouseout="this.style.borderTopColor='rgba(201,169,110,.15)'">
+      <span style="font-size:28px;margin-bottom:18px;display:block">⚡</span>
+      <h3 style="font-family:'Cormorant Garamond',serif;font-size:22px;font-weight:300;color:var(--txt);margin-bottom:10px">100% Ökostrom</h3>
+      <p style="font-size:12.5px;color:var(--dim);font-weight:200;line-height:1.95;margin-bottom:16px">Seit 2020 beziehen wir unseren gesamten Strom aus erneuerbaren Energien — Wasserkraft, Wind und Solar aus der Bodenseeregion.</p>
+      <p style="font-size:9px;letter-spacing:.2em;text-transform:uppercase;color:var(--gold);font-weight:200">Seit 2020 aktiv</p>
+    </div><div class="reveal d1" style="background:var(--bg2);padding:44px 36px;border-top:2px solid rgba(201,169,110,.15);transition:border-top-color .3s" onmouseover="this.style.borderTopColor='var(--gold)'" onmouseout="this.style.borderTopColor='rgba(201,169,110,.15)'">
+      <span style="font-size:28px;margin-bottom:18px;display:block">🌡</span>
+      <h3 style="font-family:'Cormorant Garamond',serif;font-size:22px;font-weight:300;color:var(--txt);margin-bottom:10px">Wärmerückgewinnung</h3>
+      <p style="font-size:12.5px;color:var(--dim);font-weight:200;line-height:1.95;margin-bottom:16px">Unser neues Heizsystem nutzt Abwärme aus der Kälteanlage des Restaurants zur Beheizung der Zimmer — spart 35% Heizenergie.</p>
+      <p style="font-size:9px;letter-spacing:.2em;text-transform:uppercase;color:var(--gold);font-weight:200">35% Ersparnis</p>
+    </div><div class="reveal d2" style="background:var(--bg2);padding:44px 36px;border-top:2px solid rgba(201,169,110,.15);transition:border-top-color .3s" onmouseover="this.style.borderTopColor='var(--gold)'" onmouseout="this.style.borderTopColor='rgba(201,169,110,.15)'">
+      <span style="font-size:28px;margin-bottom:18px;display:block">🌿</span>
+      <h3 style="font-family:'Cormorant Garamond',serif;font-size:22px;font-weight:300;color:var(--txt);margin-bottom:10px">Regionale Küche</h3>
+      <p style="font-size:12.5px;color:var(--dim);font-weight:200;line-height:1.95;margin-bottom:16px">85% der Zutaten stammen von Lieferanten im Umkreis von 80 km. Kein Flugtransport, saisonale Karte, Direkteinkauf beim Bauern.</p>
+      <p style="font-size:9px;letter-spacing:.2em;text-transform:uppercase;color:var(--gold);font-weight:200">80 km Radius</p>
+    </div><div class="reveal d0" style="background:var(--bg2);padding:44px 36px;border-top:2px solid rgba(201,169,110,.15);transition:border-top-color .3s" onmouseover="this.style.borderTopColor='var(--gold)'" onmouseout="this.style.borderTopColor='rgba(201,169,110,.15)'">
+      <span style="font-size:28px;margin-bottom:18px;display:block">♻</span>
+      <h3 style="font-family:'Cormorant Garamond',serif;font-size:22px;font-weight:300;color:var(--txt);margin-bottom:10px">Kein Einwegplastik</h3>
+      <p style="font-size:12.5px;color:var(--dim);font-weight:200;line-height:1.95;margin-bottom:16px">Shampoo-Flaschen wurden durch Spender ersetzt. Strohhalme, Plastikbecher und Einwegverpackungen sind vollständig verbannt.</p>
+      <p style="font-size:9px;letter-spacing:.2em;text-transform:uppercase;color:var(--gold);font-weight:200">Seit 2021</p>
+    </div><div class="reveal d1" style="background:var(--bg2);padding:44px 36px;border-top:2px solid rgba(201,169,110,.15);transition:border-top-color .3s" onmouseover="this.style.borderTopColor='var(--gold)'" onmouseout="this.style.borderTopColor='rgba(201,169,110,.15)'">
+      <span style="font-size:28px;margin-bottom:18px;display:block">💧</span>
+      <h3 style="font-family:'Cormorant Garamond',serif;font-size:22px;font-weight:300;color:var(--txt);margin-bottom:10px">Wassersparen</h3>
+      <p style="font-size:12.5px;color:var(--dim);font-weight:200;line-height:1.95;margin-bottom:16px">Bewegungsmelder-Armaturen, wassersparende Duschen und Grauwasser-Nutzung für die Gartenbewässerung sparen 40% Wasser.</p>
+      <p style="font-size:9px;letter-spacing:.2em;text-transform:uppercase;color:var(--gold);font-weight:200">40% weniger</p>
+    </div><div class="reveal d2" style="background:var(--bg2);padding:44px 36px;border-top:2px solid rgba(201,169,110,.15);transition:border-top-color .3s" onmouseover="this.style.borderTopColor='var(--gold)'" onmouseout="this.style.borderTopColor='rgba(201,169,110,.15)'">
+      <span style="font-size:28px;margin-bottom:18px;display:block">🌱</span>
+      <h3 style="font-family:'Cormorant Garamond',serif;font-size:22px;font-weight:300;color:var(--txt);margin-bottom:10px">Unser Garten</h3>
+      <p style="font-size:12.5px;color:var(--dim);font-weight:200;line-height:1.95;margin-bottom:16px">Kräutergarten auf dem Dach, Bienenstöcke auf der Terrasse, Wildblumenwiese — Biodiversität direkt vor unserer Tür.</p>
+      <p style="font-size:9px;letter-spacing:.2em;text-transform:uppercase;color:var(--gold);font-weight:200">Seit 2022</p>
+    </div><div class="reveal d0" style="background:var(--bg2);padding:44px 36px;border-top:2px solid rgba(201,169,110,.15);transition:border-top-color .3s" onmouseover="this.style.borderTopColor='var(--gold)'" onmouseout="this.style.borderTopColor='rgba(201,169,110,.15)'">
+      <span style="font-size:28px;margin-bottom:18px;display:block">🚲</span>
+      <h3 style="font-family:'Cormorant Garamond',serif;font-size:22px;font-weight:300;color:var(--txt);margin-bottom:10px">Mobilitätsalternative</h3>
+      <p style="font-size:12.5px;color:var(--dim);font-weight:200;line-height:1.95;margin-bottom:16px">Kostenloser Leihfahrradverleih, E-Bike-Ladestation, Kooperation mit lokalem Carsharing und ÖPNV-Vergünstigung.</p>
+      <p style="font-size:9px;letter-spacing:.2em;text-transform:uppercase;color:var(--gold);font-weight:200">Klimafreundlich</p>
+    </div><div class="reveal d1" style="background:var(--bg2);padding:44px 36px;border-top:2px solid rgba(201,169,110,.15);transition:border-top-color .3s" onmouseover="this.style.borderTopColor='var(--gold)'" onmouseout="this.style.borderTopColor='rgba(201,169,110,.15)'">
+      <span style="font-size:28px;margin-bottom:18px;display:block">📊</span>
+      <h3 style="font-family:'Cormorant Garamond',serif;font-size:22px;font-weight:300;color:var(--txt);margin-bottom:10px">CO₂-Bilanz</h3>
+      <p style="font-size:12.5px;color:var(--dim);font-weight:200;line-height:1.95;margin-bottom:16px">Jährliche unabhängige CO₂-Bilanzierung. Nicht vermeidbare Emissionen kompensieren wir über zertifizierte Waldprojekte am Bodensee.</p>
+      <p style="font-size:9px;letter-spacing:.2em;text-transform:uppercase;color:var(--gold);font-weight:200">DEKRA zertifiziert</p>
+    </div><div class="reveal d2" style="background:var(--bg2);padding:44px 36px;border-top:2px solid rgba(201,169,110,.15);transition:border-top-color .3s" onmouseover="this.style.borderTopColor='var(--gold)'" onmouseout="this.style.borderTopColor='rgba(201,169,110,.15)'">
+      <span style="font-size:28px;margin-bottom:18px;display:block">🤝</span>
+      <h3 style="font-family:'Cormorant Garamond',serif;font-size:22px;font-weight:300;color:var(--txt);margin-bottom:10px">Lokale Partner</h3>
+      <p style="font-size:12.5px;color:var(--dim);font-weight:200;line-height:1.95;margin-bottom:16px">20 feste regionale Lieferanten, Zusammenarbeit mit lokalen Handwerkern, Unterstützung von Naturschutzprojekten im Bodenseekreis.</p>
+      <p style="font-size:9px;letter-spacing:.2em;text-transform:uppercase;color:var(--gold);font-weight:200">20 Partner</p>
+    </div>
+  </div>
+</section>
+
+<!-- PARTNER & ZERTIFIKATE -->
+<section style="padding:72px 56px;background:var(--bg2)">
+  <div style="display:grid;grid-template-columns:1fr 1fr;gap:64px;align-items:center">
+    <div class="reveal">
+      <p class="sl">Zertifizierungen</p>
+      <h2 class="st" style="margin-bottom:28px">Offiziell<br><em>ausgezeichnet</em></h2>
+      <div style="display:flex;flex-direction:column;gap:16px">
+        <div style="display:flex;align-items:center;gap:20px;padding:18px 0;border-bottom:1px solid rgba(201,169,110,.09)"><div style="width:52px;height:52px;border:1px solid rgba(201,169,110,.2);display:flex;align-items:center;justify-content:center;font-size:20px;flex-shrink:0">🌿</div><div><p style="font-family:'Cormorant Garamond',serif;font-size:18px;font-weight:300;color:var(--txt);margin-bottom:3px">Green Hotel Deutschland</p><p style="font-size:11px;color:var(--dim);font-weight:200">Auszeichnung für umweltfreundliches Hotelmanagement</p></div></div><div style="display:flex;align-items:center;gap:20px;padding:18px 0;border-bottom:1px solid rgba(201,169,110,.09)"><div style="width:52px;height:52px;border:1px solid rgba(201,169,110,.2);display:flex;align-items:center;justify-content:center;font-size:20px;flex-shrink:0">🏅</div><div><p style="font-family:'Cormorant Garamond',serif;font-size:18px;font-weight:300;color:var(--txt);margin-bottom:3px">DEHOGA Umweltschutzpreis</p><p style="font-size:11px;color:var(--dim);font-weight:200">Regionaler Preis für vorbildliche Nachhaltigkeitsstrategie 2023</p></div></div><div style="display:flex;align-items:center;gap:20px;padding:18px 0;border-bottom:1px solid rgba(201,169,110,.09)"><div style="width:52px;height:52px;border:1px solid rgba(201,169,110,.2);display:flex;align-items:center;justify-content:center;font-size:20px;flex-shrink:0">♻</div><div><p style="font-family:'Cormorant Garamond',serif;font-size:18px;font-weight:300;color:var(--txt);margin-bottom:3px">EU Ecolabel</p><p style="font-size:11px;color:var(--dim);font-weight:200">Europäisches Umweltzeichen für touristische Betriebe</p></div></div><div style="display:flex;align-items:center;gap:20px;padding:18px 0;border-bottom:1px solid rgba(201,169,110,.09)"><div style="width:52px;height:52px;border:1px solid rgba(201,169,110,.2);display:flex;align-items:center;justify-content:center;font-size:20px;flex-shrink:0">🌊</div><div><p style="font-family:'Cormorant Garamond',serif;font-size:18px;font-weight:300;color:var(--txt);margin-bottom:3px">Bodensee-Naturschutzpartner</p><p style="font-size:11px;color:var(--dim);font-weight:200">Fördermitglied des Vereins Naturschutz Bodensee e.V.</p></div></div>
+      </div>
+    </div>
+    <div class="reveal d2">
+      <div style="background:var(--bg);border:1px solid var(--card-border);padding:44px 40px">
+        <p class="sl">Unsere Ziele 2030</p>
+        <div style="display:flex;flex-direction:column;gap:22px;margin-top:8px">
+          <div><div style="display:flex;justify-content:space-between;margin-bottom:8px"><span style="font-size:12px;color:var(--txt);font-weight:200">CO₂-Neutralität</span><span style="font-size:12px;color:var(--gold);font-family:'Cormorant Garamond',serif;font-size:16px;font-weight:300">Ziel 2030</span></div><div style="height:3px;background:rgba(201,169,110,.1);border-radius:0"><div style="height:3px;background:var(--gold);width:45%;transition:width 1.5s ease"></div></div></div><div><div style="display:flex;justify-content:space-between;margin-bottom:8px"><span style="font-size:12px;color:var(--txt);font-weight:200">100% Ökostrom</span><span style="font-size:12px;color:var(--gold);font-family:'Cormorant Garamond',serif;font-size:16px;font-weight:300">Erreicht ✓</span></div><div style="height:3px;background:rgba(201,169,110,.1);border-radius:0"><div style="height:3px;background:var(--gold);width:100%;transition:width 1.5s ease"></div></div></div><div><div style="display:flex;justify-content:space-between;margin-bottom:8px"><span style="font-size:12px;color:var(--txt);font-weight:200">Zero Waste Küche</span><span style="font-size:12px;color:var(--gold);font-family:'Cormorant Garamond',serif;font-size:16px;font-weight:300">Ziel 2026</span></div><div style="height:3px;background:rgba(201,169,110,.1);border-radius:0"><div style="height:3px;background:var(--gold);width:68%;transition:width 1.5s ease"></div></div></div><div><div style="display:flex;justify-content:space-between;margin-bottom:8px"><span style="font-size:12px;color:var(--txt);font-weight:200">Regionale Lieferanten (>90%)</span><span style="font-size:12px;color:var(--gold);font-family:'Cormorant Garamond',serif;font-size:16px;font-weight:300">Aktuell 85%</span></div><div style="height:3px;background:rgba(201,169,110,.1);border-radius:0"><div style="height:3px;background:var(--gold);width:85%;transition:width 1.5s ease"></div></div></div><div><div style="display:flex;justify-content:space-between;margin-bottom:8px"><span style="font-size:12px;color:var(--txt);font-weight:200">E-Mobilität Fuhrpark</span><span style="font-size:12px;color:var(--gold);font-family:'Cormorant Garamond',serif;font-size:16px;font-weight:300">Aktuell 60%</span></div><div style="height:3px;background:rgba(201,169,110,.1);border-radius:0"><div style="height:3px;background:var(--gold);width:60%;transition:width 1.5s ease"></div></div></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA MITMACHEN -->
+<section style="padding:72px 56px;background:var(--bg);text-align:center">
+  <div class="reveal">
+    <p class="sl" style="justify-content:center">Gemeinsam besser</p>
+    <h2 class="st" style="text-align:center;margin-bottom:20px">Auch Sie können<br><em>einen Beitrag leisten</em></h2>
+    <p class="bt" style="max-width:560px;margin:0 auto 40px">Kleine Gesten machen einen großen Unterschied. Wie Sie als Gast unsere Nachhaltigkeitsstrategie unterstützen können.</p>
+    <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:2px;max-width:900px;margin:0 auto 48px">
+      <div style="background:var(--bg2);padding:28px 20px;text-align:center"><span style="font-size:24px;display:block;margin-bottom:10px">🚶</span><p style="font-size:12px;color:var(--dim);font-weight:200;line-height:1.75">Zu Fuß zum Bahnhof — nur 2 Minuten</p></div><div style="background:var(--bg2);padding:28px 20px;text-align:center"><span style="font-size:24px;display:block;margin-bottom:10px">🚿</span><p style="font-size:12px;color:var(--dim);font-weight:200;line-height:1.75">Kurze Duschen, Handtücher wiederverwenden</p></div><div style="background:var(--bg2);padding:28px 20px;text-align:center"><span style="font-size:24px;display:block;margin-bottom:10px">🌱</span><p style="font-size:12px;color:var(--dim);font-weight:200;line-height:1.75">Regionale Gerichte auf der Karte wählen</p></div><div style="background:var(--bg2);padding:28px 20px;text-align:center"><span style="font-size:24px;display:block;margin-bottom:10px">📧</span><p style="font-size:12px;color:var(--dim);font-weight:200;line-height:1.75">Digitale statt gedruckte Rechnung</p></div>
+    </div>
+    <a href="hotel-halm-kontakt.html" class="btn-o">Feedback & Ideen einreichen</a>
+  </div>
+</section>
+<footer style="background:var(--footer-bg);border-top:1px solid rgba(201,169,110,.09);padding:64px 56px 32px" id="page-footer">
+  <div style="display:grid;grid-template-columns:1.5fr 1fr 1fr 1fr 1fr;gap:40px;margin-bottom:48px;padding-bottom:48px;border-bottom:1px solid rgba(201,169,110,.07)">
+    <div>
+      <p style="font-family:'Cormorant Garamond',serif;font-size:21px;font-weight:300;letter-spacing:.22em;text-transform:uppercase;color:#faf7f2;margin-bottom:5px">Hotel Halm</p>
+      <p style="font-size:8px;letter-spacing:.42em;text-transform:uppercase;color:var(--gold);font-weight:200;margin-bottom:16px">Konstanz am Bodensee</p>
+      <p style="font-size:12px;font-weight:200;color:rgba(200,191,176,.42);line-height:2.1">Bahnhofplatz 6<br>78462 Konstanz<br><a href="tel:+4975311234" style="color:rgba(200,191,176,.42);text-decoration:none">+49 7531 1234</a><br><a href="mailto:info@hotel-halm.de" style="color:rgba(200,191,176,.42);text-decoration:none">info@hotel-halm.de</a></p>
+    </div>
+    <div>
+      <p style="font-size:9px;letter-spacing:.38em;text-transform:uppercase;color:var(--gold);font-weight:200;margin-bottom:16px">Zimmer</p>
+      <ul style="list-style:none;display:flex;flex-direction:column;gap:10px">
+        <li><a href="hotel-halm-zimmer.html" style="font-size:12px;color:rgba(200,191,176,.42);text-decoration:none;font-weight:200;transition:color .3s" onmouseover="this.style.color='var(--gold)'" onmouseout="this.style.color='rgba(200,191,176,.42)'">Zimmer & Suiten</a></li>
+        <li><a href="hotel-halm-preise.html" style="font-size:12px;color:rgba(200,191,176,.42);text-decoration:none;font-weight:200;transition:color .3s" onmouseover="this.style.color='var(--gold)'" onmouseout="this.style.color='rgba(200,191,176,.42)'">Preise</a></li>
+        <li><a href="hotel-halm-buchen.html" style="font-size:12px;color:rgba(200,191,176,.42);text-decoration:none;font-weight:200;transition:color .3s" onmouseover="this.style.color='var(--gold)'" onmouseout="this.style.color='rgba(200,191,176,.42)'">Jetzt buchen</a></li>
+        <li><a href="hotel-halm-angebote.html" style="font-size:12px;color:rgba(200,191,176,.42);text-decoration:none;font-weight:200;transition:color .3s" onmouseover="this.style.color='var(--gold)'" onmouseout="this.style.color='rgba(200,191,176,.42)'">Angebote</a></li>
+        <li><a href="hotel-halm-saisonangebote.html" style="font-size:12px;color:rgba(200,191,176,.42);text-decoration:none;font-weight:200;transition:color .3s" onmouseover="this.style.color='var(--gold)'" onmouseout="this.style.color='rgba(200,191,176,.42)'">Saisonangebote</a></li>
+      </ul>
+    </div>
+    <div>
+      <p style="font-size:9px;letter-spacing:.38em;text-transform:uppercase;color:var(--gold);font-weight:200;margin-bottom:16px">Erlebnis</p>
+      <ul style="list-style:none;display:flex;flex-direction:column;gap:10px">
+        <li><a href="hotel-halm-gastronomie.html" style="font-size:12px;color:rgba(200,191,176,.42);text-decoration:none;font-weight:200;transition:color .3s" onmouseover="this.style.color='var(--gold)'" onmouseout="this.style.color='rgba(200,191,176,.42)'">Restaurant</a></li>
+        <li><a href="hotel-halm-fruehstueck.html" style="font-size:12px;color:rgba(200,191,176,.42);text-decoration:none;font-weight:200;transition:color .3s" onmouseover="this.style.color='var(--gold)'" onmouseout="this.style.color='rgba(200,191,176,.42)'">Frühstück</a></li>
+        <li><a href="hotel-halm-bar.html" style="font-size:12px;color:rgba(200,191,176,.42);text-decoration:none;font-weight:200;transition:color .3s" onmouseover="this.style.color='var(--gold)'" onmouseout="this.style.color='rgba(200,191,176,.42)'">Bar & Weinbar</a></li>
+        <li><a href="hotel-halm-sauna.html" style="font-size:12px;color:rgba(200,191,176,.42);text-decoration:none;font-weight:200;transition:color .3s" onmouseover="this.style.color='var(--gold)'" onmouseout="this.style.color='rgba(200,191,176,.42)'">Wellness & Sauna</a></li>
+        <li><a href="hotel-halm-spa-wellness.html" style="font-size:12px;color:rgba(200,191,176,.42);text-decoration:none;font-weight:200;transition:color .3s" onmouseover="this.style.color='var(--gold)'" onmouseout="this.style.color='rgba(200,191,176,.42)'">Spa</a></li>
+      </ul>
+    </div>
+    <div>
+      <p style="font-size:9px;letter-spacing:.38em;text-transform:uppercase;color:var(--gold);font-weight:200;margin-bottom:16px">Hotel</p>
+      <ul style="list-style:none;display:flex;flex-direction:column;gap:10px">
+        <li><a href="hotel-halm-tagen.html" style="font-size:12px;color:rgba(200,191,176,.42);text-decoration:none;font-weight:200;transition:color .3s" onmouseover="this.style.color='var(--gold)'" onmouseout="this.style.color='rgba(200,191,176,.42)'">Tagen & Feiern</a></li>
+        <li><a href="hotel-halm-hochzeit.html" style="font-size:12px;color:rgba(200,191,176,.42);text-decoration:none;font-weight:200;transition:color .3s" onmouseover="this.style.color='var(--gold)'" onmouseout="this.style.color='rgba(200,191,176,.42)'">Hochzeit</a></li>
+        <li><a href="hotel-halm-gruppenreisen.html" style="font-size:12px;color:rgba(200,191,176,.42);text-decoration:none;font-weight:200;transition:color .3s" onmouseover="this.style.color='var(--gold)'" onmouseout="this.style.color='rgba(200,191,176,.42)'">Gruppen</a></li>
+        <li><a href="hotel-halm-ueber.html" style="font-size:12px;color:rgba(200,191,176,.42);text-decoration:none;font-weight:200;transition:color .3s" onmouseover="this.style.color='var(--gold)'" onmouseout="this.style.color='rgba(200,191,176,.42)'">Über uns</a></li>
+        <li><a href="hotel-halm-karriere.html" style="font-size:12px;color:rgba(200,191,176,.42);text-decoration:none;font-weight:200;transition:color .3s" onmouseover="this.style.color='var(--gold)'" onmouseout="this.style.color='rgba(200,191,176,.42)'">Karriere</a></li>
+      </ul>
+    </div>
+    <div>
+      <p style="font-size:9px;letter-spacing:.38em;text-transform:uppercase;color:var(--gold);font-weight:200;margin-bottom:16px">Service</p>
+      <ul style="list-style:none;display:flex;flex-direction:column;gap:10px">
+        <li><a href="hotel-halm-kontakt.html" style="font-size:12px;color:rgba(200,191,176,.42);text-decoration:none;font-weight:200;transition:color .3s" onmouseover="this.style.color='var(--gold)'" onmouseout="this.style.color='rgba(200,191,176,.42)'">Kontakt</a></li>
+        <li><a href="hotel-halm-concierge.html" style="font-size:12px;color:rgba(200,191,176,.42);text-decoration:none;font-weight:200;transition:color .3s" onmouseover="this.style.color='var(--gold)'" onmouseout="this.style.color='rgba(200,191,176,.42)'">Concierge</a></li>
+        <li><a href="hotel-halm-faq.html" style="font-size:12px;color:rgba(200,191,176,.42);text-decoration:none;font-weight:200;transition:color .3s" onmouseover="this.style.color='var(--gold)'" onmouseout="this.style.color='rgba(200,191,176,.42)'">FAQ</a></li>
+        <li><a href="hotel-halm-newsletter.html" style="font-size:12px;color:rgba(200,191,176,.42);text-decoration:none;font-weight:200;transition:color .3s" onmouseover="this.style.color='var(--gold)'" onmouseout="this.style.color='rgba(200,191,176,.42)'">Newsletter</a></li>
+        <li><a href="hotel-halm-gutscheine.html" style="font-size:12px;color:rgba(200,191,176,.42);text-decoration:none;font-weight:200;transition:color .3s" onmouseover="this.style.color='var(--gold)'" onmouseout="this.style.color='rgba(200,191,176,.42)'">Gutscheine</a></li>
+      </ul>
+    </div>
+  </div>
+  <div style="display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:16px">
+    <p style="font-size:10px;color:rgba(200,191,176,.2);letter-spacing:.07em">© 2024 Hotel Halm Konstanz GmbH. Alle Rechte vorbehalten.</p>
+    <div style="display:flex;gap:20px">
+      <li><a href="hotel-halm-agb.html" style="font-size:12px;color:rgba(200,191,176,.42);text-decoration:none;font-weight:200;transition:color .3s" onmouseover="this.style.color='var(--gold)'" onmouseout="this.style.color='rgba(200,191,176,.42)'">AGB</a></li>
+      <li><a href="hotel-halm-impressum.html" style="font-size:12px;color:rgba(200,191,176,.42);text-decoration:none;font-weight:200;transition:color .3s" onmouseover="this.style.color='var(--gold)'" onmouseout="this.style.color='rgba(200,191,176,.42)'">Impressum</a></li>
+      <li><a href="hotel-halm-datenschutz.html" style="font-size:12px;color:rgba(200,191,176,.42);text-decoration:none;font-weight:200;transition:color .3s" onmouseover="this.style.color='var(--gold)'" onmouseout="this.style.color='rgba(200,191,176,.42)'">Datenschutz</a></li>
+      <li><a href="hotel-halm-barrierefreiheit.html" style="font-size:12px;color:rgba(200,191,176,.42);text-decoration:none;font-weight:200;transition:color .3s" onmouseover="this.style.color='var(--gold)'" onmouseout="this.style.color='rgba(200,191,176,.42)'">Barrierefreiheit</a></li>
+    </div>
+    <a href="#" onclick="window.scrollTo({top:0,behavior:'smooth'});return false;" style="font-size:10px;letter-spacing:.2em;text-transform:uppercase;color:rgba(200,191,176,.2);text-decoration:none">↑ Nach oben</a>
+  </div>
+</footer>
+<style>
+.mode-toggle{position:fixed;bottom:28px;right:28px;z-index:9990;display:flex;align-items:center;gap:10px;background:var(--bg2);border:1px solid rgba(201,169,110,.25);padding:10px 18px;cursor:pointer;text-decoration:none;font-family:'Jost';font-size:9px;letter-spacing:.25em;text-transform:uppercase;font-weight:300;color:var(--gold);box-shadow:0 8px 32px rgba(0,0,0,.3);transition:all .3s}
+.mode-toggle:hover{border-color:var(--gold);transform:translateY(-2px)}
+.mode-toggle-dot{width:10px;height:10px;border-radius:50%;background:var(--gold);flex-shrink:0}
+</style>
+<a href="hotel-halm-nachhaltigkeit-light.html" class="mode-toggle"><span class="mode-toggle-dot"></span>☀ Hell</a>
+<script>
+const cur=document.getElementById('cur'),cr=document.getElementById('curR');
+let rx=0,ry=0,mx=0,my=0;
+document.addEventListener('mousemove',e=>{mx=e.clientX;my=e.clientY;cur.style.left=mx+'px';cur.style.top=my+'px';});
+document.querySelectorAll('a,button,label,input,select,textarea').forEach(el=>{
+  el.addEventListener('mouseenter',()=>{cr.style.transform='translate(-50%,-50%) scale(1.7)';cr.style.borderColor='rgba(201,169,110,.8)';});
+  el.addEventListener('mouseleave',()=>{cr.style.transform='translate(-50%,-50%) scale(1)';cr.style.borderColor='rgba(201,169,110,.5)';});
+});
+(function loop(){rx+=(mx-rx)*.12;ry+=(my-ry)*.12;cr.style.left=rx+'px';cr.style.top=ry+'px';requestAnimationFrame(loop);})();
+const obs=new IntersectionObserver(e=>e.forEach(x=>{if(x.isIntersecting)x.target.classList.add('vis');}),{threshold:.08});
+document.querySelectorAll('.reveal').forEach(el=>obs.observe(el));
+</script>
+</body>
+</html>

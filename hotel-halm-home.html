@@ -1,0 +1,1411 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Hotel Halm — Konstanz</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;1,300;1,400;1,600&family=Jost:wght@200;300;400&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --black: #0a0906;
+    --dark: #111009;
+    --dark2: #1a1814;
+    --gold: #c9a96e;
+    --gold-light: #e2c99a;
+    --cream: #f4ede0;
+    --cream-dim: #c8bfb0;
+    --white: #faf7f2;
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--black);
+    color: var(--cream);
+    font-family: 'Jost', sans-serif;
+    font-weight: 300;
+    overflow-x: hidden;
+    cursor: none;
+  }
+
+  /* CUSTOM CURSOR */
+  .cursor {
+    position: fixed;
+    width: 8px; height: 8px;
+    background: var(--gold);
+    border-radius: 50%;
+    pointer-events: none;
+    z-index: 9999;
+    transform: translate(-50%, -50%);
+    transition: transform 0.1s ease;
+  }
+  .cursor-ring {
+    position: fixed;
+    width: 32px; height: 32px;
+    border: 1px solid rgba(201,169,110,0.5);
+    border-radius: 50%;
+    pointer-events: none;
+    z-index: 9998;
+    transform: translate(-50%, -50%);
+    transition: all 0.15s ease;
+  }
+
+  /* GRAIN OVERLAY */
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='1'/%3E%3C/svg%3E");
+    opacity: 0.032;
+    pointer-events: none;
+    z-index: 9997;
+  }
+
+  /* NAV */
+  nav {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    z-index: 1000;
+    padding: 28px 56px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background: linear-gradient(to bottom, rgba(10,9,6,0.95) 0%, transparent 100%);
+    animation: fadeDown 1.2s ease both;
+    animation-delay: 0.3s;
+  }
+
+  .nav-logo {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 22px;
+    font-weight: 300;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    color: var(--cream);
+    text-decoration: none;
+    line-height: 1;
+  }
+  .nav-logo span {
+    display: block;
+    font-size: 9px;
+    letter-spacing: 0.45em;
+    color: var(--gold);
+    margin-top: 4px;
+    font-family: 'Jost', sans-serif;
+    font-weight: 200;
+  }
+
+  .nav-links {
+    display: flex;
+    gap: 36px;
+    list-style: none;
+  }
+  .nav-links a {
+    font-family: 'Jost', sans-serif;
+    font-size: 10px;
+    font-weight: 300;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--cream-dim);
+    text-decoration: none;
+    position: relative;
+    transition: color 0.3s ease;
+  }
+  .nav-links a::after {
+    content: '';
+    position: absolute;
+    bottom: -3px; left: 0;
+    width: 0; height: 1px;
+    background: var(--gold);
+    transition: width 0.4s ease;
+  }
+  .nav-links a:hover { color: var(--gold-light); }
+  .nav-links a:hover::after { width: 100%; }
+
+  .nav-cta {
+    font-family: 'Jost', sans-serif;
+    font-size: 10px;
+    font-weight: 300;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--gold);
+    text-decoration: none;
+    border: 1px solid var(--gold);
+    padding: 10px 22px;
+    transition: all 0.4s ease;
+    position: relative;
+    overflow: hidden;
+  }
+  .nav-cta::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: var(--gold);
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform 0.4s ease;
+    z-index: -1;
+  }
+  .nav-cta:hover { color: var(--black); }
+  .nav-cta:hover::before { transform: scaleX(1); }
+
+  /* HERO */
+  .hero {
+    position: relative;
+    height: 100vh;
+    min-height: 700px;
+    display: flex;
+    align-items: flex-end;
+    overflow: hidden;
+  }
+
+  .hero-bg {
+    position: absolute;
+    inset: 0;
+    background: 
+      linear-gradient(160deg, rgba(10,9,6,0.2) 0%, rgba(10,9,6,0.7) 100%),
+      url('https://image2url.com/r2/default/images/1772417045866-4542e0c0-496c-4516-babf-598aaf8f4762.jpg') center/cover no-repeat;
+    animation: slowZoom 18s ease-in-out infinite alternate;
+  }
+
+  @keyframes slowZoom {
+    from { transform: scale(1); }
+    to { transform: scale(1.06); }
+  }
+
+  .hero-gradient {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(
+      to top,
+      var(--black) 0%,
+      rgba(10,9,6,0.6) 35%,
+      transparent 65%
+    );
+  }
+
+  .hero-content {
+    position: relative;
+    z-index: 2;
+    padding: 0 56px 80px;
+    animation: fadeUp 1.4s ease both;
+    animation-delay: 0.6s;
+  }
+
+  .hero-label {
+    font-size: 10px;
+    letter-spacing: 0.4em;
+    text-transform: uppercase;
+    color: var(--gold);
+    font-weight: 200;
+    margin-bottom: 20px;
+    display: flex;
+    align-items: center;
+    gap: 16px;
+  }
+  .hero-label::before {
+    content: '';
+    width: 40px; height: 1px;
+    background: var(--gold);
+  }
+
+  .hero-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(64px, 9vw, 130px);
+    font-weight: 300;
+    line-height: 0.92;
+    color: var(--white);
+    margin-bottom: 32px;
+  }
+  .hero-title em {
+    font-style: italic;
+    color: var(--cream-dim);
+  }
+
+  .hero-sub {
+    font-size: 13px;
+    font-weight: 200;
+    letter-spacing: 0.12em;
+    color: var(--cream-dim);
+    max-width: 380px;
+    line-height: 1.9;
+    margin-bottom: 48px;
+  }
+
+  .hero-actions {
+    display: flex;
+    align-items: center;
+    gap: 40px;
+  }
+
+  .btn-primary {
+    font-size: 10px;
+    letter-spacing: 0.28em;
+    text-transform: uppercase;
+    font-weight: 300;
+    color: var(--black);
+    background: var(--gold);
+    padding: 16px 36px;
+    text-decoration: none;
+    transition: all 0.4s ease;
+    display: inline-block;
+  }
+  .btn-primary:hover {
+    background: var(--gold-light);
+    transform: translateY(-2px);
+  }
+
+  .btn-ghost {
+    font-size: 10px;
+    letter-spacing: 0.28em;
+    text-transform: uppercase;
+    font-weight: 300;
+    color: var(--cream-dim);
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    transition: color 0.3s ease;
+  }
+  .btn-ghost::after {
+    content: '→';
+    font-size: 14px;
+    transition: transform 0.3s ease;
+  }
+  .btn-ghost:hover { color: var(--gold); }
+  .btn-ghost:hover::after { transform: translateX(5px); }
+
+  .hero-scroll {
+    position: absolute;
+    right: 56px;
+    bottom: 80px;
+    z-index: 2;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 12px;
+    animation: fadeIn 2s ease both;
+    animation-delay: 1.5s;
+  }
+  .hero-scroll span {
+    font-size: 9px;
+    letter-spacing: 0.35em;
+    text-transform: uppercase;
+    color: var(--gold);
+    writing-mode: vertical-rl;
+  }
+  .hero-scroll-line {
+    width: 1px;
+    height: 60px;
+    background: linear-gradient(to bottom, var(--gold), transparent);
+    animation: scrollPulse 2s ease-in-out infinite;
+  }
+  @keyframes scrollPulse {
+    0%, 100% { opacity: 0.4; transform: scaleY(1); }
+    50% { opacity: 1; transform: scaleY(1.1); }
+  }
+
+  /* SECTION GENERAL */
+  section { position: relative; }
+
+  .section-number {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 120px;
+    font-weight: 300;
+    color: rgba(201,169,110,0.07);
+    position: absolute;
+    top: -20px;
+    line-height: 1;
+    pointer-events: none;
+    user-select: none;
+  }
+
+  .section-label {
+    font-size: 9px;
+    letter-spacing: 0.45em;
+    text-transform: uppercase;
+    color: var(--gold);
+    font-weight: 200;
+    margin-bottom: 16px;
+    display: flex;
+    align-items: center;
+    gap: 14px;
+  }
+  .section-label::before {
+    content: '';
+    width: 30px; height: 1px;
+    background: var(--gold);
+    flex-shrink: 0;
+  }
+
+  .section-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(36px, 5vw, 64px);
+    font-weight: 300;
+    line-height: 1.1;
+    color: var(--white);
+  }
+  .section-title em { font-style: italic; color: var(--cream-dim); }
+
+  /* INTRO STRIP */
+  .intro {
+    padding: 100px 56px;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 80px;
+    align-items: center;
+    background: var(--dark);
+  }
+
+  .intro-text .section-label { margin-bottom: 24px; }
+
+  .intro-body {
+    font-size: 15px;
+    font-weight: 200;
+    line-height: 2;
+    color: var(--cream-dim);
+    margin-top: 28px;
+    max-width: 440px;
+  }
+
+  .intro-quote {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(24px, 3vw, 38px);
+    font-style: italic;
+    font-weight: 300;
+    color: var(--cream);
+    border-left: 1px solid var(--gold);
+    padding-left: 36px;
+    line-height: 1.5;
+  }
+  .intro-quote span {
+    display: block;
+    font-family: 'Jost', sans-serif;
+    font-size: 10px;
+    font-style: normal;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-top: 20px;
+    font-weight: 200;
+  }
+
+  /* ROOMS */
+  .rooms {
+    padding: 120px 56px;
+    background: var(--black);
+  }
+
+  .rooms-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    margin-bottom: 72px;
+  }
+
+  .rooms-grid {
+    display: grid;
+    grid-template-columns: 1.4fr 1fr 1fr;
+    gap: 2px;
+  }
+
+  .room-card {
+    position: relative;
+    overflow: hidden;
+    cursor: none;
+  }
+  .room-card:first-child { grid-row: span 1; }
+
+  .room-img {
+    width: 100%;
+    aspect-ratio: 3/4;
+    object-fit: cover;
+    display: block;
+    transition: transform 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    filter: brightness(0.75);
+  }
+  .room-card:first-child .room-img { aspect-ratio: 4/5; }
+
+  .room-card:hover .room-img {
+    transform: scale(1.05);
+    filter: brightness(0.85);
+  }
+
+  .room-overlay {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(to top, rgba(10,9,6,0.9) 0%, transparent 50%);
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    padding: 32px 28px;
+    transition: background 0.4s ease;
+  }
+
+  .room-card:hover .room-overlay {
+    background: linear-gradient(to top, rgba(10,9,6,0.95) 0%, rgba(10,9,6,0.3) 50%);
+  }
+
+  .room-tag {
+    font-size: 9px;
+    letter-spacing: 0.35em;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 8px;
+    font-weight: 200;
+  }
+
+  .room-name {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 26px;
+    font-weight: 300;
+    color: var(--white);
+    margin-bottom: 12px;
+    line-height: 1.2;
+  }
+
+  .room-meta {
+    font-size: 11px;
+    color: var(--cream-dim);
+    letter-spacing: 0.1em;
+    display: flex;
+    gap: 16px;
+    margin-bottom: 16px;
+  }
+
+  .room-link {
+    font-size: 9px;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    color: var(--gold);
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    opacity: 0;
+    transform: translateY(8px);
+    transition: all 0.4s ease;
+  }
+  .room-card:hover .room-link {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  /* FEATURES STRIP */
+  .features {
+    background: var(--gold);
+    padding: 64px 56px;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 40px;
+  }
+
+  .feature {
+    text-align: center;
+    color: var(--black);
+  }
+
+  .feature-icon {
+    font-size: 28px;
+    margin-bottom: 16px;
+    display: block;
+  }
+
+  .feature-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 20px;
+    font-weight: 400;
+    margin-bottom: 8px;
+  }
+
+  .feature-text {
+    font-size: 11px;
+    letter-spacing: 0.08em;
+    opacity: 0.7;
+    font-weight: 300;
+    line-height: 1.7;
+  }
+
+  /* OFFERS */
+  .offers {
+    padding: 120px 56px;
+    background: var(--dark2);
+    position: relative;
+    overflow: hidden;
+  }
+
+  .offers .section-number { right: 40px; }
+
+  .offers-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 24px;
+    margin-top: 72px;
+  }
+
+  .offer-card {
+    border: 1px solid rgba(201,169,110,0.15);
+    padding: 40px 32px;
+    position: relative;
+    overflow: hidden;
+    transition: border-color 0.4s ease;
+  }
+  .offer-card::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 2px;
+    background: var(--gold);
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform 0.5s ease;
+  }
+  .offer-card:hover { border-color: rgba(201,169,110,0.4); }
+  .offer-card:hover::before { transform: scaleX(1); }
+
+  .offer-number {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 48px;
+    font-weight: 300;
+    color: rgba(201,169,110,0.2);
+    line-height: 1;
+    margin-bottom: 20px;
+  }
+
+  .offer-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 24px;
+    font-weight: 400;
+    color: var(--white);
+    margin-bottom: 16px;
+    line-height: 1.2;
+  }
+
+  .offer-text {
+    font-size: 12px;
+    color: var(--cream-dim);
+    line-height: 1.9;
+    margin-bottom: 28px;
+    font-weight: 200;
+  }
+
+  .offer-price {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 28px;
+    font-weight: 300;
+    color: var(--gold);
+    margin-bottom: 24px;
+  }
+  .offer-price small {
+    font-family: 'Jost', sans-serif;
+    font-size: 10px;
+    letter-spacing: 0.1em;
+    color: var(--cream-dim);
+    font-weight: 200;
+    display: block;
+    margin-top: 2px;
+  }
+
+  /* GALLERY STRIP */
+  .gallery-strip {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    height: 500px;
+    gap: 2px;
+  }
+
+  .gallery-strip-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    filter: brightness(0.65) saturate(0.8);
+    transition: all 0.5s ease;
+    display: block;
+  }
+  .gallery-strip-img:hover {
+    filter: brightness(0.9) saturate(1);
+    transform: scale(1.02);
+  }
+
+  /* EXPERIENCE */
+  .experience {
+    padding: 120px 56px;
+    background: var(--black);
+    display: grid;
+    grid-template-columns: 1fr 1.2fr;
+    gap: 80px;
+    align-items: center;
+  }
+
+  .experience-img-wrap {
+    position: relative;
+  }
+
+  .experience-img {
+    width: 100%;
+    aspect-ratio: 3/4;
+    object-fit: cover;
+    display: block;
+    filter: brightness(0.8);
+  }
+
+  .experience-img-badge {
+    position: absolute;
+    bottom: -30px;
+    right: -30px;
+    width: 140px; height: 140px;
+    border: 1px solid var(--gold);
+    background: var(--dark);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 20px;
+  }
+  .experience-img-badge .num {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 44px;
+    font-weight: 300;
+    color: var(--gold);
+    line-height: 1;
+  }
+  .experience-img-badge .label {
+    font-size: 9px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--cream-dim);
+    font-weight: 200;
+    line-height: 1.5;
+    margin-top: 6px;
+  }
+
+  .experience-text {
+    padding-left: 20px;
+  }
+
+  .experience-body {
+    font-size: 14px;
+    font-weight: 200;
+    line-height: 2;
+    color: var(--cream-dim);
+    margin-top: 28px;
+    margin-bottom: 48px;
+  }
+
+  .experience-list {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    margin-bottom: 48px;
+  }
+  .experience-list li {
+    font-size: 11px;
+    letter-spacing: 0.12em;
+    color: var(--cream-dim);
+    display: flex;
+    align-items: center;
+    gap: 16px;
+  }
+  .experience-list li::before {
+    content: '';
+    width: 24px; height: 1px;
+    background: var(--gold);
+    flex-shrink: 0;
+  }
+
+  /* SAUNA */
+  .sauna {
+    position: relative;
+    height: 70vh;
+    display: flex;
+    align-items: center;
+    overflow: hidden;
+  }
+  .sauna-bg {
+    position: absolute;
+    inset: 0;
+    background:
+      linear-gradient(to right, rgba(10,9,6,0.92) 40%, rgba(10,9,6,0.3) 100%),
+      url('https://image2url.com/r2/default/images/1772666670662-0c4dd5c2-8e38-4fe7-9ad4-9bd8e6559d5c.webp') center/cover no-repeat;
+  }
+  .sauna-content {
+    position: relative;
+    z-index: 2;
+    padding: 0 56px;
+    max-width: 540px;
+  }
+
+  /* MAP / LOCATION */
+  .location {
+    background: var(--dark);
+    padding: 100px 56px;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 80px;
+    align-items: center;
+  }
+
+  .location-map {
+    background: var(--dark2);
+    aspect-ratio: 1;
+    border: 1px solid rgba(201,169,110,0.15);
+    position: relative;
+    overflow: hidden;
+  }
+
+  .location-map img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    filter: brightness(0.5) saturate(0.3);
+    mix-blend-mode: luminosity;
+  }
+
+  .map-pin {
+    position: absolute;
+    top: 50%; left: 50%;
+    transform: translate(-50%, -50%);
+    text-align: center;
+  }
+  .map-pin::before {
+    content: '✦';
+    font-size: 20px;
+    color: var(--gold);
+  }
+  .map-pin-ring {
+    position: absolute;
+    top: 50%; left: 50%;
+    transform: translate(-50%, -50%);
+    width: 60px; height: 60px;
+    border: 1px solid rgba(201,169,110,0.4);
+    border-radius: 50%;
+    animation: pinPulse 2s ease-in-out infinite;
+  }
+  @keyframes pinPulse {
+    0%, 100% { transform: translate(-50%,-50%) scale(1); opacity: 0.5; }
+    50% { transform: translate(-50%,-50%) scale(1.4); opacity: 0; }
+  }
+
+  .location-info-item {
+    margin-bottom: 32px;
+    padding-bottom: 32px;
+    border-bottom: 1px solid rgba(201,169,110,0.1);
+  }
+  .location-info-item:last-child { border-bottom: none; }
+
+  .location-info-label {
+    font-size: 9px;
+    letter-spacing: 0.4em;
+    text-transform: uppercase;
+    color: var(--gold);
+    font-weight: 200;
+    margin-bottom: 8px;
+  }
+
+  .location-info-value {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 20px;
+    font-weight: 300;
+    color: var(--white);
+    line-height: 1.4;
+  }
+
+  /* TESTIMONIAL */
+  .testimonial {
+    background: var(--dark2);
+    padding: 100px 56px;
+    text-align: center;
+  }
+
+  .testimonial-quote {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(24px, 3.5vw, 44px);
+    font-style: italic;
+    font-weight: 300;
+    color: var(--white);
+    max-width: 800px;
+    margin: 0 auto 32px;
+    line-height: 1.5;
+  }
+
+  .testimonial-author {
+    font-size: 10px;
+    letter-spacing: 0.35em;
+    text-transform: uppercase;
+    color: var(--gold);
+    font-weight: 200;
+  }
+
+  .testimonial-stars {
+    color: var(--gold);
+    font-size: 12px;
+    letter-spacing: 4px;
+    margin-bottom: 28px;
+  }
+
+  /* FOOTER */
+  footer {
+    background: var(--black);
+    border-top: 1px solid rgba(201,169,110,0.12);
+    padding: 80px 56px 40px;
+  }
+
+  .footer-top {
+    display: grid;
+    grid-template-columns: 1.5fr 1fr 1fr 1fr;
+    gap: 60px;
+    margin-bottom: 64px;
+    padding-bottom: 64px;
+    border-bottom: 1px solid rgba(201,169,110,0.08);
+  }
+
+  .footer-brand .logo {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 26px;
+    font-weight: 300;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--white);
+    margin-bottom: 8px;
+  }
+  .footer-brand .tagline {
+    font-size: 10px;
+    letter-spacing: 0.35em;
+    text-transform: uppercase;
+    color: var(--gold);
+    font-weight: 200;
+    margin-bottom: 20px;
+  }
+  .footer-brand p {
+    font-size: 12px;
+    font-weight: 200;
+    color: var(--cream-dim);
+    line-height: 2;
+    max-width: 260px;
+  }
+
+  .footer-col h4 {
+    font-size: 9px;
+    letter-spacing: 0.4em;
+    text-transform: uppercase;
+    color: var(--gold);
+    font-weight: 200;
+    margin-bottom: 20px;
+  }
+
+  .footer-col ul {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+  .footer-col ul a {
+    font-size: 12px;
+    color: var(--cream-dim);
+    text-decoration: none;
+    font-weight: 200;
+    letter-spacing: 0.05em;
+    transition: color 0.3s ease;
+  }
+  .footer-col ul a:hover { color: var(--gold); }
+
+  .footer-bottom {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .footer-bottom p {
+    font-size: 10px;
+    color: rgba(200,191,176,0.4);
+    letter-spacing: 0.1em;
+  }
+
+  .footer-socials {
+    display: flex;
+    gap: 20px;
+  }
+  .footer-socials a {
+    font-size: 10px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: rgba(200,191,176,0.4);
+    text-decoration: none;
+    transition: color 0.3s ease;
+  }
+  .footer-socials a:hover { color: var(--gold); }
+
+  /* DIVIDER */
+  .divider {
+    width: 100%;
+    height: 1px;
+    background: linear-gradient(to right, transparent, rgba(201,169,110,0.3), transparent);
+  }
+
+  /* ANIMATIONS */
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(30px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+  @keyframes fadeDown {
+    from { opacity: 0; transform: translateY(-20px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+  @keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+  }
+
+  .reveal {
+    opacity: 0;
+    transform: translateY(40px);
+    transition: all 0.9s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  }
+  .reveal.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  /* RESPONSIVE */
+  @media (max-width: 1024px) {
+    nav { padding: 24px 32px; }
+    .nav-links { display: none; }
+    .hero-content, .intro, .rooms, .offers, .experience, .location, .testimonial,
+    .features, .sauna-content { padding-left: 32px; padding-right: 32px; }
+    .intro, .location { grid-template-columns: 1fr; }
+    .rooms-grid { grid-template-columns: 1fr 1fr; }
+    .features { grid-template-columns: repeat(2, 1fr); }
+    .offers-grid { grid-template-columns: 1fr; }
+    .footer-top { grid-template-columns: 1fr 1fr; }
+    .gallery-strip { grid-template-columns: repeat(3, 1fr); }
+    .experience { grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body>
+
+<!-- CUSTOM CURSOR -->
+<div class="cursor" id="cursor"></div>
+<div class="cursor-ring" id="cursorRing"></div>
+
+  
+<!-- NAV -->
+<nav>
+  <a href="hotel-halm-home.html" class="nav-logo">Hotel Halm<span>Konstanz am Bodensee</span></a>
+  <ul class="nav-links">
+    <li><a href="hotel-halm-zimmer.html" >Zimmer</a></li>
+    <li><a href="hotel-halm-gastronomie.html" >Gastronomie</a></li>
+    <li><a href="hotel-halm-sauna.html" >Sauna</a></li>
+    <li><a href="hotel-halm-tagen.html" >Tagen & Feiern</a></li>
+    <li><a href="hotel-halm-angebote.html" >Angebote</a></li>
+    <li><a href="hotel-halm-ueber.html" >Über uns</a></li>
+    <li><a href="hotel-halm-konstanz.html" >Konstanz</a></li>
+    <li><a href="hotel-halm-parken.html" >Parken</a></li>
+    <li><a href="hotel-halm-anfahrt.html" class="active">Anfahrt</a></li>
+  </ul>
+  <a href="hotel-halm-buchen.html" class="nav-cta">Zimmer Buchen</a>
+</nav>
+
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-gradient"></div>
+  <div class="hero-content">
+    <p class="hero-label">Konstanz am Bodensee</p>
+    <h1 class="hero-title">
+      Wo Eleganz<br><em>auf Konstanz</em><br>trifft.
+    </h1>
+    <p class="hero-sub">Ein Ort der Ruhe und des Genusses — direkt am Herzen von Konstanz, wo Geschichte und Lebensart verschmelzen.</p>
+    <div class="hero-actions">
+      <a href="https://book-qres.qr-hotels.com/?adult=1&arrive=2022-05-18&chain=19763&child=0&currency=EUR&depart=2022-05-19&hotel=78987&level=hotel&locale=de-DE&rooms=1" class="btn-primary">Jetzt Buchen</a>
+      <a href="hotel-halm-zimmer.html" class="btn-ghost">Zimmer entdecken</a>
+    </div>
+  </div>
+  <div class="hero-scroll">
+    <div class="hero-scroll-line"></div>
+    <span>Scroll</span>
+  </div>
+</section>
+
+<!-- INTRO -->
+<section class="intro">
+  <div class="intro-text reveal">
+    <p class="section-label">01 — Willkommen</p>
+    <h2 class="section-title">Ein Hotel mit<br><em>Seele und Stil</em></h2>
+    <p class="intro-body">Das Hotel Halm vereint die Eleganz eines klassischen Stadthotels mit der Wärme persönlicher Gastfreundschaft. Seit Jahrzehnten ein Ort der Begegnung für Reisende, die das Besondere suchen.</p>
+  </div>
+  <div class="reveal" style="transition-delay: 0.2s">
+    <blockquote class="intro-quote">
+      „Hier schläft nicht nur der Körper — hier findet die Seele Ruhe."
+      <span>— Ein Gast aus Wien</span>
+    </blockquote>
+  </div>
+</section>
+
+<div style="background:var(--gold);
+            padding:72px 56px; text-align:center;">
+  <h2 style="font-family:
+           'Cormorant Garamond',serif;
+           font-size:44px; font-weight:300;
+           color:var(--black); margin-bottom:12px;">
+    Geschenk-Gutscheine
+  </h2>
+  <p style="font-size:13px;
+          color:rgba(10,9,6,.65); font-weight:200;
+          max-width:480px; margin:0 auto 32px;
+          line-height:1.9;">
+    Schenken Sie Ihren Liebsten einen Aufenthalt der besonderen Art. Ob romantisches Wochenende, Wellnesstag oder Gourmet-Dinner — unsere Gutscheine sind das perfekte Geschenk für jeden Anlass.
+  </p>
+  <div style="display:flex; gap:16px;
+              justify-content:center;">
+    <a href="hotel-halm-buchen.html"
+       style="font-size:9.5px; letter-spacing:.22em;
+              text-transform:uppercase;
+              color:var(--black);
+              border:1px solid var(--black);
+              padding:12px 28px;
+              text-decoration:none;">
+      Buchen
+    </a>
+  </div>
+</div>
+<!-- ROOMS -->
+<section class="rooms">
+  <div class="rooms-header reveal">
+    <div>
+      <p class="section-label">02 — Unsere Zimmer</p>
+      <h2 class="section-title">Rückzug in<br><em>Vollkommenheit</em></h2>
+    </div>
+    <a href="#" class="btn-ghost" style="color: var(--cream-dim)">Alle Zimmer ansehen</a>
+  </div>
+  <div class="rooms-grid reveal" style="transition-delay: 0.2s">
+    <div class="room-card">
+      <img class="room-img" src="https://image2url.com/r2/default/images/1772665278745-c00bc544-f958-4508-8f8a-1cf1f9691668.jpg" alt="Standard-Zimmer">
+      <div class="room-overlay">
+        <p class="room-tag">Klassisch</p>
+        <h3 class="room-name">Standard-Doppelzimmer</h3>
+        <div class="room-meta">
+          <span>20 m²</span>
+          <span>Straßenblick</span>
+          <span>ab 85€ / Nacht</span>
+        </div>
+        <a href="hotel-halm-zimmer.html" class="room-link">Entdecken →</a>
+      </div>
+    </div>
+    <div class="room-card">
+      <img class="room-img" src="https://image2url.com/r2/default/images/1772665674392-32087ea5-74b8-4423-b648-277a881bfe42.jpg" alt="Doppelzimmer">
+      <div class="room-overlay">
+        <p class="room-tag">Komfort</p>
+        <h3 class="room-name">Superior-Doppelzimmer</h3>
+        <div class="room-meta">
+          <span>28 m²</span>
+          <span>Seeblick</span>
+          <span>ab 100€</span>
+        </div>
+        <a href="hotel-halm-zimmer.html" class="room-link">Entdecken →</a>
+      </div>
+    </div>
+    <div class="room-card">
+      <img class="room-img" src="https://image2url.com/r2/default/images/1772665850575-ae7e5429-636c-4df6-8faa-4f49766e019d.jpg" alt="Einzelzimmer">
+      <div class="room-overlay">
+        <p class="room-tag">Komfort</p>
+        <h3 class="room-name">Einzelzimmer</h3>
+        <div class="room-meta">
+          <span>18 m²</span>
+          <span>ab 99€</span>
+        </div>
+        <a href="hotel-halm-zimmer.html" class="room-link">Entdecken →</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FEATURES STRIP -->
+<div class="features">
+  <div class="feature">
+    <span class="feature-icon">✦</span>
+    <p class="feature-title">Frühstücksbuffet</p>
+    <p class="feature-text">Täglich frisch, regional und mit Liebe zubereitet</p>
+  </div>
+  <div class="feature">
+    <span class="feature-icon">◈</span>
+    <p class="feature-title">Saunabereich</p>
+    <p class="feature-text">Entspannung in unserem exklusiven Wellnessbereich</p>
+  </div>
+  <div class="feature">
+    <span class="feature-icon">❋</span>
+    <p class="feature-title">Stadtlage</p>
+    <p class="feature-text">Direkt im Herzen von Konstanz, zu Fuß erreichbar</p>
+  </div>
+  <div class="feature">
+    <span class="feature-icon">⟡</span>
+    <p class="feature-title">Tagungsräume</p>
+    <p class="feature-text">Moderne Räumlichkeiten für Events und Meetings</p>
+  </div>
+  <div class="feature">
+    <span class="feature-icon">✦</span>
+    <p class="feature-title">Frühstücksbuffet</p>
+    <p class="feature-text">Täglich frisch, regional und mit Liebe zubereitet</p>
+  </div>
+  <div class="feature">
+    <span class="feature-icon">◈</span>
+    <p class="feature-title">Saunabereich</p>
+    <p class="feature-text">Entspannung in unserem exklusiven Wellnessbereich</p>
+  </div>
+  <div class="feature">
+    <span class="feature-icon">❋</span>
+    <p class="feature-title">Stadtlage</p>
+    <p class="feature-text">Direkt im Herzen von Konstanz, zu Fuß erreichbar</p>
+  </div>
+  <div class="feature">
+    <span class="feature-icon">⟡</span>
+    <p class="feature-title">Tagungsräume</p>
+    <p class="feature-text">Moderne Räumlichkeiten für Events und Meetings</p>
+  </div>
+</div>
+
+<!-- GALLERY STRIP -->
+<div class="gallery-strip">
+  <img class="gallery-strip-img" src="https://image2url.com/r2/default/images/1772666048126-6dac769c-0047-429e-a993-44d3bfe6f464.jpg" alt="">
+  <img class="gallery-strip-img" src="https://image2url.com/r2/default/images/1772666126913-da519847-2db5-4498-9242-5808c6d32d1f.jpg" alt="">
+  <img class="gallery-strip-img" src="https://image2url.com/r2/default/images/1772666438041-4f3958ed-d368-4cbb-a2b9-f7cf32534c0a.jpg" alt="">
+  <img class="gallery-strip-img" src="https://image2url.com/r2/default/images/1772666314335-96fd17a3-22fd-4ed1-aa90-b645454e4197.webp" alt="">
+  <img class="gallery-strip-img" src="https://image2url.com/r2/default/images/1772666382683-9a2d96d6-c32c-4aac-ad6e-0841c8346179.jpg" alt="">
+</div>
+
+<!-- OFFERS -->
+<section class="offers">
+  <span class="section-number">03</span>
+  <div class="reveal">
+    <p class="section-label">03 — Angebote</p>
+    <h2 class="section-title">Besondere<br><em>Momente</em></h2>
+  </div>
+  <div class="offers-grid">
+    <div class="offer-card reveal" style="transition-delay: 0.1s">
+      <p class="offer-number">01</p>
+      <h3 class="offer-title">Romantisches Wochenende</h3>
+      <p class="offer-text">Zwei Nächte im Doppelzimmer, Frühstück für zwei, Prosecco bei Ankunft und ein Abendessen im Restaurant.</p>
+      <p class="offer-price">ab 299€ <small>pro Nacht / Doppelzimmer</small></p>
+      <a href="#" class="btn-ghost" style="color: var(--gold)">Jetzt buchen</a>
+    </div>
+    <div class="offer-card reveal" style="transition-delay: 0.2s">
+      <p class="offer-number">02</p>
+      <h3 class="offer-title">Wellness & Sauna</h3>
+      <p class="offer-text">Eine Nacht Komfort-Suite, exklusiver Saunazugang und Entspannungsmassage für vollständige Erholung.</p>
+      <p class="offer-price">ab 189€ <small>pro Person</small></p>
+      <a href="#" class="btn-ghost" style="color: var(--gold)">Jetzt buchen</a>
+    </div>
+    <div class="offer-card reveal" style="transition-delay: 0.3s">
+      <p class="offer-number">03</p>
+      <h3 class="offer-title">Konstanz Entdecken</h3>
+      <p class="offer-text">Drei Nächte mit Frühstück, Stadtführung, Bodensee-Schifffahrt und Leihfahrrad inklusive.</p>
+      <p class="offer-price">ab 249€ <small>pro Person / 3 Nächte</small></p>
+      <a href="#" class="btn-ghost" style="color: var(--gold)">Jetzt buchen</a>
+    </div>
+  </div>
+</section>
+
+<!-- SAUNA SECTION -->
+<section class="sauna">
+  <div class="sauna-bg"></div>
+  <div class="sauna-content reveal">
+    <p class="section-label">04 — Wellness</p>
+    <h2 class="section-title" style="margin-bottom: 24px">Sauna &<br><em>Entspannung</em></h2>
+    <p style="font-size: 14px; color: var(--cream-dim); line-height: 2; font-weight: 200; margin-bottom: 40px;">
+      Unser Saunabereich ist ein Rückzugsort für Körper und Geist. Finnische Sauna, Dampfbad und Ruheoase laden zum vollständigen Loslassen ein.
+    </p>
+    <a href="hotel-halm-sauna.html" class="btn-primary">Sauna entdecken</a>
+  </div>
+</section>
+
+<!-- EXPERIENCE / KONSTANZ -->
+<section class="experience">
+  <div class="experience-img-wrap reveal">
+    <img class="experience-img" src="https://image2url.com/r2/default/images/1772666832463-a29362c9-50e2-4c48-bd5d-590207c9a59b.jpg" alt="Konstanz">
+    <div class="experience-img-badge">
+      <span class="num">900</span>
+      <span class="label">Jahre Geschichte Konstanz</span>
+    </div>
+  </div>
+  <div class="experience-text reveal" style="transition-delay: 0.2s">
+    <p class="section-label">05 — Konstanz Erleben</p>
+    <h2 class="section-title">Die Stadt<br><em>wartet auf Sie</em></h2>
+    <p class="experience-body">
+      Konstanz ist eine der ältesten Städte Deutschlands — reich an Geschichte, Kultur und atemberaubender Natur. Das Hotel Halm ist Ihr perfekter Ausgangspunkt für unvergessliche Erlebnisse am Bodensee.
+    </p>
+    <ul class="experience-list">
+      <li>Altstadt und Münster zu Fuß erreichbar</li>
+      <li>Bodensee-Schifffahrten & Ausflüge</li>
+      <li>Museen, Galerien und Theater</li>
+      <li>Fahrradtouren rund um den See</li>
+      <li>Kulinarische Highlights der Region</li>
+    </ul>
+    <a href="hotel-halm-konstanz.html" class="btn-ghost" style="color: var(--gold)">Stadtguide entdecken</a>
+  </div>
+</section>
+
+<!-- TESTIMONIAL -->
+<div class="divider"></div>
+<section class="testimonial reveal">
+  <div class="testimonial-stars">★★★★★</div>
+  <blockquote class="testimonial-quote">
+    „Das Hotel Halm ist für mich das schönste Hotel in Konstanz — ein Ort, an dem man sich sofort zuhause fühlt, und doch wie ein verwöhnter Gast behandelt wird."
+  </blockquote>
+  <p class="testimonial-author">— Maria K., Zürich · Google Bewertung</p>
+</section>
+<div class="divider"></div>
+
+<!-- LOCATION -->
+<section class="location">
+  <div class="location-map reveal">
+    <img src="https://images.unsplash.com/photo-1524661135-423995f22d0b?w=600&q=80" alt="Konstanz Karte">
+    <div class="map-pin">
+      <div class="map-pin-ring"></div>
+    </div>
+  </div>
+  <div class="reveal" style="transition-delay: 0.2s">
+    <p class="section-label">06 — Anfahrt</p>
+    <h2 class="section-title" style="margin-bottom: 48px">So finden<br><em>Sie uns</em></h2>
+    <div class="location-info-item">
+      <p class="location-info-label">Adresse</p>
+      <p class="location-info-value">Bahnhofplatz 6<br>78462 Konstanz</p>
+    </div>
+    <div class="location-info-item">
+      <p class="location-info-label">Parken</p>
+      <p class="location-info-value">Tiefgarage direkt am Hotel<br>Tagespreis: 12€</p>
+    </div>
+    <div class="location-info-item">
+      <p class="location-info-label">Bahn & Bus</p>
+      <p class="location-info-value">5 Min. vom Hauptbahnhof<br>Buslinien 1, 4, 7</p>
+    </div>
+    <a href="#" class="btn-primary" style="display: inline-block; margin-top: 16px">Anfahrt planen</a>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-top">
+    <div class="footer-brand">
+      <p class="logo">Hotel Halm</p>
+      <p class="tagline">Konstanz am Bodensee</p>
+      <p>Ein Haus mit Geschichte, Charakter und herzlicher Gastfreundschaft — seit Generationen.</p>
+    </div>
+    <div class="footer-col">
+      <h4>Hotel</h4>
+      <ul>
+        <li><a href="hotel-halm-zimmer.html">Zimmer</a></li>
+        <li><a href="hotel-halm-sauna.html">Sauna</a></li>
+        <li><a href="hotel-halm-gastronomie.html">Gastronomie</a></li>
+        <li><a href="hotel-halm-tagen.html">Tagen & Feiern</a></li>
+        <li><a href="hotel-halm-angebote.html">Angebote</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h4>Service</h4>
+      <ul>
+        <li><a href="hotel-halm-karriere.html">Karriere</a></li>
+        <li><a href="hotel-halm-gutscheine.html">Gutscheine</a></li>
+        <li><a href="#">Newsletter</a></li>
+        <li><a href="hotel-halm-presse.html">Presse</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h4>Informationen</h4>
+      <ul>
+        <li><a href="hotel-halm-ueber.html">Über uns</a></li>
+        <li><a href="hotel-halm-konstanz.html">Konstanz erleben</a></li>
+        <li><a href="hotel-halm-parken.html">Parkmöglichkeiten</a></li>
+        <li><a href="hotel-halm-anfahrt.html">Anfahrt</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h4>Kontakt</h4>
+      <ul>
+        <li><a href="#">+49 7531 12345</a></li>
+        <li><a href="#">info@hotel-halm.de</a></li>
+        <li><a href="hotel-halm-buchen.html">Zimmer buchen</a></li>
+        <li><a href="hotel-halm-datenschutz.html">Datenschutz</a></li>
+        <li><a href="hotel-halm-impressum.html">Impressum</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <p>© 2024 Hotel Halm Konstanz. Alle Rechte vorbehalten.</p>
+    <div class="footer-socials">
+      <a href="#">Instagram</a>
+      <a href="#">Facebook</a>
+      <a href="#">TripAdvisor</a>
+    </div>
+  </div>
+</footer>
+
+<script>
+  // CUSTOM CURSOR
+  const cursor = document.getElementById('cursor');
+  const ring = document.getElementById('cursorRing');
+  let mx = 0, my = 0, rx = 0, ry = 0;
+
+  document.addEventListener('mousemove', e => {
+    mx = e.clientX; my = e.clientY;
+    cursor.style.left = mx + 'px';
+    cursor.style.top = my + 'px';
+  });
+
+  function animateRing() {
+    rx += (mx - rx) * 0.12;
+    ry += (my - ry) * 0.12;
+    ring.style.left = rx + 'px';
+    ring.style.top = ry + 'px';
+    requestAnimationFrame(animateRing);
+  }
+  animateRing();
+
+  document.querySelectorAll('a, button').forEach(el => {
+    el.addEventListener('mouseenter', () => {
+      cursor.style.transform = 'translate(-50%, -50%) scale(2)';
+      ring.style.transform = 'translate(-50%, -50%) scale(1.5)';
+      ring.style.borderColor = 'rgba(201,169,110,0.8)';
+    });
+    el.addEventListener('mouseleave', () => {
+      cursor.style.transform = 'translate(-50%, -50%) scale(1)';
+      ring.style.transform = 'translate(-50%, -50%) scale(1)';
+      ring.style.borderColor = 'rgba(201,169,110,0.5)';
+    });
+  });
+
+  // SCROLL REVEAL
+  const reveals = document.querySelectorAll('.reveal');
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach((entry, i) => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('visible');
+        observer.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.12 });
+
+  reveals.forEach(el => observer.observe(el));
+
+  // NAV scroll effect
+  const nav = document.querySelector('nav');
+  window.addEventListener('scroll', () => {
+    if (window.scrollY > 80) {
+      nav.style.background = 'rgba(10,9,6,0.97)';
+      nav.style.backdropFilter = 'blur(12px)';
+      nav.style.borderBottom = '1px solid rgba(201,169,110,0.08)';
+    } else {
+      nav.style.background = 'linear-gradient(to bottom, rgba(10,9,6,0.95) 0%, transparent 100%)';
+      nav.style.backdropFilter = 'none';
+      nav.style.borderBottom = 'none';
+    }
+  });
+</script>
+</body>
+</html>

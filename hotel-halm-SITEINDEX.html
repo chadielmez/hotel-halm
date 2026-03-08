@@ -1,0 +1,349 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Hotel Halm — Vollständige Seitenübersicht</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300;1,400&family=Jost:wght@200;300;400&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#0a0906;--bg2:#111009;--bg3:#1a1814;--gold:#c9a96e;--gold-l:#e2c99a;--txt:#f4ede0;--dim:#c8bfb0;--w:#faf7f2}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+body{background:var(--bg);color:var(--txt);font-family:'Jost',sans-serif;font-weight:300;cursor:none;overflow-x:hidden}
+body::before{content:'';position:fixed;inset:0;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");opacity:.028;pointer-events:none;z-index:9997}
+.cur{position:fixed;width:8px;height:8px;background:var(--gold);border-radius:50%;pointer-events:none;z-index:9999;transform:translate(-50%,-50%)}
+.cur-r{position:fixed;width:32px;height:32px;border:1px solid rgba(201,169,110,.5);border-radius:50%;pointer-events:none;z-index:9998;transform:translate(-50%,-50%);transition:all .15s}
+header{padding:56px 56px 80px;border-bottom:1px solid rgba(201,169,110,.09);background:var(--bg2)}
+.logo{font-family:'Cormorant Garamond',serif;font-size:13px;letter-spacing:.5em;text-transform:uppercase;color:var(--gold);font-weight:200;margin-bottom:36px;display:block}
+h1{font-family:'Cormorant Garamond',serif;font-size:clamp(48px,7vw,92px);font-weight:300;line-height:.92;color:var(--w);margin-bottom:20px}
+h1 em{font-style:italic;color:var(--dim)}
+.subtitle{font-size:13px;font-weight:200;color:var(--dim);max-width:500px;line-height:2}
+.stats{display:flex;gap:48px;margin-top:40px;padding-top:40px;border-top:1px solid rgba(201,169,110,.09)}
+.stat-num{font-family:'Cormorant Garamond',serif;font-size:42px;font-weight:300;color:var(--gold);line-height:1;margin-bottom:4px}
+.stat-label{font-size:8.5px;letter-spacing:.3em;text-transform:uppercase;color:var(--dim);font-weight:200}
+main{padding:64px 56px}
+.section-header{display:flex;align-items:center;gap:16px;margin-bottom:24px;margin-top:56px}
+.section-header:first-of-type{margin-top:0}
+.sh-label{font-size:9px;letter-spacing:.42em;text-transform:uppercase;color:var(--gold);font-weight:200}
+.sh-line{flex:1;height:1px;background:rgba(201,169,110,.12)}
+.sh-count{font-size:9px;letter-spacing:.2em;color:rgba(200,191,176,.3);font-weight:200}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:2px;margin-bottom:8px}
+.page-card{background:var(--bg2);border:1px solid rgba(201,169,110,.07);padding:0;transition:border-color .3s;display:flex;flex-direction:column}
+.page-card:hover{border-color:rgba(201,169,110,.3)}
+.card-preview{height:120px;overflow:hidden;position:relative}
+.card-preview img{width:100%;height:100%;object-fit:cover;filter:brightness(.5) saturate(.75);transition:all .5s;display:block}
+.page-card:hover .card-preview img{filter:brightness(.75) saturate(1);transform:scale(1.05)}
+.card-body{padding:18px 20px 20px;flex:1;display:flex;flex-direction:column}
+.card-tag{font-size:8px;letter-spacing:.3em;text-transform:uppercase;color:var(--gold);font-weight:200;margin-bottom:6px}
+.card-title{font-family:'Cormorant Garamond',serif;font-size:18px;font-weight:300;color:var(--txt);margin-bottom:6px;line-height:1.2}
+.card-desc{font-size:11px;color:var(--dim);font-weight:200;line-height:1.7;flex:1;margin-bottom:14px}
+.card-links{display:flex;gap:8px;flex-wrap:wrap}
+.card-link{font-size:9px;letter-spacing:.18em;text-transform:uppercase;font-weight:300;padding:6px 12px;text-decoration:none;transition:all .3s}
+.card-link.dark{border:1px solid rgba(201,169,110,.25);color:var(--gold)}
+.card-link.dark:hover{background:var(--gold);color:var(--bg)}
+.card-link.light{border:1px solid rgba(200,191,176,.18);color:var(--dim)}
+.card-link.light:hover{border-color:var(--gold);color:var(--gold)}
+.card-link.only{border:1px solid rgba(201,169,110,.2);color:var(--dim)}
+.card-link.only:hover{background:rgba(201,169,110,.08);color:var(--gold)}
+.badge-new{display:inline-block;font-size:7.5px;letter-spacing:.25em;text-transform:uppercase;background:var(--gold);color:var(--bg);padding:2px 8px;margin-left:8px;font-weight:300;vertical-align:middle}
+.legend{display:flex;gap:24px;margin-top:64px;padding-top:24px;border-top:1px solid rgba(201,169,110,.08);flex-wrap:wrap}
+.legend-item{display:flex;align-items:center;gap:10px;font-size:10px;color:var(--dim);font-weight:200}
+.legend-dot{width:10px;height:10px;border-radius:50%}
+</style>
+</head>
+<body>
+<div class="cur" id="cur"></div>
+<div class="cur-r" id="curR"></div>
+
+<header>
+  <span class="logo">Hotel Halm · Konstanz am Bodensee</span>
+  <h1>Vollständige<br><em>Seitenübersicht</em></h1>
+  <p class="subtitle">Alle Seiten der Hotel Halm Website — Dark Mode und Light Mode. Klicken Sie auf eine Karte, um die Seite zu öffnen.</p>
+  <div class="stats">
+    <div><div class="stat-num">55</div><div class="stat-label">Seiten total</div></div>
+    <div><div class="stat-num">38</div><div class="stat-label">Dark Mode</div></div>
+    <div><div class="stat-num">17</div><div class="stat-label">Light Mode</div></div>
+    <div><div class="stat-num">12</div><div class="stat-label">Kategorien</div></div>
+  </div>
+</header>
+
+<main>
+
+<!-- HAUPTSEITEN -->
+<div class="section-header">
+  <span class="sh-label">Hauptseiten</span>
+  <span class="sh-line"></span>
+  <span class="sh-count">3 Seiten</span>
+</div>
+<div class="grid">
+  <div class="page-card">
+    <div class="card-preview"><img src="https://images.unsplash.com/photo-1566073771259-6a8506099945?w=400&q=60" alt="Home"></div>
+    <div class="card-body"><span class="card-tag">Startseite</span><h3 class="card-title">Homepage</h3><p class="card-desc">Die Hauptseite des Hotel Halm — Hero, Zimmer, Gastronomie, Sauna, Angebote, Bewertungen und mehr.</p><div class="card-links"><a href="hotel-halm-home.html" class="card-link dark">Dark</a><a href="hotel-halm-home-light.html" class="card-link light">Light</a></div></div>
+  </div>
+  <div class="page-card">
+    <div class="card-preview"><img src="https://images.unsplash.com/photo-1631049307264-da0ec9d70304?w=400&q=60" alt="Zimmer"></div>
+    <div class="card-body"><span class="card-tag">Zimmer</span><h3 class="card-title">Zimmer & Suiten</h3><p class="card-desc">Übersicht aller Zimmerkategorien mit Ausstattung, Preisen und Buchungsmöglichkeit.</p><div class="card-links"><a href="hotel-halm-zimmer.html" class="card-link only">Dark only</a></div></div>
+  </div>
+  <div class="page-card">
+    <div class="card-preview"><img src="https://images.unsplash.com/photo-1618773928121-c32242e63f39?w=400&q=60" alt="Buchen"></div>
+    <div class="card-body"><span class="card-tag">Buchung</span><h3 class="card-title">Zimmer buchen</h3><p class="card-desc">Buchungsformular mit Datumsauswahl, Zimmerwahl und persönlichen Wünschen.</p><div class="card-links"><a href="hotel-halm-buchen.html" class="card-link only">Dark only</a></div></div>
+  </div>
+</div>
+
+<!-- ZIMMER -->
+<div class="section-header">
+  <span class="sh-label">Zimmer & Preise</span>
+  <span class="sh-line"></span>
+  <span class="sh-count">3 Seiten</span>
+</div>
+<div class="grid">
+  <div class="page-card">
+    <div class="card-preview"><img src="https://images.unsplash.com/photo-1631049307264-da0ec9d70304?w=400&q=60" alt="Suite"></div>
+    <div class="card-body"><span class="card-tag">Zimmer Detail <span class="badge-new">NEU</span></span><h3 class="card-title">Deluxe Suite</h3><p class="card-desc">Einzelne Zimmerseite mit Galerie, Features, Buchungswidget und verwandten Zimmern.</p><div class="card-links"><a href="hotel-halm-zimmer-detail-suite.html" class="card-link dark">Dark</a><a href="hotel-halm-zimmer-detail-suite-light.html" class="card-link light">Light</a></div></div>
+  </div>
+  <div class="page-card">
+    <div class="card-preview"><img src="https://images.unsplash.com/photo-1618773928121-c32242e63f39?w=400&q=60" alt="Preise"></div>
+    <div class="card-body"><span class="card-tag">Preise <span class="badge-new">NEU</span></span><h3 class="card-title">Preise & Verfügbarkeit</h3><p class="card-desc">Alle 4 Zimmerkategorien im Vergleich mit Preisen, Features und Verfügbarkeitssuche.</p><div class="card-links"><a href="hotel-halm-preise.html" class="card-link dark">Dark</a><a href="hotel-halm-preise-light.html" class="card-link light">Light</a></div></div>
+  </div>
+  <div class="page-card">
+    <div class="card-preview"><img src="https://images.unsplash.com/photo-1567633375071-e47f5e1c6c2a?w=400&q=60" alt="Angebote"></div>
+    <div class="card-body"><span class="card-tag">Angebote</span><h3 class="card-title">Spezialangebote</h3><p class="card-desc">Aktuelle Sonder- und Pauschalangebote für besondere Anlässe.</p><div class="card-links"><a href="hotel-halm-angebote.html" class="card-link only">Dark only</a></div></div>
+  </div>
+</div>
+
+<!-- GASTRONOMIE -->
+<div class="section-header">
+  <span class="sh-label">Gastronomie & Bar</span>
+  <span class="sh-line"></span>
+  <span class="sh-count">4 Seiten</span>
+</div>
+<div class="grid">
+  <div class="page-card">
+    <div class="card-preview"><img src="https://images.unsplash.com/photo-1414235077428-338989a2e8c0?w=400&q=60" alt="Restaurant"></div>
+    <div class="card-body"><span class="card-tag">Restaurant</span><h3 class="card-title">Gastronomie</h3><p class="card-desc">Restaurant, saisonale Küche, regionale Produkte, Tischreservierung.</p><div class="card-links"><a href="hotel-halm-gastronomie.html" class="card-link only">Dark only</a></div></div>
+  </div>
+  <div class="page-card">
+    <div class="card-preview"><img src="https://images.unsplash.com/photo-1568901346375-23c9450c58cd?w=400&q=60" alt="Frühstück"></div>
+    <div class="card-body"><span class="card-tag">Frühstück</span><h3 class="card-title">Frühstück</h3><p class="card-desc">Frühstücksbuffet, regionale Zutaten, Öffnungszeiten und Extras.</p><div class="card-links"><a href="hotel-halm-fruehstueck.html" class="card-link only">Dark only</a></div></div>
+  </div>
+  <div class="page-card">
+    <div class="card-preview"><img src="https://images.unsplash.com/photo-1514362545857-3bc16c4c7d1b?w=400&q=60" alt="Bar"></div>
+    <div class="card-body"><span class="card-tag">Bar</span><h3 class="card-title">Bar & Cocktails</h3><p class="card-desc">Cocktailbar, Spirituosen, Barkeeper, Öffnungszeiten und Reservierungen.</p><div class="card-links"><a href="hotel-halm-bar.html" class="card-link only">Dark only</a></div></div>
+  </div>
+  <div class="page-card">
+    <div class="card-preview"><img src="https://images.unsplash.com/photo-1510812431401-41d2bd2722f3?w=400&q=60" alt="Weinbar"></div>
+    <div class="card-body"><span class="card-tag">Weinkarte <span class="badge-new">NEU</span></span><h3 class="card-title">Weinbar & Weinkarte</h3><p class="card-desc">Kuratierte Weinkarte mit regionalen Bodensee-Weinen, Sommelier-Empfehlung und Öffnungszeiten.</p><div class="card-links"><a href="hotel-halm-weinbar.html" class="card-link dark">Dark</a><a href="hotel-halm-weinbar-light.html" class="card-link light">Light</a></div></div>
+  </div>
+</div>
+
+<!-- WELLNESS -->
+<div class="section-header">
+  <span class="sh-label">Wellness & Spa</span>
+  <span class="sh-line"></span>
+  <span class="sh-count">2 Seiten</span>
+</div>
+<div class="grid">
+  <div class="page-card">
+    <div class="card-preview"><img src="https://images.unsplash.com/photo-1542314831-068cd1dbfeeb?w=400&q=60" alt="Sauna"></div>
+    <div class="card-body"><span class="card-tag">Wellness</span><h3 class="card-title">Sauna & Wellness</h3><p class="card-desc">800 m² Wellnessbereich, Sauna, Dampfbad, Ruheraum, Whirlpool.</p><div class="card-links"><a href="hotel-halm-sauna.html" class="card-link only">Dark only</a></div></div>
+  </div>
+  <div class="page-card">
+    <div class="card-preview"><img src="https://images.unsplash.com/photo-1540555700478-4be289fbecef?w=400&q=60" alt="Spa"></div>
+    <div class="card-body"><span class="card-tag">Spa</span><h3 class="card-title">Spa & Behandlungen</h3><p class="card-desc">Massagen, Kosmetik, Körperanwendungen und Wellness-Pakete.</p><div class="card-links"><a href="hotel-halm-spa-wellness.html" class="card-link only">Dark only</a></div></div>
+  </div>
+</div>
+
+<!-- TAGEN & EVENTS -->
+<div class="section-header">
+  <span class="sh-label">Tagen & Events</span>
+  <span class="sh-line"></span>
+  <span class="sh-count">5 Seiten</span>
+</div>
+<div class="grid">
+  <div class="page-card">
+    <div class="card-preview"><img src="https://images.unsplash.com/photo-1540575467063-178a50c2df87?w=400&q=60" alt="Tagen"></div>
+    <div class="card-body"><span class="card-tag">Konferenz</span><h3 class="card-title">Tagen & Konferenz</h3><p class="card-desc">4 Tagungsräume, Kapazitäten, Technik, Catering und Gruppenbetreuung.</p><div class="card-links"><a href="hotel-halm-tagen.html" class="card-link only">Dark only</a></div></div>
+  </div>
+  <div class="page-card">
+    <div class="card-preview"><img src="https://images.unsplash.com/photo-1519167758481-83f550bb49b3?w=400&q=60" alt="Gruppenreisen"></div>
+    <div class="card-body"><span class="card-tag">Gruppen <span class="badge-new">NEU</span></span><h3 class="card-title">Gruppenreisen</h3><p class="card-desc">Gruppenangebote, Rahmenprogramm, Anfrage-Formular und Sonderkonditionen.</p><div class="card-links"><a href="hotel-halm-gruppenreisen.html" class="card-link dark">Dark</a><a href="hotel-halm-gruppenreisen-light.html" class="card-link light">Light</a></div></div>
+  </div>
+  <div class="page-card">
+    <div class="card-preview"><img src="https://images.unsplash.com/photo-1492684223066-81342ee5ff30?w=400&q=60" alt="Events"></div>
+    <div class="card-body"><span class="card-tag">Kalender <span class="badge-new">NEU</span></span><h3 class="card-title">Veranstaltungskalender</h3><p class="card-desc">Events, Weinabende, Konzerte, Yoga — mit Monatsansicht und Anmeldung.</p><div class="card-links"><a href="hotel-halm-events.html" class="card-link dark">Dark</a><a href="hotel-halm-events-light.html" class="card-link light">Light</a></div></div>
+  </div>
+  <div class="page-card">
+    <div class="card-preview"><img src="https://images.unsplash.com/photo-1519741497674-611481863552?w=400&q=60" alt="Hochzeit"></div>
+    <div class="card-body"><span class="card-tag">Hochzeit</span><h3 class="card-title">Hochzeit & Feiern</h3><p class="card-desc">Hochzeitsplanung, Räume, Catering, Dekoration und persönliche Betreuung.</p><div class="card-links"><a href="hotel-halm-hochzeit.html" class="card-link only">Dark only</a></div></div>
+  </div>
+  <div class="page-card">
+    <div class="card-preview"><img src="https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=400&q=60" alt="Saisonangebote"></div>
+    <div class="card-body"><span class="card-tag">Saisonal <span class="badge-new">NEU</span></span><h3 class="card-title">Saisonangebote</h3><p class="card-desc">Frühling, Sommer, Herbst, Winter — 4 saisonale Pakete plus Wellness-Ganzjahreangebot.</p><div class="card-links"><a href="hotel-halm-saisonangebote.html" class="card-link dark">Dark</a><a href="hotel-halm-saisonangebote-light.html" class="card-link light">Light</a></div></div>
+  </div>
+</div>
+
+<!-- SERVICE -->
+<div class="section-header">
+  <span class="sh-label">Gästeservice</span>
+  <span class="sh-line"></span>
+  <span class="sh-count">7 Seiten</span>
+</div>
+<div class="grid">
+  <div class="page-card">
+    <div class="card-preview"><img src="https://images.unsplash.com/photo-1551882547-ff40c63fe2e2?w=400&q=60" alt="Concierge"></div>
+    <div class="card-body"><span class="card-tag">Concierge <span class="badge-new">NEU</span></span><h3 class="card-title">Concierge & Gästeservice</h3><p class="card-desc">8 Servicekategorien, Insider-Tipps, Direktkontakt und 24/7 Erreichbarkeit.</p><div class="card-links"><a href="hotel-halm-concierge.html" class="card-link dark">Dark</a><a href="hotel-halm-concierge-light.html" class="card-link light">Light</a></div></div>
+  </div>
+  <div class="page-card">
+    <div class="card-preview"><img src="https://images.unsplash.com/photo-1569701813229-33284b643e3c?w=400&q=60" alt="Transfer"></div>
+    <div class="card-body"><span class="card-tag">Transfer</span><h3 class="card-title">Transfer & Shuttle</h3><p class="card-desc">Flughafen-Transfer, Taxi-Service, Mietwagen und Bahnhof-Shuttle.</p><div class="card-links"><a href="hotel-halm-transfer.html" class="card-link only">Dark only</a></div></div>
+  </div>
+  <div class="page-card">
+    <div class="card-preview"><img src="https://images.unsplash.com/photo-1486325212027-8081e485255e?w=400&q=60" alt="Parken"></div>
+    <div class="card-body"><span class="card-tag">Parken</span><h3 class="card-title">Parken & Anfahrt</h3><p class="card-desc">Tiefgarage, öffentliche Parkplätze, E-Ladestation und Anfahrtsbeschreibung.</p><div class="card-links"><a href="hotel-halm-parken.html" class="card-link only">Dark only</a></div></div>
+  </div>
+  <div class="page-card">
+    <div class="card-preview"><img src="https://images.unsplash.com/photo-1597138804456-e7dca7f59d54?w=400&q=60" alt="Haustiere"></div>
+    <div class="card-body"><span class="card-tag">Haustiere</span><h3 class="card-title">Haustiere willkommen</h3><p class="card-desc">Haustierpolitik, Extras, Zimmer und alles rund um Ihren vierbeinigen Begleiter.</p><div class="card-links"><a href="hotel-halm-haustiere.html" class="card-link only">Dark only</a></div></div>
+  </div>
+  <div class="page-card">
+    <div class="card-preview"><img src="https://images.unsplash.com/photo-1503454537195-1dcabb73ffb9?w=400&q=60" alt="Kinder"></div>
+    <div class="card-body"><span class="card-tag">Familie</span><h3 class="card-title">Kinderfreundlich</h3><p class="card-desc">Familienfreundliche Angebote, Kinderbetreuung, Spielecke und spezielle Menüs.</p><div class="card-links"><a href="hotel-halm-kinderfreundlich.html" class="card-link only">Dark only</a></div></div>
+  </div>
+  <div class="page-card">
+    <div class="card-preview"><img src="https://images.unsplash.com/photo-1459749411175-04bf5292ceea?w=400&q=60" alt="Aktivitäten"></div>
+    <div class="card-body"><span class="card-tag">Freizeit</span><h3 class="card-title">Aktivitäten</h3><p class="card-desc">Freizeitangebote am Bodensee — Radfahren, Wandern, Wassersport und mehr.</p><div class="card-links"><a href="hotel-halm-aktivitaeten.html" class="card-link only">Dark only</a></div></div>
+  </div>
+  <div class="page-card">
+    <div class="card-preview"><img src="https://images.unsplash.com/photo-1516321318423-f06f85e504b3?w=400&q=60" alt="FAQ"></div>
+    <div class="card-body"><span class="card-tag">FAQ <span class="badge-new">NEU</span></span><h3 class="card-title">Häufige Fragen</h3><p class="card-desc">Fragen & Antworten zu Zimmer, Buchung, Restaurant, Wellness — mit Kategorie-Filter.</p><div class="card-links"><a href="hotel-halm-faq.html" class="card-link dark">Dark</a><a href="hotel-halm-faq-light.html" class="card-link light">Light</a></div></div>
+  </div>
+</div>
+
+<!-- ÜBER UNS -->
+<div class="section-header">
+  <span class="sh-label">Über uns</span>
+  <span class="sh-line"></span>
+  <span class="sh-count">6 Seiten</span>
+</div>
+<div class="grid">
+  <div class="page-card">
+    <div class="card-preview"><img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=400&q=60" alt="Über uns"></div>
+    <div class="card-body"><span class="card-tag">Geschichte</span><h3 class="card-title">Über uns</h3><p class="card-desc">Geschichte des Hotels seit 1892, Werte, Team und Vision.</p><div class="card-links"><a href="hotel-halm-ueber.html" class="card-link only">Dark only</a></div></div>
+  </div>
+  <div class="page-card">
+    <div class="card-preview"><img src="https://images.unsplash.com/photo-1556761175-5973dc0f32e7?w=400&q=60" alt="Team"></div>
+    <div class="card-body"><span class="card-tag">Team</span><h3 class="card-title">Unser Team</h3><p class="card-desc">Portraits und Vorstellung des Halm-Teams — von der Küche bis zur Rezeption.</p><div class="card-links"><a href="hotel-halm-ueber-uns.html" class="card-link only">Dark only</a></div></div>
+  </div>
+  <div class="page-card">
+    <div class="card-preview"><img src="https://images.unsplash.com/photo-1466611653911-95081537e5b7?w=400&q=60" alt="Nachhaltigkeit"></div>
+    <div class="card-body"><span class="card-tag">Umwelt</span><h3 class="card-title">Nachhaltigkeit</h3><p class="card-desc">Umweltinitiativen, regionale Partner, CO₂-Reduktion und Green Policy.</p><div class="card-links"><a href="hotel-halm-nachhaltigkeit.html" class="card-link only">Dark only</a></div></div>
+  </div>
+  <div class="page-card">
+    <div class="card-preview"><img src="https://images.unsplash.com/photo-1524750073eecd6c945505e5bd24399?w=400&q=60" alt="Bewertungen"></div>
+    <div class="card-body"><span class="card-tag">Reviews</span><h3 class="card-title">Gästebewertungen</h3><p class="card-desc">Echte Bewertungen von Gästen — mit Durchschnitt, Kategorien und Zitaten.</p><div class="card-links"><a href="hotel-halm-bewertungen.html" class="card-link only">Dark only</a></div></div>
+  </div>
+  <div class="page-card">
+    <div class="card-preview"><img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=400&q=60" alt="Presse"></div>
+    <div class="card-body"><span class="card-tag">Presse <span class="badge-new">NEU</span></span><h3 class="card-title">Presse & Medien</h3><p class="card-desc">Medienberichte, Pressemappe-Download, Pressefotos und Pressekontakt.</p><div class="card-links"><a href="hotel-halm-presse.html" class="card-link dark">Dark</a><a href="hotel-halm-presse-light.html" class="card-link light">Light</a></div></div>
+  </div>
+  <div class="page-card">
+    <div class="card-preview"><img src="https://images.unsplash.com/photo-1579389083078-4e7018379f7e?w=400&q=60" alt="Karriere"></div>
+    <div class="card-body"><span class="card-tag">Jobs</span><h3 class="card-title">Karriere</h3><p class="card-desc">7 offene Stellen, Benefits, Bewerbungsprozess, Team-Kultur und Initiativbewerbung.</p><div class="card-links"><a href="hotel-halm-karriere.html" class="card-link only">Dark only</a></div></div>
+  </div>
+</div>
+
+<!-- LAGE & KONTAKT -->
+<div class="section-header">
+  <span class="sh-label">Lage & Kontakt</span>
+  <span class="sh-line"></span>
+  <span class="sh-count">4 Seiten</span>
+</div>
+<div class="grid">
+  <div class="page-card">
+    <div class="card-preview"><img src="https://images.unsplash.com/photo-1516321318423-f06f85e504b3?w=400&q=60" alt="Kontakt"></div>
+    <div class="card-body"><span class="card-tag">Kontakt</span><h3 class="card-title">Kontakt</h3><p class="card-desc">Kontaktformular, Ansprechpartner, Karte und alle Kommunikationswege.</p><div class="card-links"><a href="hotel-halm-kontakt.html" class="card-link only">Dark only</a></div></div>
+  </div>
+  <div class="page-card">
+    <div class="card-preview"><img src="https://images.unsplash.com/photo-1467226632440-65f0b4957563?w=400&q=60" alt="Konstanz"></div>
+    <div class="card-body"><span class="card-tag">Lage</span><h3 class="card-title">Konstanz entdecken</h3><p class="card-desc">Sehenswürdigkeiten, Ausflugsziele, Stadtführer und lokale Insider-Tipps.</p><div class="card-links"><a href="hotel-halm-konstanz.html" class="card-link only">Dark only</a></div></div>
+  </div>
+  <div class="page-card">
+    <div class="card-preview"><img src="https://images.unsplash.com/photo-1486325212027-8081e485255e?w=400&q=60" alt="Anfahrt"></div>
+    <div class="card-body"><span class="card-tag">Navigation</span><h3 class="card-title">Anfahrt & Lage</h3><p class="card-desc">Anfahrtsbeschreibung per Auto, Bahn und Flugzeug mit interaktiver Karte.</p><div class="card-links"><a href="hotel-halm-anfahrt.html" class="card-link only">Dark only</a></div></div>
+  </div>
+  <div class="page-card">
+    <div class="card-preview"><img src="https://images.unsplash.com/photo-1556742031-c6961e8560b0?w=400&q=60" alt="Newsletter"></div>
+    <div class="card-body"><span class="card-tag">Marketing</span><h3 class="card-title">Newsletter</h3><p class="card-desc">Newsletter-Anmeldung mit Benefits-Preview und Datenschutzhinweis.</p><div class="card-links"><a href="hotel-halm-newsletter.html" class="card-link only">Dark only</a></div></div>
+  </div>
+</div>
+
+<!-- EXTRAS -->
+<div class="section-header">
+  <span class="sh-label">Extras & Besonderes</span>
+  <span class="sh-line"></span>
+  <span class="sh-count">4 Seiten</span>
+</div>
+<div class="grid">
+  <div class="page-card">
+    <div class="card-preview"><img src="https://images.unsplash.com/photo-1549465220-1a8b9238cd48?w=400&q=60" alt="Gutscheine"></div>
+    <div class="card-body"><span class="card-tag">Gutscheine</span><h3 class="card-title">Geschenkgutscheine</h3><p class="card-desc">Wertgutscheine, Erlebnisgutscheine und individuelle Pakete als Geschenk.</p><div class="card-links"><a href="hotel-halm-gutscheine.html" class="card-link only">Dark only</a></div></div>
+  </div>
+  <div class="page-card">
+    <div class="card-preview"><img src="https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=400&q=60" alt="Saisonangebote"></div>
+    <div class="card-body"><span class="card-tag">Galerie</span><h3 class="card-title">Bildergalerie</h3><p class="card-desc">Fotogalerie mit Zimmer-, Restaurant- und Außenansichten des Hotels.</p><div class="card-links"><a href="hotel-halm-galerie.html" class="card-link only">Dark only</a></div></div>
+  </div>
+  <div class="page-card">
+    <div class="card-preview"><img src="https://images.unsplash.com/photo-1573164574472-797cdf4a583a?w=400&q=60" alt="Barrierefreiheit"></div>
+    <div class="card-body"><span class="card-tag">Inklusion</span><h3 class="card-title">Barrierefreiheit</h3><p class="card-desc">Barrierefreie Zimmer, Einrichtungen, Aufzüge und Rollstuhlzugänge.</p><div class="card-links"><a href="hotel-halm-barrierefreiheit.html" class="card-link only">Dark only</a></div></div>
+  </div>
+  <div class="page-card">
+    <div class="card-preview"><img src="https://images.unsplash.com/photo-1559827260-dc66d52bef19?w=400&q=60" alt="Saisonangebote"></div>
+    <div class="card-body"><span class="card-tag">Jahreszeiten <span class="badge-new">NEU</span></span><h3 class="card-title">Saisonangebote</h3><p class="card-desc">4 saisonale Pakete — Frühling, Sommer, Herbst, Winter — plus Wellness-Jahrespaket.</p><div class="card-links"><a href="hotel-halm-saisonangebote.html" class="card-link dark">Dark</a><a href="hotel-halm-saisonangebote-light.html" class="card-link light">Light</a></div></div>
+  </div>
+</div>
+
+<!-- RECHTLICHES -->
+<div class="section-header">
+  <span class="sh-label">Rechtliches</span>
+  <span class="sh-line"></span>
+  <span class="sh-count">4 Seiten</span>
+</div>
+<div class="grid">
+  <div class="page-card">
+    <div class="card-preview"><img src="https://images.unsplash.com/photo-1450101499163-c8848c66ca85?w=400&q=60" alt="AGB"></div>
+    <div class="card-body"><span class="card-tag">AGB <span class="badge-new">NEU</span></span><h3 class="card-title">Allgemeine Geschäftsbedingungen</h3><p class="card-desc">Vollständige AGB mit Inhaltsverzeichnis, Stornierungstabelle und §§ 1–9.</p><div class="card-links"><a href="hotel-halm-agb.html" class="card-link dark">Dark</a><a href="hotel-halm-agb-light.html" class="card-link light">Light</a></div></div>
+  </div>
+  <div class="page-card">
+    <div class="card-preview"><img src="https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?w=400&q=60" alt="Impressum"></div>
+    <div class="card-body"><span class="card-tag">Impressum <span class="badge-new">NEU</span></span><h3 class="card-title">Impressum</h3><p class="card-desc">Pflichtangaben nach §5 TMG, Geschäftsführer, Handelsregister, Streitschlichtung.</p><div class="card-links"><a href="hotel-halm-impressum.html" class="card-link dark">Dark</a><a href="hotel-halm-impressum-light.html" class="card-link light">Light</a></div></div>
+  </div>
+  <div class="page-card">
+    <div class="card-preview"><img src="https://images.unsplash.com/photo-1558494949-ef010cbdcc31?w=400&q=60" alt="Datenschutz"></div>
+    <div class="card-body"><span class="card-tag">DSGVO</span><h3 class="card-title">Datenschutz</h3><p class="card-desc">Datenschutzerklärung nach DSGVO mit Cookie-Verwaltung.</p><div class="card-links"><a href="hotel-halm-datenschutz.html" class="card-link only">Dark only</a></div></div>
+  </div>
+  <div class="page-card">
+    <div class="card-preview"><img src="https://images.unsplash.com/photo-1573164574472-797cdf4a583a?w=400&q=60" alt="404"></div>
+    <div class="card-body"><span class="card-tag">Fehlerseite <span class="badge-new">NEU</span></span><h3 class="card-title">404 — Seite nicht gefunden</h3><p class="card-desc">Elegante 404-Seite mit Humor, Schnellnavigation und Weiterleitung zur Startseite.</p><div class="card-links"><a href="hotel-halm-404.html" class="card-link dark">Dark</a><a href="hotel-halm-404-light.html" class="card-link light">Light</a></div></div>
+  </div>
+</div>
+
+<div class="legend">
+  <div class="legend-item"><div class="legend-dot" style="background:var(--gold)"></div><span>Dark Mode verfügbar</span></div>
+  <div class="legend-item"><div class="legend-dot" style="background:var(--dim)"></div><span>Light Mode verfügbar</span></div>
+  <div class="legend-item"><div class="legend-dot" style="background:rgba(201,169,110,.3)"></div><span>Nur Dark Mode</span></div>
+  <div class="legend-item" style="margin-left:auto"><div class="badge-new" style="font-size:8px;padding:3px 10px">NEU</div><span style="margin-left:8px">In dieser Session erstellt</span></div>
+</div>
+
+</main>
+
+<script>
+const cur=document.getElementById('cur'),cr=document.getElementById('curR');
+let rx=0,ry=0,mx=0,my=0;
+document.addEventListener('mousemove',e=>{mx=e.clientX;my=e.clientY;cur.style.left=mx+'px';cur.style.top=my+'px';});
+document.querySelectorAll('a').forEach(el=>{
+  el.addEventListener('mouseenter',()=>{cr.style.transform='translate(-50%,-50%) scale(1.7)';cr.style.borderColor='rgba(201,169,110,.75)';});
+  el.addEventListener('mouseleave',()=>{cr.style.transform='translate(-50%,-50%) scale(1)';cr.style.borderColor='rgba(201,169,110,.5)';});
+});
+(function loop(){rx+=(mx-rx)*.12;ry+=(my-ry)*.12;cr.style.left=rx+'px';cr.style.top=ry+'px';requestAnimationFrame(loop);})();
+</script>
+</body>
+</html>
